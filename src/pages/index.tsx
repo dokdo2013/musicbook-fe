@@ -3,8 +3,8 @@ import imageMain1 from "@public/images/main/main-1.png";
 import { GetStaticProps } from "next";
 import { FC } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useRouter } from "next/router";
-import { useTranslation } from "next-i18next";
+// import { useRouter } from "next/router";
+// import { useTranslation } from "next-i18next";
 import { GLOBAL_PADDING_1, GLOBAL_PADDING_2, MAX_FRAME_WIDTH_PX } from "@lib/constant";
 import { useIsMobile } from "@lib/hooks";
 import Image from "next/image";
@@ -18,8 +18,8 @@ export const getStaticProps: GetStaticProps = async ({ locale, locales }: any) =
 });
 
 const LadingPage: FC = () => {
-  const router = useRouter();
-  const { t } = useTranslation("common");
+  // const router = useRouter();
+  // const { t } = useTranslation("common");
   const isMobile = useIsMobile();
 
   return (
