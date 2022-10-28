@@ -1,6 +1,12 @@
 {
   "trailingComma": "all",
+  "tabWidth": 2,
   "semi": true,
   "singleQuote": false,
-  "tabWidth": 2
+  "printWidth": 100,
+  "eslintIntegration": true,
+  "endOfLine": "auto",
+  "parser": "typescript",
+  "useTabs": false,
+  "arrowParens": "always"
 }

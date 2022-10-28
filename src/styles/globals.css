@@ -1,8 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;400;500;700&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Noto+Serif+SC:wght@500&display=swap');
+
+html {
+  min-width: 360px;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
@@ -23,4 +29,8 @@ a {
     color: white;
     background: black;
   }
+}
+
+.bold {
+  font-weight: bold;
 }
