@@ -1,25 +1,32 @@
 import mainLogo from "@public/images/main-logo.png";
 
+import Image from "next/image";
+import { FC, useEffect, useState } from "react";
+import Link from "next/link";
+import { Button, Stack } from "@chakra-ui/react";
+import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
+import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
 import {
   GLOBAL_PADDING_1,
   GLOBAL_PADDING_2,
   MAX_FRAME_WIDTH_PX,
   MAX_HEADER_HEIGHT_PX,
-} from "@/src/lib/constant";
-import Image from "next/image";
-import { FC, useEffect, useState } from "react";
-import { Button, Stack } from "@chakra-ui/react";
-import { useIsMobile } from "@/src/lib/hooks";
-import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
-import { useDispatch } from "react-redux";
+} from "@lib/constant";
+import { useIsMobile } from "@lib/hooks";
 import { openLoginModal } from "@lib/functions";
+import { signOut, useSession } from "next-auth/react";
 
 export const Header: FC = () => {
+  const { status } = useSession();
   const dispatch = useDispatch();
-  const isMobile = useIsMobile();
+  const [isMobile] = useIsMobile();
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
+
+  const logInOut = async () => {
+    if (status === "unauthenticated") await openLoginModal(dispatch, true);
+    else if (status === "authenticated") await signOut();
+  };
 
   useEffect(() => {
     if (!isMobile) {
@@ -45,9 +52,10 @@ export const Header: FC = () => {
                 <Button
                   colorScheme="teal"
                   size={"lg"}
-                  onClick={() => openLoginModal(dispatch, true)}
+                  isLoading={status === "loading" ? true : false}
+                  onClick={logInOut}
                 >
-                  로그인
+                  {status === "unauthenticated" ? "로그인" : "로그아웃"}
                 </Button>
               </Stack>
             ) : (
@@ -62,8 +70,8 @@ export const Header: FC = () => {
                   onClick={() => setHamburgerOpen(false)}
                 ></div>
                 <div className={`hamburger-menu ${hamburgerOpen && "open"}`}>
-                  <div className="menu" onClick={() => openLoginModal(dispatch, true)}>
-                    로그인
+                  <div className="menu" onClick={logInOut}>
+                    {status === "unauthenticated" ? "로그인" : "로그아웃"}
                   </div>
                   <div className="menu">이용안내</div>
                 </div>

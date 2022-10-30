@@ -8,15 +8,20 @@ import { DefaultLayout } from "../components/layout/defaultLayout";
 import { appWithTranslation } from "next-i18next";
 import { SessionProvider } from "next-auth/react";
 import { Modals } from "@components/modals";
+import { LoadingScreen } from "../components/loadingScreen";
+import { useIsMobile } from "../lib/hooks";
 
 const App: FC<AppProps> = ({ Component, ...rest }: AppProps) => {
   const { store, props } = reduxWrapper.useWrappedStore(rest);
   const { pageProps } = props;
+  const [isMobile, isLoading] = useIsMobile();
+
   return (
     <ReduxProvider store={store}>
       <SessionProvider session={pageProps.session}>
         <ChakraProvider>
           <DefaultLayout>
+            <LoadingScreen isShow={isLoading} />
             <Modals />
             <Component {...pageProps} />
           </DefaultLayout>

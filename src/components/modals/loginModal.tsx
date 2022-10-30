@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { FC } from "react";
 import Image from "next/image";
+import { signIn } from "next-auth/react";
 
 interface Props {
   isOpen: boolean;
@@ -42,11 +43,11 @@ export const LoginModal: FC<Props> = ({ isOpen, onClose }) => {
           </ModalBody>
           <ModalFooter>
             <Stack direction="column" align="stretch" w="full">
-              <Button colorScheme="purple" fontSize="18px">
+              <Button colorScheme="purple" fontSize="18px" onClick={() => signIn("twitch")}>
                 <Image src={twitchLogo} alt="" height={18} style={{ marginRight: "10px" }} />
                 트위치로 로그인
               </Button>
-              <Button colorScheme="gray" fontSize="18px">
+              <Button colorScheme="gray" fontSize="18px" onClick={() => signIn("google")}>
                 <Image src={googleLogo} alt="" height={18} style={{ marginRight: "10px" }} />
                 구글로 로그인
               </Button>
