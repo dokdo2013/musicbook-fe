@@ -10,6 +10,7 @@ import { SessionProvider } from "next-auth/react";
 import { Modals } from "@components/modals";
 import { LoadingScreen } from "../components/loadingScreen";
 import { useIsMobile } from "../lib/hooks";
+import Head from "next/head";
 
 const App: FC<AppProps> = ({ Component, ...rest }: AppProps) => {
   const { store, props } = reduxWrapper.useWrappedStore(rest);
@@ -21,6 +22,10 @@ const App: FC<AppProps> = ({ Component, ...rest }: AppProps) => {
       <SessionProvider session={pageProps.session}>
         <ChakraProvider>
           <DefaultLayout>
+            <Head>
+              <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+              <title>노래책</title>
+            </Head>
             <LoadingScreen isShow={isLoading} />
             <Modals />
             <Component {...pageProps} />

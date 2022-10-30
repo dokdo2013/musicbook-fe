@@ -1,10 +1,13 @@
-import { GLOBAL_PADDING_1, MAX_FRAME_WIDTH_PX } from "@/src/lib/constant";
+import { FOOTER_HEIGHT_PX, GLOBAL_PADDING_1, MAX_FRAME_WIDTH_PX } from "@/src/lib/constant";
+import { useIsMobile } from "@/src/lib/hooks";
 import { FC } from "react";
 
 export const Footer: FC = () => {
+  const isMobile = useIsMobile();
+
   return (
     <>
-      <div className="footer-wrap">
+      <div className={`footer-wrap ${isMobile && "mobile"}`}>
         <div className="content">
           <div className="info">
             © 2022 <span className="bold">https://musicbook.tv</span>. All rights reserved.
@@ -19,7 +22,7 @@ export const Footer: FC = () => {
           align-items: center;
           position: relative;
           width: 100%;
-          height: max-content;
+          height: ${FOOTER_HEIGHT_PX}px;
           padding: ${GLOBAL_PADDING_1}px 0;
           background-color: #a0aec0;
 
@@ -38,6 +41,13 @@ export const Footer: FC = () => {
             .info {
               font-size: 16px;
               color: #e2e8f0;
+            }
+          }
+        }
+        .footer-wrap.mobile {
+          .content {
+            .info {
+              font-size: 12px;
             }
           }
         }
