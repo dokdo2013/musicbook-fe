@@ -2,9 +2,11 @@ import { AnyAction, CombinedState, combineReducers, Reducer } from "@reduxjs/too
 import { HYDRATE } from "next-redux-wrapper";
 
 import commonReducer, { CommonState } from "./common";
+import modalsReducer, { ModalsState } from "./modals";
 
-interface ReduxStates {
+export interface ReduxStates {
   common: CommonState;
+  modals: ModalsState;
 }
 
 const rootReducer: Reducer<CombinedState<ReduxStates>, AnyAction> = (state, action) => {
@@ -16,6 +18,7 @@ const rootReducer: Reducer<CombinedState<ReduxStates>, AnyAction> = (state, acti
   }
   return combineReducers({
     common: commonReducer,
+    modals: modalsReducer,
   })(state, action);
 };
 

@@ -13,8 +13,11 @@ import { useIsMobile } from "@/src/lib/hooks";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { openLoginModal } from "@lib/functions";
 
 export const Header: FC = () => {
+  const dispatch = useDispatch();
   const isMobile = useIsMobile();
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
 
@@ -39,7 +42,11 @@ export const Header: FC = () => {
                 <Button colorScheme="gray" size={"lg"}>
                   이용안내
                 </Button>
-                <Button colorScheme="teal" size={"lg"}>
+                <Button
+                  colorScheme="teal"
+                  size={"lg"}
+                  onClick={() => openLoginModal(dispatch, true)}
+                >
                   로그인
                 </Button>
               </Stack>
@@ -50,8 +57,14 @@ export const Header: FC = () => {
                   icon={hamburgerOpen ? faXmark : faBars}
                   onClick={() => setHamburgerOpen(!hamburgerOpen)}
                 />
+                <div
+                  className={`hamburger-menu-overlay ${hamburgerOpen && "open"}`}
+                  onClick={() => setHamburgerOpen(false)}
+                ></div>
                 <div className={`hamburger-menu ${hamburgerOpen && "open"}`}>
-                  <div className="menu">로그인</div>
+                  <div className="menu" onClick={() => openLoginModal(dispatch, true)}>
+                    로그인
+                  </div>
                   <div className="menu">이용안내</div>
                 </div>
               </>
@@ -83,19 +96,42 @@ export const Header: FC = () => {
         }
       `}</style>
       <style jsx>{`
+        .hamburger-menu-overlay {
+          @keyframes intro {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+
+          position: fixed;
+          top: ${MAX_HEADER_HEIGHT_PX}px;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          display: none;
+          animation: intro 0.4s ease-in-out forwards;
+
+          &.open {
+            display: block;
+          }
+        }
         .hamburger-menu {
           --padding: ${GLOBAL_PADDING_1}px;
           position: fixed;
           top: ${MAX_HEADER_HEIGHT_PX}px;
           right: -100%;
           width: 100%;
-          height: calc(100% - ${MAX_HEADER_HEIGHT_PX}px);
-          background-color: white;
+          height: calc(100% - ${MAX_HEADER_HEIGHT_PX}px + 100px);
+          background-color: rgba(255, 255, 255, 1);
           transition: 0.4s;
-          padding: var(--padding) 0;
+          padding: var(--padding) 0 100px;
 
           &.open {
-            right: 0;
+            right: -40%;
           }
 
           .menu {

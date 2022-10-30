@@ -9,6 +9,8 @@ import { GLOBAL_PADDING_1, GLOBAL_PADDING_2, MAX_FRAME_WIDTH_PX } from "@lib/con
 import { useIsMobile } from "@lib/hooks";
 import Image from "next/image";
 import { Button, Stack } from "@chakra-ui/react";
+import { openLoginModal } from "../lib/functions";
+import { useDispatch } from "react-redux";
 
 export const getStaticProps: GetStaticProps = async ({ locale, locales }: any) => ({
   props: {
@@ -20,6 +22,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, locales }: any) =
 const LadingPage: FC = () => {
   // const router = useRouter();
   // const { t } = useTranslation("common");
+  const dispatch = useDispatch();
   const isMobile = useIsMobile();
 
   return (
@@ -50,6 +53,7 @@ const LadingPage: FC = () => {
                     paddingLeft="2em"
                     paddingRight="2em"
                     colorScheme="teal"
+                    onClick={() => openLoginModal(dispatch, true)}
                   >
                     지금 시작하기
                   </Button>
@@ -118,6 +122,7 @@ const LadingPage: FC = () => {
               paddingLeft="2em"
               paddingRight="2em"
               colorScheme="teal"
+              onClick={() => openLoginModal(dispatch, true)}
             >
               지금 시작하기
             </Button>
