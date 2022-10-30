@@ -19,6 +19,7 @@
     "@reduxjs/toolkit": "^1.8.6",
     "framer-motion": "^7.6.1",
     "next": "13.0.0",
+    "next-auth": "^4.15.0",
     "next-i18next": "^12.1.0",
     "next-redux-wrapper": "^8.0.0",
     "react": "18.2.0",
