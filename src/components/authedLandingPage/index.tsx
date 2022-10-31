@@ -5,15 +5,15 @@ import {
   HEADER_HEIGHT_PX,
   MAX_FRAME_WIDTH_PX,
 } from "@lib/constant";
-import { useIsMobile } from "@lib/hooks";
+import { useResponsive } from "@lib/hooks";
 import { Stack } from "@chakra-ui/react";
 import { FC, ReactNode } from "react";
 import { SearchCategory, SearchInput } from "@components/searchForm";
 import { SideBar, SideBarMenu } from "@components/sideBar";
-import { Article, ArticleBlock } from "../article";
+import { Article, ArticleBlock } from "@components/article";
 
 export const AuthedLandingPage: FC = () => {
-  const [isMobile] = useIsMobile();
+  const { isMobile } = useResponsive();
 
   return (
     <>

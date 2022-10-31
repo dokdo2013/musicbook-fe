@@ -1,4 +1,4 @@
-import { GLOBAL_PADDING_1, GLOBAL_PADDING_2 } from "@/src/lib/constant";
+import { GLOBAL_PADDING_1, GLOBAL_PADDING_2 } from "@lib/constant";
 import { FC, ReactNode } from "react";
 
 interface Props {

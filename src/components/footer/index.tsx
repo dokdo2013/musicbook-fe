@@ -1,9 +1,9 @@
-import { FOOTER_HEIGHT_PX, GLOBAL_PADDING_1, MAX_FRAME_WIDTH_PX } from "@/src/lib/constant";
-import { useIsMobile } from "@/src/lib/hooks";
+import { FOOTER_HEIGHT_PX, GLOBAL_PADDING_1, MAX_FRAME_WIDTH_PX } from "@lib/constant";
+import { useResponsive } from "@lib/hooks";
 import { FC } from "react";
 
 export const Footer: FC = () => {
-  const isMobile = useIsMobile();
+  const { isMobile } = useResponsive();
 
   return (
     <>

@@ -14,7 +14,7 @@ import {
   HEADER_HEIGHT_PX,
   GLOBAL_PADDING_3,
 } from "@lib/constant";
-import { useIsMobile } from "@lib/hooks";
+import { useResponsive } from "@lib/hooks";
 import { openLoginModal } from "@lib/functions";
 import { signOut, useSession } from "next-auth/react";
 import { SearchCategory, SearchInput } from "@components/searchForm";
@@ -22,7 +22,7 @@ import { SearchCategory, SearchInput } from "@components/searchForm";
 export const Header: FC = () => {
   const { status } = useSession();
   const dispatch = useDispatch();
-  const [isMobile] = useIsMobile();
+  const { isMobile } = useResponsive();
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
 
   const logInOut = async () => {
