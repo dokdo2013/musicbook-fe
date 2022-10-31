@@ -39,15 +39,8 @@ export const Footer: FC = () => {
             padding: 0 var(--padding);
 
             .info {
-              font-size: 16px;
-              color: #e2e8f0;
-            }
-          }
-        }
-        .footer-wrap.mobile {
-          .content {
-            .info {
               font-size: 12px;
+              color: #e2e8f0;
             }
           }
         }
