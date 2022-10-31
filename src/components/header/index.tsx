@@ -12,6 +12,7 @@ import {
   GLOBAL_PADDING_2,
   MAX_FRAME_WIDTH_PX,
   HEADER_HEIGHT_PX,
+  GLOBAL_PADDING_3,
 } from "@lib/constant";
 import { useIsMobile } from "@lib/hooks";
 import { openLoginModal } from "@lib/functions";
@@ -37,6 +38,33 @@ export const Header: FC = () => {
 
   return (
     <>
+      {isMobile && (
+        <>
+          <div
+            className={`hamburger-menu-overlay ${hamburgerOpen && "open"}`}
+            onClick={() => setHamburgerOpen(false)}
+          ></div>
+          <div className={`hamburger-menu ${hamburgerOpen && "open"}`}>
+            {status === "authenticated" && (
+              <>
+                <div className="menu search-form">
+                  <span className="search-form-title">노래책 검색</span>
+                  <Stack spacing={4} direction="column" align="flex-start">
+                    <SearchInput />
+                    <SearchCategory />
+                  </Stack>
+                </div>
+                <div className="menu">마이페이지</div>
+                <div className="menu">내 노래책</div>
+              </>
+            )}
+            <div className="menu">이용안내</div>
+            <div className="menu" onClick={logInOut}>
+              {status === "unauthenticated" ? "로그인" : "로그아웃"}
+            </div>
+          </div>
+        </>
+      )}
       <div className="header-wrap">
         <div className="content">
           <div className="content-left">
@@ -87,29 +115,6 @@ export const Header: FC = () => {
                     onClick={() => setHamburgerOpen(!hamburgerOpen)}
                   />
                 </Stack>
-                <div
-                  className={`hamburger-menu-overlay ${hamburgerOpen && "open"}`}
-                  onClick={() => setHamburgerOpen(false)}
-                ></div>
-                <div className={`hamburger-menu ${hamburgerOpen && "open"}`}>
-                  {status === "authenticated" && (
-                    <>
-                      <div className="menu search-form">
-                        <span className="search-form-title">노래책 검색</span>
-                        <Stack spacing={4} direction="column" align="flex-start">
-                          <SearchInput />
-                          <SearchCategory />
-                        </Stack>
-                      </div>
-                      <div className="menu">마이페이지</div>
-                      <div className="menu">내 노래책</div>
-                    </>
-                  )}
-                  <div className="menu">이용안내</div>
-                  <div className="menu" onClick={logInOut}>
-                    {status === "unauthenticated" ? "로그인" : "로그아웃"}
-                  </div>
-                </div>
               </>
             )}
           </div>
@@ -165,6 +170,7 @@ export const Header: FC = () => {
           background-color: rgba(0, 0, 0, 0.5);
           display: none;
           animation: intro 0.4s ease-in-out forwards;
+          z-index: 99;
 
           &.open {
             display: block;
@@ -180,6 +186,8 @@ export const Header: FC = () => {
           background-color: rgba(255, 255, 255, 1);
           transition: 0.4s;
           padding: var(--padding) 0 100px;
+          overflow-y: scroll;
+          z-index: 99;
 
           &.open {
             right: 0;
@@ -187,12 +195,12 @@ export const Header: FC = () => {
 
           .menu {
             --padding-1: ${GLOBAL_PADDING_1}px;
-            --padding-2: ${GLOBAL_PADDING_2}px;
+            --padding-3: ${GLOBAL_PADDING_3}px;
             position: relative;
-            padding: var(--padding-2) var(--padding-1);
+            padding: var(--padding-3) var(--padding-1);
             border-bottom: 1px solid #eee;
             color: #666;
-            font-size: 18px;
+            font-size: 14px;
             font-weight: bold;
             transition: 0.2s;
 

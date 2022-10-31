@@ -23,7 +23,7 @@ export const Footer: FC = () => {
           position: relative;
           width: 100%;
           height: ${FOOTER_HEIGHT_PX}px;
-          padding: ${GLOBAL_PADDING_1}px 0;
+          padding: 0;
           background-color: #a0aec0;
 
           .content {
@@ -36,7 +36,7 @@ export const Footer: FC = () => {
             width: 100%;
             max-width: ${MAX_FRAME_WIDTH_PX}px;
             height: max-content;
-            padding: var(--padding) var(--padding);
+            padding: 0 var(--padding);
 
             .info {
               font-size: 16px;
