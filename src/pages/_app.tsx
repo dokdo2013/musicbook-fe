@@ -11,6 +11,7 @@ import { Modals } from "@components/modals";
 import { LoadingScreen } from "@components/loadingScreen";
 import { useResponsive } from "@lib/hooks";
 import Head from "next/head";
+import { DebugComponent } from "../components/debugComponent";
 
 const App: FC<AppProps> = ({ Component, ...rest }: AppProps) => {
   const { store, props } = reduxWrapper.useWrappedStore(rest);
@@ -26,6 +27,7 @@ const App: FC<AppProps> = ({ Component, ...rest }: AppProps) => {
               <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
               <title>노래책</title>
             </Head>
+            {process.env.NODE_ENV !== "production" && <DebugComponent />}
             <LoadingScreen isShow={isLoading} />
             <Modals />
             <Component {...pageProps} />
