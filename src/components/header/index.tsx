@@ -1,7 +1,7 @@
 import mainLogo from "@public/images/main-logo.png";
 
 import Image from "next/image";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import Link from "next/link";
 import { Button, Stack } from "@chakra-ui/react";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
@@ -9,7 +9,6 @@ import { faBars, faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-
 import { useDispatch } from "react-redux";
 import {
   GLOBAL_PADDING_1,
-  GLOBAL_PADDING_2,
   MAX_FRAME_WIDTH_PX,
   HEADER_HEIGHT_PX,
   GLOBAL_PADDING_3,
@@ -17,54 +16,23 @@ import {
 import { useResponsive } from "@lib/hooks";
 import { openLoginModal } from "@lib/functions";
 import { signOut, useSession } from "next-auth/react";
-import { SearchCategory, SearchInput } from "@components/searchForm";
+import { setSideBarOpen } from "@/src/redux/modules/common";
+import { useSelector } from "react-redux";
+import { ReduxStates } from "@/src/redux/modules";
 
 export const Header: FC = () => {
   const { status } = useSession();
   const dispatch = useDispatch();
+  const sideBarOpen = useSelector(({ common }: ReduxStates) => common.sideBarOpen);
   const { isMobile } = useResponsive();
-  const [hamburgerOpen, setHamburgerOpen] = useState(false);
 
   const logInOut = async () => {
     if (status === "unauthenticated") await openLoginModal(dispatch, true);
     else if (status === "authenticated") await signOut();
   };
 
-  useEffect(() => {
-    if (!isMobile) {
-      setHamburgerOpen(false);
-    }
-  }, [isMobile]);
-
   return (
     <>
-      {isMobile && (
-        <>
-          <div
-            className={`hamburger-menu-overlay ${hamburgerOpen && "open"}`}
-            onClick={() => setHamburgerOpen(false)}
-          ></div>
-          <div className={`hamburger-menu ${hamburgerOpen && "open"}`}>
-            {status === "authenticated" && (
-              <>
-                <div className="menu search-form">
-                  <span className="search-form-title">노래책 검색</span>
-                  <Stack spacing={4} direction="column" align="flex-start">
-                    <SearchInput />
-                    <SearchCategory />
-                  </Stack>
-                </div>
-                <div className="menu">마이페이지</div>
-                <div className="menu">내 노래책</div>
-              </>
-            )}
-            <div className="menu">이용안내</div>
-            <div className="menu" onClick={logInOut}>
-              {status === "unauthenticated" ? "로그인" : "로그아웃"}
-            </div>
-          </div>
-        </>
-      )}
       <div className="header-wrap">
         <div className="content">
           <div className="content-left">
@@ -106,13 +74,13 @@ export const Header: FC = () => {
                     <Icon
                       className={`search-btn`}
                       icon={faMagnifyingGlass}
-                      onClick={() => setHamburgerOpen(true)}
+                      onClick={() => dispatch(setSideBarOpen(true))}
                     />
                   )}
                   <Icon
-                    className={`hamburger-btn ${hamburgerOpen && "open"}`}
-                    icon={hamburgerOpen ? faXmark : faBars}
-                    onClick={() => setHamburgerOpen(!hamburgerOpen)}
+                    className={`hamburger-btn ${sideBarOpen && "open"}`}
+                    icon={sideBarOpen ? faXmark : faBars}
+                    onClick={() => dispatch(setSideBarOpen(!sideBarOpen))}
                   />
                 </Stack>
               </>
@@ -152,70 +120,6 @@ export const Header: FC = () => {
         }
       `}</style>
       <style jsx>{`
-        .hamburger-menu-overlay {
-          @keyframes intro {
-            from {
-              opacity: 0;
-            }
-            to {
-              opacity: 1;
-            }
-          }
-
-          position: fixed;
-          top: ${HEADER_HEIGHT_PX}px;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.5);
-          display: none;
-          animation: intro 0.4s ease-in-out forwards;
-          z-index: 99;
-
-          &.open {
-            display: block;
-          }
-        }
-        .hamburger-menu {
-          --padding: ${GLOBAL_PADDING_1}px;
-          position: fixed;
-          top: ${HEADER_HEIGHT_PX}px;
-          right: -100%;
-          width: 60%;
-          height: calc(100% - ${HEADER_HEIGHT_PX}px + 100px);
-          background-color: rgba(255, 255, 255, 1);
-          transition: 0.4s;
-          padding: var(--padding) 0 100px;
-          overflow-y: scroll;
-          z-index: 99;
-
-          &.open {
-            right: 0;
-          }
-
-          .menu {
-            --padding-1: ${GLOBAL_PADDING_1}px;
-            --padding-3: ${GLOBAL_PADDING_3}px;
-            position: relative;
-            padding: var(--padding-3) var(--padding-1);
-            border-bottom: 1px solid #eee;
-            color: #666;
-            font-size: 14px;
-            font-weight: bold;
-            transition: 0.2s;
-
-            &:not(.search-form):hover {
-              cursor: pointer;
-              color: #242424;
-              background-color: #e2e8f0;
-            }
-            .search-form-title {
-              display: block;
-              margin-bottom: 10px;
-            }
-          }
-        }
-
         .header-wrap {
           position: sticky;
           top: 0;

@@ -9,7 +9,7 @@ import { useResponsive } from "@lib/hooks";
 import { Stack } from "@chakra-ui/react";
 import { FC, ReactNode } from "react";
 import { SearchCategory, SearchInput } from "@components/searchForm";
-import { SideBar, SideBarMenu } from "@components/sideBar";
+import { CommonSideBar } from "@components/sideBar";
 import { Article, ArticleBlock } from "@components/article";
 
 export const AuthedLandingPage: FC = () => {
@@ -19,17 +19,7 @@ export const AuthedLandingPage: FC = () => {
     <>
       <div className={`main-wrap ${isMobile && "mobile"}`}>
         <div className="content">
-          {!isMobile && (
-            <SideBar>
-              <SideBarMenu>
-                <span className="search-form-title">노래책 검색</span>
-                <Stack spacing={4} direction="column" align="flex-start">
-                  <SearchInput />
-                  <SearchCategory />
-                </Stack>
-              </SideBarMenu>
-            </SideBar>
-          )}
+          <CommonSideBar />
           <Article>
             <ArticleBlock height="120px">GWAN-GO IS CRAZY 광고배너</ArticleBlock>
             <Stack
@@ -62,6 +52,7 @@ export const AuthedLandingPage: FC = () => {
           position: relative;
           width: 100%;
           height: calc(100% - ${HEADER_HEIGHT_PX}px - ${FOOTER_HEIGHT_PX}px);
+          overflow: hidden;
 
           .content {
             position: relative;
@@ -77,11 +68,6 @@ export const AuthedLandingPage: FC = () => {
           .sidebar {
             display: none;
           }
-        }
-        .search-form-title {
-          display: block;
-          margin-bottom: 10px;
-          font-weight: bold;
         }
       `}</style>
     </>

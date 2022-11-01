@@ -8,6 +8,7 @@ import { Button, Stack } from "@chakra-ui/react";
 import { openLoginModal } from "@lib/functions";
 import { useDispatch } from "react-redux";
 import { useSession } from "next-auth/react";
+import { CommonSideBar } from "../sideBar";
 
 export const UnauthedLadingPage: FC = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export const UnauthedLadingPage: FC = () => {
   return (
     <>
       <div className={`main-wrap ${isMobile && "mobile"}`}>
+        <CommonSideBar mode="hidden" align="right" />
         <div className="section section-1">
           <div className="content">
             <div className="subtitle-wrap">
@@ -287,6 +289,7 @@ export const UnauthedLadingPage: FC = () => {
         .main-wrap {
           position: relative;
           width: 100%;
+          overflow: hidden;
         }
 
         .main-wrap.mobile {
