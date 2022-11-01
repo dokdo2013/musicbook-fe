@@ -13,7 +13,7 @@ export const LoadingScreen: FC<Props> = ({ isShow }) => {
       setShowFadeoutAnimation(true);
       setTimeout(() => {
         setShowLoadingScreen(false);
-      }, 400);
+      }, 1000);
     }
   }, [isShow]);
   return (

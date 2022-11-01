@@ -19,15 +19,7 @@ const LadingPage: FC = () => {
     console.log("auth", status, data);
   }, [data, status]);
 
-  return (
-    <>
-      {status === "unauthenticated" || status === "loading" ? (
-        <UnauthedLadingPage />
-      ) : (
-        <AuthedLandingPage />
-      )}
-    </>
-  );
+  return <>{status === "unauthenticated" ? <UnauthedLadingPage /> : <AuthedLandingPage />}</>;
 };
 
 export default LadingPage;
