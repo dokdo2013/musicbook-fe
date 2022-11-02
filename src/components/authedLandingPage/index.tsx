@@ -1,16 +1,12 @@
-import {
-  FOOTER_HEIGHT_PX,
-  GLOBAL_PADDING_1,
-  GLOBAL_PADDING_2,
-  HEADER_HEIGHT_PX,
-  MAX_FRAME_WIDTH_PX,
-} from "@lib/constant";
+import { FOOTER_HEIGHT_PX, HEADER_HEIGHT_PX, MAX_FRAME_WIDTH_PX } from "@lib/constant";
 import { useResponsive } from "@lib/hooks";
 import { Stack } from "@chakra-ui/react";
-import { FC, ReactNode } from "react";
-import { SearchCategory, SearchInput } from "@components/searchForm";
+import { FC } from "react";
 import { CommonSideBar } from "@components/sideBar";
 import { Article, ArticleBlock } from "@components/article";
+import { MusicListCard } from "../musicCard";
+
+import testImage1 from "@public/images/test/test1.png";
 
 export const AuthedLandingPage: FC = () => {
   const { isMobile } = useResponsive();
@@ -21,17 +17,48 @@ export const AuthedLandingPage: FC = () => {
         <div className="content">
           <CommonSideBar />
           <Article>
-            <ArticleBlock height="120px">GWAN-GO IS CRAZY 광고배너</ArticleBlock>
+            <ArticleBlock height="100px">GWAN-GO IS CRAZY 광고배너</ArticleBlock>
             <Stack
               spacing={isMobile ? 0 : 2}
               direction={isMobile ? "column" : "row"}
               align="center"
               width="100%"
             >
-              <ArticleBlock height="300px" title="🌟 인기 노래책">
-                a
+              <ArticleBlock height="500px" title="🌟 인기 노래책">
+                <Stack spacing={2} direction="column" align="center">
+                  <MusicListCard
+                    imageSrc={testImage1}
+                    songTitle="Ahoy!! 우리는 호쇼해적단"
+                    author="호쇼 마린"
+                    categoryName="J-POP"
+                  />
+                  <MusicListCard
+                    imageSrc={testImage1}
+                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                    author="호쇼 마린"
+                    categoryName="J-POP"
+                  />
+                  <MusicListCard
+                    imageSrc={testImage1}
+                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                    author="호쇼 마린"
+                    categoryName="J-POP"
+                  />
+                  <MusicListCard
+                    imageSrc={testImage1}
+                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                    author="호쇼 마린"
+                    categoryName="J-POP"
+                  />
+                  <MusicListCard
+                    imageSrc={testImage1}
+                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                    author="호쇼 마린"
+                    categoryName="J-POP"
+                  />
+                </Stack>
               </ArticleBlock>
-              <ArticleBlock height="300px" title="📌 공지사항 & 이벤트">
+              <ArticleBlock height="500px" title="📌 공지사항 & 이벤트">
                 a
               </ArticleBlock>
             </Stack>
@@ -45,6 +72,15 @@ export const AuthedLandingPage: FC = () => {
         </div>
       </div>
       <style jsx>{`
+        .scrollable-box {
+          display: block;
+          position: relative;
+          width: 100%;
+          height: 400px;
+          overflow-x: hidden;
+          overflow-y: scroll;
+        }
+
         .main-wrap {
           display: flex;
           justify-content: center;

@@ -11,7 +11,7 @@ export const ArticleBlock: FC<Props> = ({ children, title, height }) => {
     <>
       <div className="article-block-wrap">
         {title && <div className="article-block-title">{title}</div>}
-        {children}
+        <div className={`article-block-content ${!title ? "no-title" : ""}`}>{children}</div>
       </div>
       <style jsx>{`
         .article-block-wrap {
@@ -23,12 +23,25 @@ export const ArticleBlock: FC<Props> = ({ children, title, height }) => {
           border: 1px solid #e2e8f0;
           border-radius: 10px;
           ${height && `height: ${height};`}
+          overflow: hidden;
 
           .article-block-title {
+            height: max-content;
             font-size: 20px;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             color: #4a5568;
+          }
+
+          .article-block-content {
+            position: relative;
+            width: 100%;
+            height: calc(100% - 50px);
+            overflow-y: auto;
+
+            &.no-title {
+              height: 100%;
+            }
           }
         }
       `}</style>

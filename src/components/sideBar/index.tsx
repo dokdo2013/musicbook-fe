@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { setSideBarOpen } from "@/src/redux/modules/common";
 import { signOut, useSession } from "next-auth/react";
 import { openLoginModal } from "@/src/lib/functions";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
   mode?: "fixed" | "semi" | "hidden";
@@ -30,7 +31,11 @@ export const CommonSideBar: FC<Props> = ({ mode, align }) => {
 
   return (
     <>
-      <SideBar align={!align ? (isMobile ? "right" : "left") : align} mode={mode}>
+      <SideBar
+        align={!align ? (isMobile ? "right" : "left") : align}
+        mode={mode}
+        openIcon={faMagnifyingGlass}
+      >
         {status === "authenticated" && (
           <>
             <SideBarMenu>

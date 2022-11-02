@@ -1,7 +1,7 @@
 import { useResponsive } from "@/src/lib/hooks";
 import { FC, ReactNode, useEffect, useState } from "react";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { faAngleRight, faAngleLeft, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { ReduxStates } from "@redux/modules";
@@ -11,9 +11,11 @@ interface Props {
   children: ReactNode;
   align?: "left" | "right";
   mode?: "fixed" | "semi" | "hidden";
+  openIcon?: IconDefinition;
+  closeIcon?: IconDefinition;
 }
 
-export const SideBar: FC<Props> = ({ children, align = "left", mode }) => {
+export const SideBar: FC<Props> = ({ children, align = "left", mode, openIcon, closeIcon }) => {
   const dispatch = useDispatch();
   const sideBarOpen = useSelector(({ common }: ReduxStates) => common.sideBarOpen);
   const { isMobile, isTablet } = useResponsive();
@@ -21,11 +23,11 @@ export const SideBar: FC<Props> = ({ children, align = "left", mode }) => {
 
   const getToggleIcon = () => {
     if (open) {
-      if (align === "left") return faAngleLeft;
-      else return faAngleRight;
+      if (align === "left") return closeIcon ? closeIcon : faAngleLeft;
+      else return closeIcon ? closeIcon : faAngleRight;
     } else {
-      if (align === "left") return faAngleRight;
-      else return faAngleLeft;
+      if (align === "left") return openIcon ? openIcon : faAngleRight;
+      else return openIcon ? openIcon : faAngleLeft;
     }
   };
 
@@ -44,9 +46,9 @@ export const SideBar: FC<Props> = ({ children, align = "left", mode }) => {
         } ${(isMobile || isTablet || (mode && mode !== "fixed")) && (open ? "open" : "close")}`}
       >
         <div className="content">{children}</div>
-        {isTablet && (
+        {((isTablet && !mode) || mode === "semi") && (
           <div className="sidebar-toggle-btn" onClick={() => dispatch(setSideBarOpen(!open))}>
-            <Icon icon={getToggleIcon()} height={30} />
+            <Icon icon={getToggleIcon()} height={25} color="#319795" />
           </div>
         )}
       </div>
@@ -86,7 +88,8 @@ export const SideBar: FC<Props> = ({ children, align = "left", mode }) => {
             position: relative;
             width: 100%;
             height: 100%;
-            overflow-y: scroll;
+            overflow-y: auto;
+            padding-bottom: 60px;
           }
 
           .sidebar-toggle-btn {
@@ -95,20 +98,20 @@ export const SideBar: FC<Props> = ({ children, align = "left", mode }) => {
             justify-content: center;
             align-items: center;
             top: 70px;
-            ${align === "left" ? `right: 0;` : `left: 0;`}
+            ${align === "left" ? `right: -1px;` : `left: -1px;`}
             transform: translateX(${align === "left" ? `100%` : `-100%`});
             width: 50px;
             height: 50px;
             background-color: white;
             border: 1px solid #eee;
             ${align === "left" ? `border-radius: 0 20px 20px 0;` : `border-radius: 20px 0 0 20px;`}
-            opacity: 0.5;
+            opacity: 0.8;
             transition: 0.2s;
-            font-size: 30px;
+            font-size: 25px;
 
             &:hover {
               cursor: pointer;
-              opacity: 0.9;
+              opacity: 1;
             }
           }
         }
