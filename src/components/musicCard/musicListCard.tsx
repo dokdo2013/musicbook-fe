@@ -108,18 +108,15 @@ export const MusicListCard: FC<Props> = ({
             padding: 10px;
             overflow: hidden;
 
-            .title,
             .author {
-              position: relative;
-              width: 100%;
-              max-width: 100%;
               display: block;
+              position: relative;
+              width: max-content;
+              max-width: calc(100% - 10px);
               white-space: nowrap;
-              overflow: hidden;
-            }
-
-            .author {
               font-size: 14px;
+              text-overflow: ellipsis;
+              overflow: hidden;
             }
 
             .broadcaster {
@@ -137,9 +134,14 @@ export const MusicListCard: FC<Props> = ({
 
             .title {
               display: block;
+              position: relative;
+              width: 100%;
+              max-width: 100%;
+              height: 1.5em;
+              white-space: nowrap;
+              overflow: hidden;
               font-weight: bold;
               color: #242424;
-              height: 1.5em;
 
               span {
                 opacity: 0;

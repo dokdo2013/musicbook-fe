@@ -11,7 +11,7 @@ interface Props {
   broadcasterName: string;
   broadcasterProfileSrc: string | StaticImageData;
   categoryColor?: string;
-  width?: number;
+  maxWidth?: number;
 }
 
 export const MusicGridCard: FC<Props> = ({
@@ -22,7 +22,7 @@ export const MusicGridCard: FC<Props> = ({
   broadcasterName,
   broadcasterProfileSrc,
   categoryColor,
-  width = 150,
+  maxWidth,
 }) => {
   const titleDivRef = useRef<HTMLDivElement>(null);
   const titleSpanRef = useRef<HTMLSpanElement>(null);
@@ -49,7 +49,7 @@ export const MusicGridCard: FC<Props> = ({
     <>
       <div className="music-card-wrap list">
         <div className="image-content">
-          <Image src={thumbnailSrc} alt="" width={width} height={width} />
+          <Image src={thumbnailSrc} alt="" style={{ width: "100%", height: "auto" }} />
           <Badge
             colorScheme={!categoryColor ? "green" : undefined}
             bgColor={categoryColor}
@@ -86,7 +86,8 @@ export const MusicGridCard: FC<Props> = ({
           align-items: space-between;
           flex-direction: column;
           position: relative;
-          width: ${width + 2}px;
+          width: 100%;
+          ${maxWidth && `max-width: ${maxWidth}px;`}
           height: max-content;
           background-color: #fff;
           border: 1px solid #eee;
@@ -98,8 +99,8 @@ export const MusicGridCard: FC<Props> = ({
           .image-content {
             position: relative;
             display: block;
-            width: ${width}px;
-            height: ${width}px;
+            width: 100%;
+            height: max-content;
           }
 
           .text-content {
@@ -121,7 +122,7 @@ export const MusicGridCard: FC<Props> = ({
             }
 
             .author {
-              font-size: 14px;
+              font-size: 12px;
               text-overflow: ellipsis;
             }
 
