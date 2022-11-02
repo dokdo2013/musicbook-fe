@@ -1,27 +1,33 @@
+import { useResponsive } from "@/src/lib/hooks";
 import { Badge } from "@chakra-ui/react";
 import Image, { StaticImageData } from "next/image";
 import { FC, useEffect, useRef, useState } from "react";
 
 interface Props {
-  imageSrc: string | StaticImageData;
+  thumbnailSrc: string | StaticImageData;
   songTitle: string;
-  author: string;
+  authorName: string;
   categoryName: string;
+  broadcasterName: string;
+  broadcasterProfileSrc: string | StaticImageData;
   categoryColor?: string;
   height?: number;
 }
 
 export const MusicListCard: FC<Props> = ({
-  imageSrc,
+  thumbnailSrc,
   songTitle,
-  author,
+  authorName,
   categoryName,
+  broadcasterName,
+  broadcasterProfileSrc,
   categoryColor,
-  height = 100,
+  height = 90,
 }) => {
   const titleDivRef = useRef<HTMLDivElement>(null);
   const titleSpanRef = useRef<HTMLSpanElement>(null);
   const [isTitleOverflowed, setIsTitleOverflowed] = useState(false);
+  const { isLoading, isPC, isTablet, isMobile } = useResponsive();
 
   useEffect(() => {
     const titleDiv = titleDivRef.current;
@@ -37,13 +43,13 @@ export const MusicListCard: FC<Props> = ({
 
     setTimeout(getOverflowed, 100);
     window.addEventListener("resize", getOverflowed);
-  }, []);
+  }, [isLoading, isPC, isTablet, isMobile]);
 
   return (
     <>
       <div className="music-card-wrap list">
         <div className="image-content">
-          <Image src={imageSrc} alt="" width={height} height={height} />
+          <Image src={thumbnailSrc} alt="" width={height} height={height} />
           <Badge
             colorScheme={!categoryColor ? "green" : undefined}
             bgColor={categoryColor}
@@ -60,7 +66,17 @@ export const MusicListCard: FC<Props> = ({
           >
             <span ref={titleSpanRef}>{songTitle}</span>
           </div>
-          <div className="author">{author}</div>
+          <div className="author">{authorName}</div>
+          <div className="broadcaster">
+            <Image
+              src={broadcasterProfileSrc}
+              alt=""
+              width={14}
+              height={14}
+              style={{ display: "inline-block", marginBottom: "-2px", marginRight: "3px" }}
+            />
+            {broadcasterName}
+          </div>
         </div>
       </div>
       <style jsx>{`
@@ -72,7 +88,10 @@ export const MusicListCard: FC<Props> = ({
           width: 100%;
           height: ${height + 2}px;
           border: 1px solid #eee;
+          border-radius: 0.5em;
           box-shadow: 0 0 3px #eee;
+          transition: 0.2s;
+          overflow: hidden;
 
           .image-content {
             position: relative;
@@ -97,6 +116,23 @@ export const MusicListCard: FC<Props> = ({
               display: block;
               white-space: nowrap;
               overflow: hidden;
+            }
+
+            .author {
+              font-size: 14px;
+            }
+
+            .broadcaster {
+              position: absolute;
+              bottom: 10px;
+              right: 10px;
+              display: block;
+              width: max-content;
+              max-width: calc(100% - 20px - 30px);
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              font-size: 14px;
             }
 
             .title {
@@ -143,6 +179,9 @@ export const MusicListCard: FC<Props> = ({
         }
 
         .music-card-wrap:hover {
+          cursor: pointer;
+          background-color: rgb(247, 247, 247);
+
           .title.scroll {
             &::before {
               animation: text-scroll1 5s 1s linear infinite;

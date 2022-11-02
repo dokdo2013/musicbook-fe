@@ -7,6 +7,7 @@ import { Article, ArticleBlock } from "@components/article";
 import { MusicListCard } from "../musicCard";
 
 import testImage1 from "@public/images/test/test1.png";
+import testImage2 from "@public/images/test/test2.png";
 
 export const AuthedLandingPage: FC = () => {
   const { isMobile } = useResponsive();
@@ -27,33 +28,43 @@ export const AuthedLandingPage: FC = () => {
               <ArticleBlock height="500px" title="🌟 인기 노래책">
                 <Stack spacing={2} direction="column" align="center">
                   <MusicListCard
-                    imageSrc={testImage1}
+                    thumbnailSrc={testImage1}
                     songTitle="Ahoy!! 우리는 호쇼해적단"
-                    author="호쇼 마린"
+                    authorName="호쇼 마린"
+                    broadcasterName="betamanbetamanbetamanbetamanbetaman"
+                    broadcasterProfileSrc={testImage2}
                     categoryName="J-POP"
                   />
                   <MusicListCard
-                    imageSrc={testImage1}
+                    thumbnailSrc={testImage1}
                     songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                    author="호쇼 마린"
+                    authorName="호쇼 마린"
+                    broadcasterName="betaman"
+                    broadcasterProfileSrc={testImage2}
                     categoryName="J-POP"
                   />
                   <MusicListCard
-                    imageSrc={testImage1}
+                    thumbnailSrc={testImage1}
                     songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                    author="호쇼 마린"
+                    authorName="호쇼 마린"
+                    broadcasterName="betaman"
+                    broadcasterProfileSrc={testImage2}
                     categoryName="J-POP"
                   />
                   <MusicListCard
-                    imageSrc={testImage1}
+                    thumbnailSrc={testImage1}
                     songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                    author="호쇼 마린"
+                    authorName="호쇼 마린"
+                    broadcasterName="betaman"
+                    broadcasterProfileSrc={testImage2}
                     categoryName="J-POP"
                   />
                   <MusicListCard
-                    imageSrc={testImage1}
+                    thumbnailSrc={testImage1}
                     songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                    author="호쇼 마린"
+                    authorName="호쇼 마린"
+                    broadcasterName="betaman"
+                    broadcasterProfileSrc={testImage2}
                     categoryName="J-POP"
                   />
                 </Stack>
