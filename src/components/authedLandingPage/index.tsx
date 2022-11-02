@@ -1,6 +1,6 @@
 import { FOOTER_HEIGHT_PX, HEADER_HEIGHT_PX, MAX_FRAME_WIDTH_PX } from "@lib/constant";
 import { useResponsive } from "@lib/hooks";
-import { Stack } from "@chakra-ui/react";
+import { Flex, Grid, GridItem, Stack } from "@chakra-ui/react";
 import { FC } from "react";
 import { CommonSideBar } from "@components/sideBar";
 import { Article, ArticleBlock } from "@components/article";
@@ -77,14 +77,148 @@ export const AuthedLandingPage: FC = () => {
               a
             </ArticleBlock>
             <ArticleBlock height="500px" title="📚 새로 올라온 노래책">
-              <MusicGridCard
-                thumbnailSrc={testImage1}
-                songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                authorName="호쇼 마린"
-                broadcasterName="betaman"
-                broadcasterProfileSrc={testImage2}
-                categoryName="J-POP"
-              />
+              <Grid templateColumns="repeat(auto-fill, minmax(150px, 1fr))" gap={2}>
+                <GridItem rowSpan={1} colSpan={1}>
+                  <MusicGridCard
+                    thumbnailSrc={testImage1}
+                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                    authorName="호쇼 마린"
+                    broadcasterName="betaman"
+                    broadcasterProfileSrc={testImage2}
+                    categoryName="J-POP"
+                  />
+                </GridItem>
+                <GridItem rowSpan={1} colSpan={1}>
+                  <MusicGridCard
+                    thumbnailSrc={testImage1}
+                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                    authorName="호쇼 마린"
+                    broadcasterName="betaman"
+                    broadcasterProfileSrc={testImage2}
+                    categoryName="J-POP"
+                  />
+                </GridItem>
+                <GridItem rowSpan={1} colSpan={1}>
+                  <MusicGridCard
+                    thumbnailSrc={testImage1}
+                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                    authorName="호쇼 마린"
+                    broadcasterName="betaman"
+                    broadcasterProfileSrc={testImage2}
+                    categoryName="J-POP"
+                  />
+                </GridItem>
+                <GridItem rowSpan={1} colSpan={1}>
+                  <MusicGridCard
+                    thumbnailSrc={testImage1}
+                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                    authorName="호쇼 마린"
+                    broadcasterName="betaman"
+                    broadcasterProfileSrc={testImage2}
+                    categoryName="J-POP"
+                  />
+                </GridItem>
+                <GridItem rowSpan={1} colSpan={1}>
+                  <MusicGridCard
+                    thumbnailSrc={testImage1}
+                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                    authorName="호쇼 마린"
+                    broadcasterName="betaman"
+                    broadcasterProfileSrc={testImage2}
+                    categoryName="J-POP"
+                  />
+                </GridItem>
+                <GridItem rowSpan={1} colSpan={1}>
+                  <MusicGridCard
+                    thumbnailSrc={testImage1}
+                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                    authorName="호쇼 마린"
+                    broadcasterName="betaman"
+                    broadcasterProfileSrc={testImage2}
+                    categoryName="J-POP"
+                  />
+                </GridItem>
+                <GridItem rowSpan={1} colSpan={1}>
+                  <MusicGridCard
+                    thumbnailSrc={testImage1}
+                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                    authorName="호쇼 마린"
+                    broadcasterName="betaman"
+                    broadcasterProfileSrc={testImage2}
+                    categoryName="J-POP"
+                  />
+                </GridItem>
+                <GridItem rowSpan={1} colSpan={1}>
+                  <MusicGridCard
+                    thumbnailSrc={testImage1}
+                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                    authorName="호쇼 마린"
+                    broadcasterName="betaman"
+                    broadcasterProfileSrc={testImage2}
+                    categoryName="J-POP"
+                  />
+                </GridItem>
+                <GridItem rowSpan={1} colSpan={1}>
+                  <MusicGridCard
+                    thumbnailSrc={testImage1}
+                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                    authorName="호쇼 마린"
+                    broadcasterName="betaman"
+                    broadcasterProfileSrc={testImage2}
+                    categoryName="J-POP"
+                  />
+                </GridItem>
+                <GridItem rowSpan={1} colSpan={1}>
+                  <MusicGridCard
+                    thumbnailSrc={testImage1}
+                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                    authorName="호쇼 마린"
+                    broadcasterName="betaman"
+                    broadcasterProfileSrc={testImage2}
+                    categoryName="J-POP"
+                  />
+                </GridItem>
+                <GridItem rowSpan={1} colSpan={1}>
+                  <MusicGridCard
+                    thumbnailSrc={testImage1}
+                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                    authorName="호쇼 마린"
+                    broadcasterName="betaman"
+                    broadcasterProfileSrc={testImage2}
+                    categoryName="J-POP"
+                  />
+                </GridItem>
+                <GridItem rowSpan={1} colSpan={1}>
+                  <MusicGridCard
+                    thumbnailSrc={testImage1}
+                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                    authorName="호쇼 마린"
+                    broadcasterName="betaman"
+                    broadcasterProfileSrc={testImage2}
+                    categoryName="J-POP"
+                  />
+                </GridItem>
+                <GridItem rowSpan={1} colSpan={1}>
+                  <MusicGridCard
+                    thumbnailSrc={testImage1}
+                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                    authorName="호쇼 마린"
+                    broadcasterName="betaman"
+                    broadcasterProfileSrc={testImage2}
+                    categoryName="J-POP"
+                  />
+                </GridItem>
+                <GridItem rowSpan={1} colSpan={1}>
+                  <MusicGridCard
+                    thumbnailSrc={testImage1}
+                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                    authorName="호쇼 마린"
+                    broadcasterName="betaman"
+                    broadcasterProfileSrc={testImage2}
+                    categoryName="J-POP"
+                  />
+                </GridItem>
+              </Grid>
             </ArticleBlock>
           </Article>
         </div>
