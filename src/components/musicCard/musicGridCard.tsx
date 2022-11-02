@@ -11,10 +11,10 @@ interface Props {
   broadcasterName: string;
   broadcasterProfileSrc: string | StaticImageData;
   categoryColor?: string;
-  height?: number;
+  width?: number;
 }
 
-export const MusicListCard: FC<Props> = ({
+export const MusicGridCard: FC<Props> = ({
   thumbnailSrc,
   songTitle,
   authorName,
@@ -22,7 +22,7 @@ export const MusicListCard: FC<Props> = ({
   broadcasterName,
   broadcasterProfileSrc,
   categoryColor,
-  height = 90,
+  width = 150,
 }) => {
   const titleDivRef = useRef<HTMLDivElement>(null);
   const titleSpanRef = useRef<HTMLSpanElement>(null);
@@ -49,7 +49,7 @@ export const MusicListCard: FC<Props> = ({
     <>
       <div className="music-card-wrap list">
         <div className="image-content">
-          <Image src={thumbnailSrc} alt="" width={height} height={height} />
+          <Image src={thumbnailSrc} alt="" width={width} height={width} />
           <Badge
             colorScheme={!categoryColor ? "green" : undefined}
             bgColor={categoryColor}
@@ -82,11 +82,13 @@ export const MusicListCard: FC<Props> = ({
       <style jsx>{`
         .music-card-wrap {
           display: flex;
-          justify-content: space-between;
-          align-items: center;
+          justify-content: center;
+          align-items: space-between;
+          flex-direction: column;
           position: relative;
-          width: 100%;
-          height: ${height + 2}px;
+          width: ${width + 2}px;
+          height: max-content;
+          background-color: #fff;
           border: 1px solid #eee;
           border-radius: 10px;
           box-shadow: 0 0 3px #eee;
@@ -96,15 +98,15 @@ export const MusicListCard: FC<Props> = ({
           .image-content {
             position: relative;
             display: block;
-            width: ${height}px;
-            height: ${height}px;
+            width: ${width}px;
+            height: ${width}px;
           }
 
           .text-content {
             display: block;
             position: relative;
-            width: calc(100% - ${height}px);
-            height: 100%;
+            width: 100%;
+            height: max-content;
             padding: 10px;
             overflow: hidden;
 
@@ -120,15 +122,18 @@ export const MusicListCard: FC<Props> = ({
 
             .author {
               font-size: 14px;
+              text-overflow: ellipsis;
             }
 
             .broadcaster {
-              position: absolute;
-              bottom: 10px;
-              right: 10px;
+              position: relative;
+              margin-left: auto;
+              margin-right: 0;
+              margin-top: 10px;
+              text-align: right;
               display: block;
-              width: max-content;
-              max-width: calc(100% - 20px - 30px);
+              width: 100%;
+              max-width: calc(100% - 10px);
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;

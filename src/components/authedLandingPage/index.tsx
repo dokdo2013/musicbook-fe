@@ -4,7 +4,7 @@ import { Stack } from "@chakra-ui/react";
 import { FC } from "react";
 import { CommonSideBar } from "@components/sideBar";
 import { Article, ArticleBlock } from "@components/article";
-import { MusicListCard } from "../musicCard";
+import { MusicGridCard, MusicListCard } from "../musicCard";
 
 import testImage1 from "@public/images/test/test1.png";
 import testImage2 from "@public/images/test/test2.png";
@@ -31,7 +31,7 @@ export const AuthedLandingPage: FC = () => {
                     thumbnailSrc={testImage1}
                     songTitle="Ahoy!! 우리는 호쇼해적단"
                     authorName="호쇼 마린"
-                    broadcasterName="betamanbetamanbetamanbetamanbetaman"
+                    broadcasterName="betaman"
                     broadcasterProfileSrc={testImage2}
                     categoryName="J-POP"
                   />
@@ -77,7 +77,14 @@ export const AuthedLandingPage: FC = () => {
               a
             </ArticleBlock>
             <ArticleBlock height="500px" title="📚 새로 올라온 노래책">
-              a
+              <MusicGridCard
+                thumbnailSrc={testImage1}
+                songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                authorName="호쇼 마린"
+                broadcasterName="betaman"
+                broadcasterProfileSrc={testImage2}
+                categoryName="J-POP"
+              />
             </ArticleBlock>
           </Article>
         </div>
