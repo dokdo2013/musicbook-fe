@@ -73,7 +73,13 @@ export const MusicListCard: FC<Props> = ({
               alt=""
               width={14}
               height={14}
-              style={{ display: "inline-block", marginBottom: "-2px", marginRight: "3px" }}
+              style={{
+                display: "inline-block",
+                marginBottom: "-2px",
+                marginRight: "3px",
+                borderRadius: "50%",
+                overflow: "hidden",
+              }}
             />
             {broadcasterName}
           </div>

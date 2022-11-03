@@ -22,7 +22,7 @@ export const ArticleBlock: FC<Props> = ({ children, title, height }) => {
           background-color: #fff;
           border: 1px solid #e2e8f0;
           border-radius: 10px;
-          ${height && `height: ${height};`}
+          ${height ? `height: ${height};` : "height: max-content;"}
           overflow: hidden;
 
           .article-block-title {
@@ -36,7 +36,7 @@ export const ArticleBlock: FC<Props> = ({ children, title, height }) => {
           .article-block-content {
             position: relative;
             width: 100%;
-            height: calc(100% - 50px);
+            ${height ? "height: calc(100% - 50px);" : "height: max-content;"}
             overflow-y: auto;
 
             &.no-title {
