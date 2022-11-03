@@ -107,7 +107,13 @@ export const ResponsiveMutiItemCarousel: FC<Props> = ({ children, itemMinWidth =
         </div>
         <div className="indicator">
           {[...Array(pageCount)].map((itm, idx) => (
-            <div key={idx} className={`dot ${idx === currentPageIdx ? "active" : ""}`}></div>
+            <div
+              key={idx}
+              className={`dot ${idx === currentPageIdx ? "active" : ""}`}
+              onClick={() => {
+                if (currentPageIdx !== idx) setCurrentPageIdx(idx);
+              }}
+            ></div>
           ))}
         </div>
         {availPrev && (
@@ -168,6 +174,7 @@ export const ResponsiveMutiItemCarousel: FC<Props> = ({ children, itemMinWidth =
             padding: 0 5px;
             background-color: #ffffffcc;
             z-index: 2;
+            padding-bottom: 3px;
 
             &.left-btn {
               left: 0;

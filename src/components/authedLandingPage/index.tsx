@@ -1,5 +1,5 @@
 import testImage1 from "@public/images/test/test1.png";
-import testImage2 from "@public/images/test/test2.png";
+import testImage2 from "@public/images/test/test2.jpg";
 
 import { FOOTER_HEIGHT_PX, HEADER_HEIGHT_PX, MAX_FRAME_WIDTH_PX } from "@lib/constant";
 import { useResponsive } from "@lib/hooks";
@@ -7,7 +7,7 @@ import { Stack } from "@chakra-ui/react";
 import { FC } from "react";
 import { CommonSideBar } from "@components/sideBar";
 import { Article, ArticleBlock } from "@components/article";
-import { MusicGridCard, MusicListCard } from "@components/musicCard";
+import { BookGridCard, MusicGridCard, MusicListCard } from "@/src/components/musicBookCard";
 import { ListAlign, ResponsiveGridAlign, ResponsiveMutiItemCarousel } from "@components/align";
 
 export const AuthedLandingPage: FC = () => {
@@ -76,69 +76,11 @@ export const AuthedLandingPage: FC = () => {
             </Stack>
             <ArticleBlock title="🎙️ 추천 스트리머">
               <ResponsiveMutiItemCarousel>
-                <MusicGridCard
-                  thumbnailSrc={testImage1}
-                  songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                  authorName="호쇼 마린"
+                <BookGridCard
+                  thumbnailSrc={testImage2}
+                  bookTitle="베타맨의 노래책"
                   broadcasterName="betaman"
                   broadcasterProfileSrc={testImage2}
-                  categoryName="J-POP"
-                />
-                <MusicGridCard
-                  thumbnailSrc={testImage1}
-                  songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                  authorName="호쇼 마린"
-                  broadcasterName="betaman"
-                  broadcasterProfileSrc={testImage2}
-                  categoryName="J-POP"
-                />
-                <MusicGridCard
-                  thumbnailSrc={testImage1}
-                  songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                  authorName="호쇼 마린"
-                  broadcasterName="betaman"
-                  broadcasterProfileSrc={testImage2}
-                  categoryName="J-POP"
-                />
-                <MusicGridCard
-                  thumbnailSrc={testImage1}
-                  songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                  authorName="호쇼 마린"
-                  broadcasterName="betaman"
-                  broadcasterProfileSrc={testImage2}
-                  categoryName="J-POP"
-                />
-                <MusicGridCard
-                  thumbnailSrc={testImage1}
-                  songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                  authorName="호쇼 마린"
-                  broadcasterName="betaman"
-                  broadcasterProfileSrc={testImage2}
-                  categoryName="J-POP"
-                />
-                <MusicGridCard
-                  thumbnailSrc={testImage1}
-                  songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                  authorName="호쇼 마린"
-                  broadcasterName="betaman"
-                  broadcasterProfileSrc={testImage2}
-                  categoryName="J-POP"
-                />
-                <MusicGridCard
-                  thumbnailSrc={testImage1}
-                  songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                  authorName="호쇼 마린"
-                  broadcasterName="betaman"
-                  broadcasterProfileSrc={testImage2}
-                  categoryName="J-POP"
-                />
-                <MusicGridCard
-                  thumbnailSrc={testImage1}
-                  songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                  authorName="호쇼 마린"
-                  broadcasterName="betaman"
-                  broadcasterProfileSrc={testImage2}
-                  categoryName="J-POP"
                 />
               </ResponsiveMutiItemCarousel>
             </ArticleBlock>
