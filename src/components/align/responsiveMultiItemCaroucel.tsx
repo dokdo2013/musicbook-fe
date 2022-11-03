@@ -39,7 +39,7 @@ export const ResponsiveMutiItemCarousel: FC<Props> = ({ children, itemMinWidth =
     const getCaroucelCalc = () => {
       const wrapDivCurrent = wrapDivRef.current;
       if (wrapDivCurrent) {
-        const itemCount = Math.floor(wrapDivCurrent.offsetWidth / itemMinWidth);
+        const itemCount = Math.floor(wrapDivCurrent.offsetWidth / (itemMinWidth + 10));
         const pageCount = Math.ceil(childrenCount / itemCount);
         setItemPerPageCount(itemCount);
         setPageCount(pageCount);
