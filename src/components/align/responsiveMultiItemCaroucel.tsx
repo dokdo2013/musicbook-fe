@@ -13,6 +13,7 @@ import {
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { ResponsiveGridAlign } from "./responsiveGrid";
+import { useResponsive } from "@/src/lib/hooks";
 
 interface Props {
   children?: ReactNode;
@@ -27,6 +28,7 @@ export const ResponsiveMutiItemCarousel: FC<Props> = ({ children, itemMinWidth =
   const [itemPerPageCount, setItemPerPageCount] = useState(0);
   const [currentPageIdx, setCurrentPageIdx] = useState(0);
   const wrapDivRef = useRef<HTMLDivElement>(null);
+  const { isLoading, isPC, isTablet, isMobile } = useResponsive();
 
   useEffect(() => {
     setAvailNext(pageCount > 1 && currentPageIdx < pageCount - 1);
@@ -39,6 +41,7 @@ export const ResponsiveMutiItemCarousel: FC<Props> = ({ children, itemMinWidth =
     const getCaroucelCalc = () => {
       const wrapDivCurrent = wrapDivRef.current;
       if (wrapDivCurrent) {
+        setCurrentPageIdx(0);
         const itemCount = Math.floor(wrapDivCurrent.offsetWidth / (itemMinWidth + 10));
         const pageCount = Math.ceil(childrenCount / itemCount);
         setItemPerPageCount(itemCount);
@@ -49,7 +52,7 @@ export const ResponsiveMutiItemCarousel: FC<Props> = ({ children, itemMinWidth =
 
     setTimeout(getCaroucelCalc, 100);
     window.addEventListener("resize", getCaroucelCalc);
-  }, [wrapDivRef, children, itemMinWidth]);
+  }, [wrapDivRef, children, itemMinWidth, isLoading, isPC, isTablet, isMobile]);
 
   return (
     <>
