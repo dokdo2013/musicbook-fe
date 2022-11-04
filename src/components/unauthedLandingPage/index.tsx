@@ -1,23 +1,17 @@
 import imageMain1 from "@public/images/main/main-1.png";
 
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { GLOBAL_PADDING_1, GLOBAL_PADDING_2, MAX_FRAME_WIDTH_PX } from "@lib/constant";
 import { useResponsive } from "@lib/hooks";
 import Image from "next/image";
 import { Button, Stack } from "@chakra-ui/react";
 import { openLoginModal } from "@lib/functions";
 import { useDispatch } from "react-redux";
-import { useSession } from "next-auth/react";
 import { CommonSideBar } from "../sideBar";
 
 export const UnauthedLadingPage: FC = () => {
   const dispatch = useDispatch();
-  const { data, status } = useSession();
-  const { isMobile, isTablet, isPC, isLoading } = useResponsive();
-
-  useEffect(() => {
-    console.log("auth", status, data);
-  }, [data, status]);
+  const { isMobile, isTablet, isLoading } = useResponsive();
 
   return (
     <>

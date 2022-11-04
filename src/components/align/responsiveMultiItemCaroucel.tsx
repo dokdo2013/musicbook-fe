@@ -79,7 +79,6 @@ export const ResponsiveMutiItemCarousel: FC<Props> = ({ children, itemMinWidth =
                 > = [];
                 const grids: Array<typeof childrenArray> = [];
                 const childrenCount = Children.count(children);
-                console.log("childrenCount", childrenCount, itemPerPageCount);
                 Children.forEach(children, (child, idx) => {
                   childrenArray.push(child);
                   if (

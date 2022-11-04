@@ -7,3 +7,7 @@ export const openLoginModal = async (dispatch: Dispatch<AnyAction>, isOpen: bool
     dispatch(setLoginModalOpen(isOpen));
   }
 };
+
+export const consoleLog = (tag: string, ...args: any[]) => {
+  if (process.env.NODE_ENV === "development") console.log(`[${tag}]`, ...args);
+};
