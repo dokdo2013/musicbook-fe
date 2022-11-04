@@ -9,6 +9,7 @@ import { CommonSideBar } from "@components/sideBar";
 import { Article, ArticleBlock } from "@components/article";
 import { BookGridCard, MusicGridCard, MusicListCard } from "@/src/components/musicBookCard";
 import { ListAlign, ResponsiveGridAlign, ResponsiveMutiItemCarousel } from "@components/align";
+import { ArticleBannerBlock } from "../article/articleBannerBlock";
 
 export const AuthedLandingPage: FC = () => {
   const { isMobile } = useResponsive();
@@ -19,7 +20,11 @@ export const AuthedLandingPage: FC = () => {
         <div className="content">
           <CommonSideBar />
           <Article>
-            <ArticleBlock height="100px">GWAN-GO IS CRAZY 광고배너</ArticleBlock>
+            <ArticleBannerBlock height="100px">
+              <div>1</div>
+              <div>2</div>
+              <div>3</div>
+            </ArticleBannerBlock>
             <Stack
               spacing={isMobile ? 0 : 2}
               direction={isMobile ? "column" : "row"}
