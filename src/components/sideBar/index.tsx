@@ -22,7 +22,8 @@ export const CommonSideBar: FC<Props> = ({ mode, align }) => {
 
   const logInOut = async () => {
     if (status === "unauthenticated") await openLoginModal(dispatch, true);
-    else if (status === "authenticated") await signOut();
+    else if (status === "authenticated")
+      await signOut({ callbackUrl: `${window.location.origin}/` });
   };
 
   useEffect(() => {

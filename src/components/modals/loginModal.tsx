@@ -22,6 +22,9 @@ interface Props {
 }
 
 export const LoginModal: FC<Props> = ({ isOpen, onClose }) => {
+  const signInMusicBook = (provider: string) =>
+    signIn(provider, { callbackUrl: `${window.location.origin}/main` });
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} isCentered colorScheme="teal" size="sm">
@@ -43,11 +46,15 @@ export const LoginModal: FC<Props> = ({ isOpen, onClose }) => {
           </ModalBody>
           <ModalFooter>
             <Stack direction="column" align="stretch" w="full">
-              <Button colorScheme="purple" fontSize="18px" onClick={() => signIn("twitch")}>
+              <Button
+                colorScheme="purple"
+                fontSize="18px"
+                onClick={() => signInMusicBook("twitch")}
+              >
                 <Image src={twitchLogo} alt="" height={18} style={{ marginRight: "10px" }} />
                 트위치로 로그인
               </Button>
-              <Button colorScheme="gray" fontSize="18px" onClick={() => signIn("google")}>
+              <Button colorScheme="gray" fontSize="18px" onClick={() => signInMusicBook("google")}>
                 <Image src={googleLogo} alt="" height={18} style={{ marginRight: "10px" }} />
                 구글로 로그인
               </Button>
