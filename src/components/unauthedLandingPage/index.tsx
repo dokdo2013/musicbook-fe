@@ -8,10 +8,19 @@ import { GLOBAL_PADDING_1, GLOBAL_PADDING_2, MAX_FRAME_WIDTH_PX } from "@lib/con
 import { useResponsive } from "@lib/hooks";
 import { openLoginModal } from "@lib/functions";
 import { CommonSideBar } from "@components/sideBar";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 export const UnauthedLadingPage: FC = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
+  const { status } = useSession();
   const { isMobile, isTablet, isLoading } = useResponsive();
+
+  const startMusicBookBtn = async () => {
+    if (status === "unauthenticated") await openLoginModal(dispatch, true);
+    else if (status === "authenticated") await router.push("/main");
+  };
 
   return (
     <>
@@ -42,7 +51,7 @@ export const UnauthedLadingPage: FC = () => {
                     paddingLeft="2em"
                     paddingRight="2em"
                     colorScheme="teal"
-                    onClick={async () => await openLoginModal(dispatch, true)}
+                    onClick={startMusicBookBtn}
                   >
                     지금 시작하기
                   </Button>
@@ -111,7 +120,7 @@ export const UnauthedLadingPage: FC = () => {
               paddingLeft="2em"
               paddingRight="2em"
               colorScheme="teal"
-              onClick={() => openLoginModal(dispatch, true)}
+              onClick={startMusicBookBtn}
             >
               지금 시작하기
             </Button>

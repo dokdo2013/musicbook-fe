@@ -2,12 +2,12 @@ import { GetStaticProps } from "next";
 import { FC, useEffect } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useSession } from "next-auth/react";
-import { AuthedLandingArticle } from "@/src/components/authedLandingArticle";
-import { consoleLog } from "../lib/functions";
 import { useRouter } from "next/router";
-import { FOOTER_HEIGHT_PX, HEADER_HEIGHT_PX, MAX_FRAME_WIDTH_PX } from "../lib/constant";
-import { CommonSideBar } from "../components/sideBar";
-import { useResponsive } from "../lib/hooks";
+import { FOOTER_HEIGHT_PX, HEADER_HEIGHT_PX, MAX_FRAME_WIDTH_PX } from "@lib/constant";
+import { useResponsive } from "@lib/hooks";
+import { consoleLog } from "@lib/functions";
+import { CommonSideBar } from "@components/sideBar";
+import { AuthedLandingArticle } from "@components/authedLandingArticle";
 
 export const getStaticProps: GetStaticProps = async ({ locale, locales, params }: any) => ({
   props: {
@@ -19,7 +19,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, locales, params }
 
 export async function getStaticPaths() {
   return {
-    paths: ["/main"],
+    paths: ["/main", "/mypage", "/book"],
     fallback: false,
   };
 }
@@ -49,6 +49,15 @@ const LadingPage: FC<Props> = ({ pageParams }) => {
         </div>
       </div>
       <style jsx>{`
+        @keyframes intro {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
         .main-wrap {
           display: flex;
           justify-content: center;
@@ -57,6 +66,7 @@ const LadingPage: FC<Props> = ({ pageParams }) => {
           width: 100%;
           height: calc(100% - ${HEADER_HEIGHT_PX}px - ${FOOTER_HEIGHT_PX}px);
           overflow: hidden;
+          animation: intro 0.5s ease-in-out;
 
           .content {
             position: relative;
