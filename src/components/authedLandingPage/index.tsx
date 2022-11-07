@@ -6,7 +6,7 @@ import { useResponsive } from "@lib/hooks";
 import { Stack } from "@chakra-ui/react";
 import { FC } from "react";
 import { CommonSideBar } from "@components/sideBar";
-import { Article, ArticleBlock } from "@components/article";
+import { Article, ArticleBlock, ArticleList, ArticleListItem } from "@components/article";
 import { BookGridCard, MusicGridCard, MusicListCard } from "@/src/components/musicBookCard";
 import { ListAlign, ResponsiveGridAlign, ResponsiveMutiItemCarousel } from "@components/align";
 import { ArticleBannerBlock } from "../article/articleBannerBlock";
@@ -31,7 +31,7 @@ export const AuthedLandingPage: FC = () => {
               align="center"
               width="100%"
             >
-              <ArticleBlock height="500px" title="🌟 인기 노래책">
+              <ArticleBlock height={isMobile ? "300px" : "500px"} title="🌟 인기 노래책">
                 <ListAlign>
                   <MusicListCard
                     thumbnailSrc={testImage1}
@@ -75,8 +75,24 @@ export const AuthedLandingPage: FC = () => {
                   />
                 </ListAlign>
               </ArticleBlock>
-              <ArticleBlock height="500px" title="📌 공지사항 & 이벤트">
-                a
+              <ArticleBlock height={isMobile ? "300px" : "500px"} title="📌 공지사항 & 이벤트">
+                <ArticleList>
+                  <ArticleListItem category="cate" title="타이틀" />
+                  <ArticleListItem category="cate" title="타이틀" />
+                  <ArticleListItem category="cate" title="타이틀" />
+                  <ArticleListItem category="cate" title="타이틀" />
+                  <ArticleListItem category="cate" title="타이틀" />
+                  <ArticleListItem category="cate" title="타이틀" />
+                  <ArticleListItem category="cate" title="타이틀" />
+                  <ArticleListItem category="cate" title="타이틀" />
+                  <ArticleListItem category="cate" title="타이틀" />
+                  <ArticleListItem category="cate" title="타이틀" />
+                  <ArticleListItem category="cate" title="타이틀" />
+                  <ArticleListItem category="cate" title="타이틀" />
+                  <ArticleListItem category="cate" title="타이틀" />
+                  <ArticleListItem category="cate" title="타이틀" />
+                  <ArticleListItem category="cate" title="타이틀" />
+                </ArticleList>
               </ArticleBlock>
             </Stack>
             <ArticleBlock title="🎙️ 추천 스트리머">

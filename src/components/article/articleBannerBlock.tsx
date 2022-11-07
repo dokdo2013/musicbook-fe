@@ -1,4 +1,4 @@
-import { FC, ReactNode, Children, useState, useEffect, useRef } from "react";
+import { FC, ReactNode, Children, useState, useEffect } from "react";
 
 interface Props {
   children: ReactNode;
@@ -26,7 +26,7 @@ export const ArticleBannerBlock: FC<Props> = ({ children, height, intervalTime =
         clearInterval(interval);
       };
     }
-  }, [children]);
+  }, [children, intervalTime, bannerItemCount]);
 
   return (
     <>
