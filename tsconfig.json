@@ -16,8 +16,6 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
-      "@src/*": ["src/*"],
       "@redux": ["src/redux/index.ts"],
       "@redux/*": ["src/redux/*"],
       "@pages/*": ["src/pages/*"],
@@ -26,6 +24,8 @@
       "@public/*": ["public/*"],
       "@components/*": ["src/components/*"],
       "@lib/*": ["src/lib/*"],
+      "@src/*": ["src/*"],
+      "@/*": ["./*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/types/**/*.d.ts"],

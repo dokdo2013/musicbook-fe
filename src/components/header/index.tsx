@@ -7,18 +7,13 @@ import { Button, Stack } from "@chakra-ui/react";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
-import {
-  GLOBAL_PADDING_1,
-  MAX_FRAME_WIDTH_PX,
-  HEADER_HEIGHT_PX,
-  GLOBAL_PADDING_3,
-} from "@lib/constant";
+import { GLOBAL_PADDING_1, MAX_FRAME_WIDTH_PX, HEADER_HEIGHT_PX } from "@lib/constant";
 import { useResponsive } from "@lib/hooks";
 import { openLoginModal } from "@lib/functions";
 import { signOut, useSession } from "next-auth/react";
-import { setSideBarOpen } from "@/src/redux/modules/common";
+import { setSideBarOpen } from "@redux/modules/common";
 import { useSelector } from "react-redux";
-import { ReduxStates } from "@/src/redux/modules";
+import { ReduxStates } from "@redux/modules";
 
 export const Header: FC = () => {
   const { status } = useSession();

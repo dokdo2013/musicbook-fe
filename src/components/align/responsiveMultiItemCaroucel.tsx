@@ -13,7 +13,7 @@ import {
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { ResponsiveGridAlign } from "./responsiveGrid";
-import { useResponsive } from "@/src/lib/hooks";
+import { useResponsive } from "@lib/hooks";
 
 interface Props {
   children?: ReactNode;

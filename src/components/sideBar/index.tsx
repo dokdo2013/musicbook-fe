@@ -1,13 +1,13 @@
-import { useResponsive } from "@/src/lib/hooks";
+import { useResponsive } from "@lib/hooks";
 import { Stack } from "@chakra-ui/react";
 import { FC, useEffect } from "react";
 import { SideBar } from "./sideBar";
 import { SideBarMenu } from "./sideBarMenu";
 import { SearchInput, SearchCategory } from "@components/searchForm";
 import { useDispatch } from "react-redux";
-import { setSideBarOpen } from "@/src/redux/modules/common";
+import { setSideBarOpen } from "@redux/modules/common";
 import { signOut, useSession } from "next-auth/react";
-import { openLoginModal } from "@/src/lib/functions";
+import { openLoginModal } from "@lib/functions";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {

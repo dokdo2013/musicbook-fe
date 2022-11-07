@@ -1,4 +1,4 @@
-import { useResponsive } from "@/src/lib/hooks";
+import { useResponsive } from "@lib/hooks";
 import { FC, useEffect, useState } from "react";
 
 export const DebugComponent: FC = () => {

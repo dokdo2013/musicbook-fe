@@ -2,9 +2,9 @@ import { GetStaticProps } from "next";
 import { FC, useEffect } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useSession } from "next-auth/react";
-import { UnauthedLadingPage } from "@components/unauthedLandingPage";
-import { consoleLog } from "../lib/functions";
 import { useRouter } from "next/router";
+import { consoleLog } from "@lib/functions";
+import { UnauthedLadingPage } from "@components/unauthedLandingPage";
 
 export const getStaticProps: GetStaticProps = async ({ locale, locales }: any) => ({
   props: {

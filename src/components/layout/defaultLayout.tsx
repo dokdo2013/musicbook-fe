@@ -1,9 +1,9 @@
 import { FC, ReactNode } from "react";
+import { useSession } from "next-auth/react";
+import { useResponsive } from "@lib/hooks";
 import { Header } from "@components/header";
 import { Footer } from "@components/footer";
-import { useSession } from "next-auth/react";
-import { useResponsive } from "@/src/lib/hooks";
-import { LoadingScreen } from "../loadingScreen";
+import { LoadingScreen } from "@components/loadingScreen";
 
 interface Props {
   children: ReactNode;
@@ -11,7 +11,7 @@ interface Props {
 
 export const DefaultLayout: FC<Props> = ({ children }) => {
   const { status } = useSession();
-  const { isMobile, isLoading } = useResponsive();
+  const { isLoading } = useResponsive();
 
   return (
     <>

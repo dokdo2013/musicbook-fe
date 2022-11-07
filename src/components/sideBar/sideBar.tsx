@@ -1,11 +1,11 @@
-import { useResponsive } from "@/src/lib/hooks";
 import { FC, ReactNode, useEffect, useState } from "react";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faAngleLeft, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { useResponsive } from "@lib/hooks";
 import { ReduxStates } from "@redux/modules";
-import { setSideBarOpen } from "@/src/redux/modules/common";
+import { setSideBarOpen } from "@redux/modules/common";
 
 interface Props {
   children: ReactNode;

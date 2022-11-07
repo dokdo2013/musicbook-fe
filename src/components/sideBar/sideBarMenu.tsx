@@ -1,5 +1,5 @@
-import { GLOBAL_PADDING_1, GLOBAL_PADDING_3 } from "@lib/constant";
 import { FC, ReactNode } from "react";
+import { GLOBAL_PADDING_1, GLOBAL_PADDING_3 } from "@lib/constant";
 
 interface Props {
   children: ReactNode;

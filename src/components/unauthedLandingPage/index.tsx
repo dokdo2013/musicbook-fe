@@ -1,13 +1,13 @@
 import imageMain1 from "@public/images/main/main-1.png";
 
 import { FC } from "react";
-import { GLOBAL_PADDING_1, GLOBAL_PADDING_2, MAX_FRAME_WIDTH_PX } from "@lib/constant";
-import { useResponsive } from "@lib/hooks";
 import Image from "next/image";
 import { Button, Stack } from "@chakra-ui/react";
-import { openLoginModal } from "@lib/functions";
 import { useDispatch } from "react-redux";
-import { CommonSideBar } from "../sideBar";
+import { GLOBAL_PADDING_1, GLOBAL_PADDING_2, MAX_FRAME_WIDTH_PX } from "@lib/constant";
+import { useResponsive } from "@lib/hooks";
+import { openLoginModal } from "@lib/functions";
+import { CommonSideBar } from "@components/sideBar";
 
 export const UnauthedLadingPage: FC = () => {
   const dispatch = useDispatch();

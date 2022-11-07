@@ -1,7 +1,6 @@
-import { useResponsive } from "@/src/lib/hooks";
-import { Badge } from "@chakra-ui/react";
 import Image, { StaticImageData } from "next/image";
 import { FC, useEffect, useRef, useState } from "react";
+import { useResponsive } from "@lib/hooks";
 
 interface Props {
   thumbnailSrc: string | StaticImageData;

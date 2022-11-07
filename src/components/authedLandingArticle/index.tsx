@@ -5,9 +5,9 @@ import { useResponsive } from "@lib/hooks";
 import { Stack } from "@chakra-ui/react";
 import { FC } from "react";
 import { Article, ArticleBlock, ArticleList, ArticleListItem } from "@components/article";
-import { BookGridCard, MusicGridCard, MusicListCard } from "@/src/components/musicBookCard";
+import { BookGridCard, MusicGridCard, MusicListCard } from "@components/musicBookCard";
 import { ListAlign, ResponsiveGridAlign, ResponsiveMutiItemCarousel } from "@components/align";
-import { ArticleBannerBlock } from "../article/articleBannerBlock";
+import { ArticleBannerBlock } from "@components/article/articleBannerBlock";
 
 export const AuthedLandingArticle: FC = () => {
   const { isMobile } = useResponsive();

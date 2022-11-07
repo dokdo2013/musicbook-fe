@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { LoginModal } from "./loginModal";
 import { ReduxStates } from "@redux/modules";
 import { openLoginModal } from "@lib/functions";
+import { LoginModal } from "./loginModal";
 
 export const Modals: FC = () => {
   const dispatch = useDispatch();
