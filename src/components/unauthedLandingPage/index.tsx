@@ -17,7 +17,7 @@ export const UnauthedLadingPage: FC = () => {
   const { status } = useSession();
   const { isMobile, isTablet, isLoading } = useResponsive();
 
-  const startMusicBookBtn = async () => {
+  const startMusicBookBtnOnClick = async () => {
     if (status === "unauthenticated") await openLoginModal(dispatch, true);
     else if (status === "authenticated") await router.push("/main");
   };
@@ -51,7 +51,7 @@ export const UnauthedLadingPage: FC = () => {
                     paddingLeft="2em"
                     paddingRight="2em"
                     colorScheme="teal"
-                    onClick={startMusicBookBtn}
+                    onClick={startMusicBookBtnOnClick}
                   >
                     지금 시작하기
                   </Button>
@@ -120,7 +120,7 @@ export const UnauthedLadingPage: FC = () => {
               paddingLeft="2em"
               paddingRight="2em"
               colorScheme="teal"
-              onClick={startMusicBookBtn}
+              onClick={startMusicBookBtnOnClick}
             >
               지금 시작하기
             </Button>

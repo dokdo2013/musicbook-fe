@@ -1,59 +1,36 @@
 import mainLogo from "@public/images/main-logo.png";
 
 import Image from "next/image";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import Link from "next/link";
-import { Button, Progress, Stack } from "@chakra-ui/react";
+import { Button, Stack } from "@chakra-ui/react";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
-import { GLOBAL_PADDING_1, MAX_FRAME_WIDTH_PX, HEADER_HEIGHT_PX } from "@lib/constant";
+import {
+  GLOBAL_PADDING_1,
+  MAX_FRAME_WIDTH_PX,
+  HEADER_HEIGHT_PX,
+  MUSICBOOK_URL,
+} from "@lib/constant";
 import { useResponsive } from "@lib/hooks";
-import { openLoginModal } from "@lib/functions";
-import { signOut, useSession } from "next-auth/react";
-import { setSideBarOpen } from "@redux/modules/common";
+import { useSession } from "next-auth/react";
 import { useSelector } from "react-redux";
 import { ReduxStates } from "@redux/modules";
-import Router from "next/router";
+import { getGoToHomeHref, logInOut, openSidebar } from "@lib/functions";
 
 export const Header: FC = () => {
   const { status } = useSession();
   const dispatch = useDispatch();
   const sideBarOpen = useSelector(({ common }: ReduxStates) => common.sideBarOpen);
   const { isMobile } = useResponsive();
-  const [isProgress, setIsProgress] = useState(false);
-
-  const getMainLogoHref = () =>
-    status === "unauthenticated" || status === "loading" ? "/" : "/main";
-
-  const logInOut = async () => {
-    if (status === "unauthenticated") await openLoginModal(dispatch, true);
-    else if (status === "authenticated")
-      await signOut({ callbackUrl: `${window.location.origin}/` });
-  };
-
-  const routerChangeStartHandler = () => {
-    setIsProgress(true);
-  };
-  const routerChangeDoneHandler = () => {
-    setIsProgress(false);
-  };
-
-  Router.events.on("routeChangeStart", routerChangeStartHandler);
-  Router.events.on("routeChangeComplete", routerChangeDoneHandler);
-  Router.events.on("routeChangeError", routerChangeDoneHandler);
 
   return (
     <>
       <div className="header-wrap">
-        {isProgress && (
-          <div className="progress">
-            <Progress size="xs" colorScheme="teal" isIndeterminate />
-          </div>
-        )}
         <div className="content">
           <div className="content-left">
-            <Link href={getMainLogoHref()}>
+            <Link href={getGoToHomeHref(status)}>
               <Image src={mainLogo} alt="" height={40} />
             </Link>
           </div>
@@ -62,10 +39,12 @@ export const Header: FC = () => {
               <Stack spacing={4} direction="row" align="center">
                 {status === "authenticated" && (
                   <>
-                    <Button colorScheme="teal" size="sm">
-                      내 노래책
-                    </Button>
-                    <Link href={"/mypage"}>
+                    <Link href={MUSICBOOK_URL.book}>
+                      <Button colorScheme="teal" size="sm">
+                        내 노래책
+                      </Button>
+                    </Link>
+                    <Link href={MUSICBOOK_URL.mypage}>
                       <Button colorScheme="gray" size="sm">
                         마이페이지
                       </Button>
@@ -73,15 +52,17 @@ export const Header: FC = () => {
                   </>
                 )}
                 {status !== "authenticated" && (
-                  <Button colorScheme="gray" size="sm">
-                    이용안내
-                  </Button>
+                  <Link href={MUSICBOOK_URL.guide}>
+                    <Button colorScheme="gray" size="sm">
+                      이용안내
+                    </Button>
+                  </Link>
                 )}
                 <Button
                   colorScheme={status === "unauthenticated" ? "teal" : "gray"}
                   size={"sm"}
                   isLoading={status === "loading" ? true : false}
-                  onClick={logInOut}
+                  onClick={() => logInOut(dispatch, status)}
                 >
                   {status === "unauthenticated" ? "로그인" : "로그아웃"}
                 </Button>
@@ -93,13 +74,13 @@ export const Header: FC = () => {
                     <Icon
                       className={`search-btn`}
                       icon={faMagnifyingGlass}
-                      onClick={() => dispatch(setSideBarOpen(true))}
+                      onClick={() => openSidebar(dispatch, true)}
                     />
                   )}
                   <Icon
                     className={`hamburger-btn ${sideBarOpen && "open"}`}
                     icon={sideBarOpen ? faXmark : faBars}
-                    onClick={() => dispatch(setSideBarOpen(!sideBarOpen))}
+                    onClick={() => openSidebar(dispatch, !sideBarOpen)}
                   />
                 </Stack>
               </>
@@ -150,13 +131,6 @@ export const Header: FC = () => {
           border-bottom: 1px solid #e2e8f0;
           background-color: #ffffff;
           z-index: 100;
-
-          .progress {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-          }
 
           .content {
             display: flex;

@@ -4,6 +4,7 @@ import { useResponsive } from "@lib/hooks";
 import { Header } from "@components/header";
 import { Footer } from "@components/footer";
 import { LoadingScreen } from "@components/loadingScreen";
+import { RouterProgress } from "@components/routerProgress";
 
 interface Props {
   children: ReactNode;
@@ -15,6 +16,7 @@ export const DefaultLayout: FC<Props> = ({ children }) => {
 
   return (
     <>
+      <RouterProgress />
       <Header />
       {children}
       <Footer />

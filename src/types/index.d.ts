@@ -7,3 +7,5 @@ namespace NodeJS {
     TWITCH_CLIENT_SECRET: string;
   }
 }
+
+type SessionStatus = "authenticated" | "loading" | "unauthenticated";

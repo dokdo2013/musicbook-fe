@@ -5,10 +5,11 @@ import { SideBar } from "./sideBar";
 import { SideBarMenu } from "./sideBarMenu";
 import { SearchInput, SearchCategory } from "@components/searchForm";
 import { useDispatch } from "react-redux";
-import { setSideBarOpen } from "@redux/modules/common";
-import { signOut, useSession } from "next-auth/react";
-import { openLoginModal } from "@lib/functions";
+import { useSession } from "next-auth/react";
+import { logInOut, openSidebar } from "@lib/functions";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
+import { MUSICBOOK_URL } from "@lib/constant";
 
 interface Props {
   mode?: "fixed" | "semi" | "hidden";
@@ -20,14 +21,8 @@ export const CommonSideBar: FC<Props> = ({ mode, align }) => {
   const { isLoading, isPC, isTablet, isMobile } = useResponsive();
   const { status } = useSession();
 
-  const logInOut = async () => {
-    if (status === "unauthenticated") await openLoginModal(dispatch, true);
-    else if (status === "authenticated")
-      await signOut({ callbackUrl: `${window.location.origin}/` });
-  };
-
   useEffect(() => {
-    dispatch(setSideBarOpen(false));
+    openSidebar(dispatch, false);
   }, [isLoading, isPC, isTablet, isMobile]);
 
   return (
@@ -47,12 +42,18 @@ export const CommonSideBar: FC<Props> = ({ mode, align }) => {
               </Stack>
             </SideBarMenu>
 
-            <SideBarMenu>내 노래책</SideBarMenu>
-            <SideBarMenu>마이페이지</SideBarMenu>
+            <Link href={MUSICBOOK_URL.book}>
+              <SideBarMenu>내 노래책</SideBarMenu>
+            </Link>
+            <Link href={MUSICBOOK_URL.mypage}>
+              <SideBarMenu>마이페이지</SideBarMenu>
+            </Link>
           </>
         )}
-        <SideBarMenu>이용안내</SideBarMenu>
-        <SideBarMenu onClick={logInOut}>
+        <Link href={MUSICBOOK_URL.guide}>
+          <SideBarMenu>이용안내</SideBarMenu>
+        </Link>
+        <SideBarMenu onClick={() => logInOut(dispatch, status)}>
           {status === "unauthenticated" ? "로그인" : "로그아웃"}
         </SideBarMenu>
       </SideBar>

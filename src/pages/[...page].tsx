@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { FOOTER_HEIGHT_PX, HEADER_HEIGHT_PX, MAX_FRAME_WIDTH_PX } from "@lib/constant";
 import { useResponsive } from "@lib/hooks";
-import { consoleLog } from "@lib/functions";
+import { consoleLog, getStaticPathArray } from "@lib/functions";
 import { CommonSideBar } from "@components/sideBar";
 import { AuthedLandingArticle } from "@components/authedLandingArticle";
 
@@ -18,8 +18,9 @@ export const getStaticProps: GetStaticProps = async ({ locale, locales, params }
 });
 
 export async function getStaticPaths() {
+  const paths = getStaticPathArray();
   return {
-    paths: ["/main", "/mypage", "/book"],
+    paths,
     fallback: false,
   };
 }

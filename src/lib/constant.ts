@@ -5,3 +5,10 @@ export const GLOBAL_PADDING_1 = 30;
 export const GLOBAL_PADDING_2 = 20;
 export const GLOBAL_PADDING_3 = 10;
 export const GLOBAL_PADDING_4 = 5;
+export const MUSICBOOK_URL: { [key: string]: string } = {
+  index: "/",
+  main: "/main",
+  mypage: "/mypage",
+  book: "/book",
+  guide: "/guide",
+};
