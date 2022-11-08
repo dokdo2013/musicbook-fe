@@ -20,10 +20,6 @@ const App: FC<AppProps> = ({ Component, ...rest }: AppProps) => {
       <SessionProvider session={pageProps.session}>
         <ChakraProvider>
           <DefaultLayout>
-            <Head>
-              <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-              <title>노래책</title>
-            </Head>
             {process.env.NODE_ENV !== "production" && <DebugComponent />}
             <Modals />
             <Component {...pageProps} />

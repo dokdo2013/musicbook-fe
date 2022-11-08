@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { consoleLog } from "@lib/functions";
 import { UnauthedLadingArticle } from "@components/article";
 import { CommonSideBar } from "@components/sideBar";
+import Head from "next/head";
 
 export const getStaticProps: GetStaticProps = async ({ locale, locales }: any) => {
   return {
@@ -24,6 +25,10 @@ const LadingPage: FC = () => {
 
   return (
     <>
+      <Head>
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <title>노래책</title>
+      </Head>
       <CommonSideBar mode="hidden" align="right" />
       <UnauthedLadingArticle />
     </>

@@ -8,6 +8,7 @@ import { consoleLog, getStaticPathArray, openLoginModal } from "@lib/functions";
 import { CommonSideBar } from "@components/sideBar";
 import { AuthedLandingArticle } from "@components/article";
 import { useDispatch } from "react-redux";
+import Head from "next/head";
 
 export const getStaticProps: GetStaticProps = async ({ locale, locales, params }: any) => {
   return {
@@ -38,16 +39,39 @@ const LadingPage: FC<Props> = ({ page, pageParam }) => {
   const dispatch = useDispatch();
   const { data, status } = useSession();
 
+  const getHeadTitle = () => {
+    let title = "노래책";
+    switch (page) {
+      case "main":
+        title += " - 홈";
+        break;
+      case "mypage":
+        title += " - 마이페이지";
+        break;
+      case "book":
+        title += ` - ${data?.user?.name}의 노래책`;
+        break;
+      case "guide":
+        title += " - 이용안내";
+        break;
+    }
+    return title;
+  };
+
   useEffect(() => {
     if ((status === "unauthenticated" && page !== "guide") || !page) {
       router.push("/");
       openLoginModal(dispatch, true);
     }
     consoleLog("auth", status, data);
-  }, [data, status, router]);
+  }, [data, status, router, dispatch, page]);
 
   return (
     <>
+      <Head>
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <title>{getHeadTitle()}</title>
+      </Head>
       {page && <CommonSideBar page={page} />}
       {status === "authenticated" && page && page === "main" && <AuthedLandingArticle />}
     </>
