@@ -4,10 +4,15 @@ import testImage2 from "@public/images/test/test2.jpg";
 import { useResponsive } from "@lib/hooks";
 import { Stack } from "@chakra-ui/react";
 import { FC } from "react";
-import { Article, ArticleBlock, ArticleList, ArticleListItem } from "@components/article";
+import {
+  Article,
+  ArticleBlock,
+  ArticleList,
+  ArticleListItem,
+  ArticleBannerBlock,
+} from "@components/article/modules";
 import { BookGridCard, MusicGridCard, MusicListCard } from "@components/musicBookCard";
 import { ListAlign, ResponsiveGridAlign, ResponsiveMutiItemCarousel } from "@components/align";
-import { ArticleBannerBlock } from "@components/article/articleBannerBlock";
 
 export const AuthedLandingArticle: FC = () => {
   const { isMobile } = useResponsive();

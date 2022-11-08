@@ -3,16 +3,11 @@ import { FC, useEffect } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import {
-  FOOTER_HEIGHT_PX,
-  HEADER_HEIGHT_PX,
-  MAX_FRAME_WIDTH_PX,
-  MUSICBOOK_URL_KEYS,
-} from "@lib/constant";
-import { useResponsive } from "@lib/hooks";
-import { consoleLog, getStaticPathArray } from "@lib/functions";
+import { MUSICBOOK_URL_KEYS } from "@lib/constant";
+import { consoleLog, getStaticPathArray, openLoginModal } from "@lib/functions";
 import { CommonSideBar } from "@components/sideBar";
-import { AuthedLandingArticle } from "@components/authedLandingArticle";
+import { AuthedLandingArticle } from "@components/article";
+import { useDispatch } from "react-redux";
 
 export const getStaticProps: GetStaticProps = async ({ locale, locales, params }: any) => {
   return {
@@ -40,58 +35,21 @@ interface Props {
 
 const LadingPage: FC<Props> = ({ page, pageParam }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { data, status } = useSession();
-  const { isMobile } = useResponsive();
 
   useEffect(() => {
-    if (status === "unauthenticated") router.push("/");
+    if ((status === "unauthenticated" && page !== "guide") || !page) {
+      router.push("/");
+      openLoginModal(dispatch, true);
+    }
     consoleLog("auth", status, data);
   }, [data, status, router]);
 
   return (
     <>
-      <div className={`main-wrap ${isMobile && "mobile"}`}>
-        <div className="content">
-          {page && <CommonSideBar page={page} />}
-          {status === "authenticated" && page && page === "main" && <AuthedLandingArticle />}
-        </div>
-      </div>
-      <style jsx>{`
-        @keyframes intro {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        .main-wrap {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          position: relative;
-          width: 100%;
-          height: calc(100% - ${HEADER_HEIGHT_PX}px - ${FOOTER_HEIGHT_PX}px);
-          overflow: hidden;
-          animation: intro 0.5s ease-in-out;
-
-          .content {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            max-width: ${MAX_FRAME_WIDTH_PX}px;
-            height: 100%;
-          }
-        }
-        .main-wrap.mobile {
-          .sidebar {
-            display: none;
-          }
-        }
-      `}</style>
+      {page && <CommonSideBar page={page} />}
+      {status === "authenticated" && page && page === "main" && <AuthedLandingArticle />}
     </>
   );
 };

@@ -1,6 +1,4 @@
-import { Article } from "./article";
-import { ArticleBlock } from "./articleBlock";
-import { ArticleList } from "./articleList";
-import { ArticleListItem } from "./articleList";
+import { UnauthedLadingArticle } from "./unauthedLandingArticle";
+import { AuthedLandingArticle } from "./authedLandingArticle";
 
-export { Article, ArticleBlock, ArticleList, ArticleListItem };
+export { UnauthedLadingArticle, AuthedLandingArticle };

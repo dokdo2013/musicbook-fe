@@ -7,11 +7,10 @@ import { useDispatch } from "react-redux";
 import { GLOBAL_PADDING_1, GLOBAL_PADDING_2, MAX_FRAME_WIDTH_PX } from "@lib/constant";
 import { useResponsive } from "@lib/hooks";
 import { openLoginModal } from "@lib/functions";
-import { CommonSideBar } from "@components/sideBar";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-export const UnauthedLadingPage: FC = () => {
+export const UnauthedLadingArticle: FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { status } = useSession();
@@ -24,109 +23,115 @@ export const UnauthedLadingPage: FC = () => {
 
   return (
     <>
-      <div className={`main-wrap ${isMobile && "mobile"}`}>
-        <CommonSideBar mode="hidden" align="right" />
-        <div className="section section-1">
-          <div className="content">
-            <div className="subtitle-wrap">
-              <div className="subtitle-1">
-                <span>
-                  <span className="bold">편리한 신청곡 관리</span>로 보다
-                </span>
-                <span>풍성한 음악 방송을 만드세요</span>
-              </div>
-              <div className="subtitle-2">
-                <ul>
-                  <li>도네이션 신청곡 접수</li>
-                  <li>나의 노래책 관리</li>
-                  <li>신청곡 채팅 명령어</li>
-                  <li>플레이리스트 오버레이</li>
-                </ul>
-              </div>
-              <div className="subtitle-3">
-                <Stack spacing={4} direction="row" align="center">
-                  <Button
-                    borderRadius="2em"
-                    fontWeight="bold"
-                    paddingLeft="2em"
-                    paddingRight="2em"
-                    colorScheme="teal"
-                    onClick={startMusicBookBtnOnClick}
-                  >
-                    지금 시작하기
-                  </Button>
-                  <Button
-                    borderRadius="2em"
-                    fontWeight="bold"
-                    paddingLeft="2em"
-                    paddingRight="2em"
-                    colorScheme="gray"
-                  >
-                    더 알아보기
-                  </Button>
-                </Stack>
-              </div>
+      <div className={`section section-1 ${isMobile ? "mobile" : ""}`}>
+        <div className="content">
+          <div className="subtitle-wrap">
+            <div className="subtitle-1">
+              <span>
+                <span className="bold">편리한 신청곡 관리</span>로 보다
+              </span>
+              <span>풍성한 음악 방송을 만드세요</span>
             </div>
-            <div className="img">
-              <Image src={imageMain1} alt="" />
+            <div className="subtitle-2">
+              <ul>
+                <li>도네이션 신청곡 접수</li>
+                <li>나의 노래책 관리</li>
+                <li>신청곡 채팅 명령어</li>
+                <li>플레이리스트 오버레이</li>
+              </ul>
+            </div>
+            <div className="subtitle-3">
+              <Stack spacing={4} direction="row" align="center">
+                <Button
+                  borderRadius="2em"
+                  fontWeight="bold"
+                  paddingLeft="2em"
+                  paddingRight="2em"
+                  colorScheme="teal"
+                  onClick={startMusicBookBtnOnClick}
+                >
+                  지금 시작하기
+                </Button>
+                <Button
+                  borderRadius="2em"
+                  fontWeight="bold"
+                  paddingLeft="2em"
+                  paddingRight="2em"
+                  colorScheme="gray"
+                >
+                  더 알아보기
+                </Button>
+              </Stack>
             </div>
           </div>
-        </div>
-        <div className="section section-2">
-          <div className="content">
-            <div className="content-left"></div>
-            <div className="content-right">
-              <div className="text-1">간편하게 관리하는 노래책</div>
-              <div className="text-2">
-                내가 좋아하는 노래, 내가 잘 부르는 노래를 복잡한 설정 없이 노래책으로 만들고 추가할
-                수 있습니다. 시청자들이 간편하게 신청곡을 접수할 수 있도록 깔끔한 UI를 제공합니다.
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="section section-3">
-          <div className="content">
-            <div className="content-left">
-              <div className="text-1">노래책으로 신청곡 받기</div>
-              <div className="text-2">
-                내 노래책에 등록된 곡을 채팅 명령어, 도네이션을 통해 신청곡으로 접수 받을 수
-                있습니다. 내 노래책 페이지에서 신청곡 목록을 한 눈에 확인하고 MR을 재생 할 수
-                있습니다.
-              </div>
-            </div>
-            <div className="content-right"></div>
-          </div>
-        </div>
-        <div className="section section-4">
-          <div className="content">
-            <div className="content-left"></div>
-            <div className="content-right">
-              <div className="text-1">방송화면에 플레이리스트 추가하기</div>
-              <div className="text-2">
-                노래책을 통해 접수된 신청곡 목록은 Xsplit, OBS Studio 등의 방송 프로그램에
-                플레이리스트 오버레이로 간단히 추가할 수 있습니다.
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="section section-5">
-          <div className="content">
-            <div className="text">
-              쉽고 깔끔한 신청곡 관리 서비스 “노래책”으로 풍성한 음악 방송을 만들어보세요!
-            </div>
-            <Button
-              borderRadius="2em"
-              fontWeight="bold"
-              paddingLeft="2em"
-              paddingRight="2em"
-              colorScheme="teal"
-              onClick={startMusicBookBtnOnClick}
-            >
-              지금 시작하기
-            </Button>
+          <div className="img">
+            <Image src={imageMain1} alt="" />
           </div>
         </div>
       </div>
+      <div className={`section section-2 ${isMobile ? "mobile" : ""}`}>
+        <div className="content">
+          <div className="content-left"></div>
+          <div className="content-right">
+            <div className="text-1">간편하게 관리하는 노래책</div>
+            <div className="text-2">
+              내가 좋아하는 노래, 내가 잘 부르는 노래를 복잡한 설정 없이 노래책으로 만들고 추가할 수
+              있습니다. 시청자들이 간편하게 신청곡을 접수할 수 있도록 깔끔한 UI를 제공합니다.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={`section section-3 ${isMobile ? "mobile" : ""}`}>
+        <div className="content">
+          <div className="content-left">
+            <div className="text-1">노래책으로 신청곡 받기</div>
+            <div className="text-2">
+              내 노래책에 등록된 곡을 채팅 명령어, 도네이션을 통해 신청곡으로 접수 받을 수 있습니다.
+              내 노래책 페이지에서 신청곡 목록을 한 눈에 확인하고 MR을 재생 할 수 있습니다.
+            </div>
+          </div>
+          <div className="content-right"></div>
+        </div>
+      </div>
+      <div className={`section section-4 ${isMobile ? "mobile" : ""}`}>
+        <div className="content">
+          <div className="content-left"></div>
+          <div className="content-right">
+            <div className="text-1">방송화면에 플레이리스트 추가하기</div>
+            <div className="text-2">
+              노래책을 통해 접수된 신청곡 목록은 Xsplit, OBS Studio 등의 방송 프로그램에
+              플레이리스트 오버레이로 간단히 추가할 수 있습니다.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={`section section-5 ${isMobile ? "mobile" : ""}`}>
+        <div className="content">
+          <div className="text">
+            쉽고 깔끔한 신청곡 관리 서비스 “노래책”으로 풍성한 음악 방송을 만들어보세요!
+          </div>
+          <Button
+            borderRadius="2em"
+            fontWeight="bold"
+            paddingLeft="2em"
+            paddingRight="2em"
+            colorScheme="teal"
+            onClick={startMusicBookBtnOnClick}
+          >
+            지금 시작하기
+          </Button>
+        </div>
+      </div>
+      <style jsx global>{`
+        .main-wrap {
+          height: max-content !important;
+
+          & > .content {
+            display: block !important;
+            height: max-content !important;
+          }
+        }
+      `}</style>
       <style jsx>{`
         .section {
           display: flex;
@@ -289,14 +294,8 @@ export const UnauthedLadingPage: FC = () => {
           }
         }
 
-        .main-wrap {
-          position: relative;
-          width: 100%;
-          overflow: hidden;
-        }
-
-        .main-wrap.mobile {
-          .section-1 {
+        .section.mobile {
+          &.section-1 {
             height: 420px;
             z-index: 1;
 
@@ -325,9 +324,9 @@ export const UnauthedLadingPage: FC = () => {
             }
           }
 
-          .section-2,
-          .section-3,
-          .section-4 {
+          &.section-2,
+          &.section-3,
+          &.section-4 {
             height: 350px;
 
             .content {
@@ -341,8 +340,8 @@ export const UnauthedLadingPage: FC = () => {
               }
             }
           }
-          .section-2,
-          .section-4 {
+          &.section-2,
+          &.section-4 {
             .content-left {
               height: 120%;
             }
@@ -350,7 +349,7 @@ export const UnauthedLadingPage: FC = () => {
               height: 80%;
             }
           }
-          .section-3 {
+          &.section-3 {
             .content-left {
               order: 2;
               height: 80%;
