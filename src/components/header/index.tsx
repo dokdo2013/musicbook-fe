@@ -1,9 +1,9 @@
 import mainLogo from "@public/images/main-logo.png";
 
 import Image from "next/image";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import Link from "next/link";
-import { Button, Stack } from "@chakra-ui/react";
+import { Button, Progress, Stack } from "@chakra-ui/react";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
@@ -14,12 +14,17 @@ import { signOut, useSession } from "next-auth/react";
 import { setSideBarOpen } from "@redux/modules/common";
 import { useSelector } from "react-redux";
 import { ReduxStates } from "@redux/modules";
+import Router from "next/router";
 
 export const Header: FC = () => {
   const { status } = useSession();
   const dispatch = useDispatch();
   const sideBarOpen = useSelector(({ common }: ReduxStates) => common.sideBarOpen);
   const { isMobile } = useResponsive();
+  const [isProgress, setIsProgress] = useState(false);
+
+  const getMainLogoHref = () =>
+    status === "unauthenticated" || status === "loading" ? "/" : "/main";
 
   const logInOut = async () => {
     if (status === "unauthenticated") await openLoginModal(dispatch, true);
@@ -27,12 +32,28 @@ export const Header: FC = () => {
       await signOut({ callbackUrl: `${window.location.origin}/` });
   };
 
+  const routerChangeStartHandler = () => {
+    setIsProgress(true);
+  };
+  const routerChangeDoneHandler = () => {
+    setIsProgress(false);
+  };
+
+  Router.events.on("routeChangeStart", routerChangeStartHandler);
+  Router.events.on("routeChangeComplete", routerChangeDoneHandler);
+  Router.events.on("routeChangeError", routerChangeDoneHandler);
+
   return (
     <>
       <div className="header-wrap">
+        {isProgress && (
+          <div className="progress">
+            <Progress size="xs" colorScheme="teal" isIndeterminate />
+          </div>
+        )}
         <div className="content">
           <div className="content-left">
-            <Link href="/">
+            <Link href={getMainLogoHref()}>
               <Image src={mainLogo} alt="" height={40} />
             </Link>
           </div>
@@ -44,9 +65,11 @@ export const Header: FC = () => {
                     <Button colorScheme="teal" size="sm">
                       내 노래책
                     </Button>
-                    <Button colorScheme="gray" size="sm">
-                      마이페이지
-                    </Button>
+                    <Link href={"/mypage"}>
+                      <Button colorScheme="gray" size="sm">
+                        마이페이지
+                      </Button>
+                    </Link>
                   </>
                 )}
                 {status !== "authenticated" && (
@@ -127,6 +150,13 @@ export const Header: FC = () => {
           border-bottom: 1px solid #e2e8f0;
           background-color: #ffffff;
           z-index: 100;
+
+          .progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+          }
 
           .content {
             display: flex;
