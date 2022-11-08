@@ -9,6 +9,7 @@ import { CommonSideBar } from "@components/sideBar";
 import { AuthedLandingArticle } from "@components/article";
 import { useDispatch } from "react-redux";
 import Head from "next/head";
+import { MypageArticle } from "@components/article/mypageArticle";
 
 export const getStaticProps: GetStaticProps = async ({ locale, locales, params }: any) => {
   return {
@@ -73,7 +74,12 @@ const LadingPage: FC<Props> = ({ page, pageParam }) => {
         <title>{getHeadTitle()}</title>
       </Head>
       {page && <CommonSideBar page={page} />}
-      {status === "authenticated" && page && page === "main" && <AuthedLandingArticle />}
+      {status === "authenticated" && page && (
+        <>
+          {page === "main" && <AuthedLandingArticle />}
+          {page === "mypage" && <MypageArticle />}
+        </>
+      )}
     </>
   );
 };

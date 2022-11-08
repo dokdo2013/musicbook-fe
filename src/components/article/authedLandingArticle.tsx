@@ -31,7 +31,7 @@ export const AuthedLandingArticle: FC = () => {
           align="center"
           width="100%"
         >
-          <ArticleBlock height={isMobile ? "300px" : "500px"} title="🌟 인기 노래책">
+          <ArticleBlock height={isMobile ? "300px" : "500px"} title="🌟 인기 수록곡">
             <ListAlign>
               <MusicListCard
                 thumbnailSrc={testImage1}
@@ -95,7 +95,7 @@ export const AuthedLandingArticle: FC = () => {
             </ArticleList>
           </ArticleBlock>
         </Stack>
-        <ArticleBlock title="🎙️ 추천 스트리머">
+        <ArticleBlock title="🎙️ 추천 노래책">
           <ResponsiveMutiItemCarousel>
             <BookGridCard
               thumbnailSrc={testImage2}
@@ -105,8 +105,8 @@ export const AuthedLandingArticle: FC = () => {
             />
           </ResponsiveMutiItemCarousel>
         </ArticleBlock>
-        <ArticleBlock title="📚 새로 올라온 노래책">
-          <ResponsiveGridAlign>
+        <ArticleBlock title="📚 새로 올라온 수록곡">
+          <ResponsiveGridAlign itemMinWidth={isMobile ? 120 : 150}>
             <MusicGridCard
               thumbnailSrc={testImage1}
               songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"

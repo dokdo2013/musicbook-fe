@@ -1,7 +1,9 @@
 import Image, { StaticImageData } from "next/image";
 import { FC, useEffect, useRef, useState } from "react";
-import { Badge } from "@chakra-ui/react";
+import { Badge, useToast } from "@chakra-ui/react";
 import { useResponsive } from "@lib/hooks";
+import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
+import { faBookmark as faSolidBookmark } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
   thumbnailSrc: string | StaticImageData;
@@ -27,7 +29,9 @@ export const MusicListCard: FC<Props> = ({
   const titleDivRef = useRef<HTMLDivElement>(null);
   const titleSpanRef = useRef<HTMLSpanElement>(null);
   const [isTitleOverflowed, setIsTitleOverflowed] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
   const { isLoading, isPC, isTablet, isMobile } = useResponsive();
+  const toast = useToast();
 
   useEffect(() => {
     const titleDiv = titleDivRef.current;
@@ -83,6 +87,32 @@ export const MusicListCard: FC<Props> = ({
             />
             {broadcasterName}
           </div>
+          <div
+            className="bookmark-btn"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsBookmarked(!isBookmarked);
+              toast({
+                title: !isBookmarked ? "수록곡이 북마크됐어요!" : "수록곡 북마크가 해제됐어요",
+                description: songTitle,
+                status: "info",
+                duration: 1000,
+                isClosable: true,
+              });
+            }}
+          >
+            <Icon
+              icon={faSolidBookmark}
+              height={30}
+              style={{
+                position: "absolute",
+                top: "-5px",
+                right: "20px",
+                color: isBookmarked ? "#4FD1C5" : "#ccccccaa",
+                transition: "0.2s",
+              }}
+            />
+          </div>
         </div>
       </div>
       <style jsx>{`
@@ -113,6 +143,12 @@ export const MusicListCard: FC<Props> = ({
             height: 100%;
             padding: 10px;
             overflow: hidden;
+
+            .bookmark-btn {
+              &:hover {
+                cursor: pointer;
+              }
+            }
 
             .author {
               display: block;

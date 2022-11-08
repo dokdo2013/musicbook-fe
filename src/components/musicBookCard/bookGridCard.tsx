@@ -1,6 +1,9 @@
 import Image, { StaticImageData } from "next/image";
 import { FC, useEffect, useRef, useState } from "react";
 import { useResponsive } from "@lib/hooks";
+import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
+import { faBookmark as faSolidBookmark } from "@fortawesome/free-solid-svg-icons";
+import { useToast } from "@chakra-ui/react";
 
 interface Props {
   thumbnailSrc: string | StaticImageData;
@@ -20,7 +23,9 @@ export const BookGridCard: FC<Props> = ({
   const titleDivRef = useRef<HTMLDivElement>(null);
   const titleSpanRef = useRef<HTMLSpanElement>(null);
   const [isTitleOverflowed, setIsTitleOverflowed] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
   const { isLoading, isPC, isTablet, isMobile } = useResponsive();
+  const toast = useToast();
 
   useEffect(() => {
     const titleDiv = titleDivRef.current;
@@ -43,6 +48,32 @@ export const BookGridCard: FC<Props> = ({
       <div className="book-card-wrap list">
         <div className="image-content">
           <Image src={thumbnailSrc} alt="" style={{ width: "100%", height: "auto" }} />
+          <div
+            className="bookmark-btn"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsBookmarked(!isBookmarked);
+              toast({
+                title: !isBookmarked ? "노래책이 북마크됐어요!" : "노래책 북마크가 해제됐어요",
+                description: bookTitle,
+                status: "info",
+                duration: 1000,
+                isClosable: true,
+              });
+            }}
+          >
+            <Icon
+              icon={faSolidBookmark}
+              height={50}
+              style={{
+                position: "absolute",
+                top: "-5px",
+                right: "10px",
+                color: isBookmarked ? "#4FD1C5" : "#ccccccaa",
+                transition: "0.2s",
+              }}
+            />
+          </div>
         </div>
         <div className="text-content">
           <div
@@ -92,6 +123,12 @@ export const BookGridCard: FC<Props> = ({
             display: block;
             width: 100%;
             height: max-content;
+
+            .bookmark-btn {
+              &:hover {
+                cursor: pointer;
+              }
+            }
           }
 
           .text-content {
