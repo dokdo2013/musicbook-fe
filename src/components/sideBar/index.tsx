@@ -6,24 +6,25 @@ import { SideBarMenu } from "./sideBarMenu";
 import { SearchInput, SearchCategory } from "@components/searchForm";
 import { useDispatch } from "react-redux";
 import { useSession } from "next-auth/react";
-import { logInOut, openSidebar } from "@lib/functions";
+import { getGoToHomeHref, logInOut, openSidebar } from "@lib/functions";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import { MUSICBOOK_URL } from "@lib/constant";
+import { MUSICBOOK_URL, MUSICBOOK_URL_KEYS } from "@lib/constant";
 
 interface Props {
+  page?: MUSICBOOK_URL_KEYS;
   mode?: "fixed" | "semi" | "hidden";
   align?: "left" | "right";
 }
 
-export const CommonSideBar: FC<Props> = ({ mode, align }) => {
+export const CommonSideBar: FC<Props> = ({ page, mode, align }) => {
   const dispatch = useDispatch();
   const { isLoading, isPC, isTablet, isMobile } = useResponsive();
   const { status } = useSession();
 
   useEffect(() => {
     openSidebar(dispatch, false);
-  }, [isLoading, isPC, isTablet, isMobile]);
+  }, [isLoading, isPC, isTablet, isMobile, dispatch]);
 
   return (
     <>
@@ -32,16 +33,20 @@ export const CommonSideBar: FC<Props> = ({ mode, align }) => {
         mode={mode}
         openIcon={faMagnifyingGlass}
       >
+        {status === "authenticated" && page && (page === "main" || page === "book") && (
+          <SideBarMenu>
+            <span className="search-form-title">노래책 검색</span>
+            <Stack spacing={4} direction="column" align="flex-start">
+              <SearchInput />
+              <SearchCategory />
+            </Stack>
+          </SideBarMenu>
+        )}
+        <Link href={getGoToHomeHref(status)}>
+          <SideBarMenu>홈</SideBarMenu>
+        </Link>
         {status === "authenticated" && (
           <>
-            <SideBarMenu>
-              <span className="search-form-title">노래책 검색</span>
-              <Stack spacing={4} direction="column" align="flex-start">
-                <SearchInput />
-                <SearchCategory />
-              </Stack>
-            </SideBarMenu>
-
             <Link href={MUSICBOOK_URL.book}>
               <SideBarMenu>내 노래책</SideBarMenu>
             </Link>

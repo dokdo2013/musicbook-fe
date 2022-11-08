@@ -1,7 +1,7 @@
 import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { getSession, signOut } from "next-auth/react";
 import { setLoginModalOpen } from "@redux/modules/modals";
-import { MUSICBOOK_URL } from "./constant";
+import { MUSICBOOK_URL, MUSICBOOK_URL_KEYS, MUSICBOOK_VALUES } from "./constant";
 import { setSideBarOpen } from "@redux/modules/common";
 
 /**
@@ -63,10 +63,11 @@ export const openSidebar = (dispatch: Dispatch<AnyAction>, isOpen: boolean) => {
  * @returns 정적 URL 경로 배열
  */
 export const getStaticPathArray = () => {
-  const staticPathsArray: string[] = [];
-  const keys = Object.keys(MUSICBOOK_URL).filter((x) => x !== "index");
-  for (const key of keys) {
-    staticPathsArray.push(MUSICBOOK_URL[key]);
+  const staticPathsArray: MUSICBOOK_VALUES[] = [];
+
+  for (const key in MUSICBOOK_URL) {
+    const _k = key as MUSICBOOK_URL_KEYS;
+    if (_k !== "index") staticPathsArray.push(MUSICBOOK_URL[key as MUSICBOOK_URL_KEYS]);
   }
   return staticPathsArray;
 };
