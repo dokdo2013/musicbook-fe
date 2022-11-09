@@ -128,6 +128,7 @@ export const UnauthedLadingArticle: FC = () => {
 
           & > .content {
             display: block !important;
+            max-width: 100% !important;
             height: max-content !important;
           }
         }
