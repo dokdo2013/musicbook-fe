@@ -51,7 +51,7 @@ export const MusicGridCard: FC<Props> = ({
 
   return (
     <>
-      <div className="music-card-wrap list" onClick={() => alert("hello")}>
+      <div className="music-card-wrap list">
         <div className="image-content">
           <Image src={thumbnailSrc} alt="" style={{ width: "100%", height: "auto" }} />
           <Badge
@@ -185,6 +185,7 @@ export const MusicGridCard: FC<Props> = ({
 
             .title {
               display: block;
+              font-size: 14px;
               font-weight: bold;
               color: #242424;
               height: 1.5em;

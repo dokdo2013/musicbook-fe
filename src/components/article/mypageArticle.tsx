@@ -1,23 +1,31 @@
 import testImage1 from "@public/images/test/test1.png";
 import testImage2 from "@public/images/test/test2.jpg";
 
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { Article, ArticleBlock, ArticleBannerBlock } from "@components/article/modules";
-import { SystemStyleObject, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { ResponsiveGridAlign } from "@components/align";
 import { BookGridCard, MusicGridCard } from "@components/musicBookCard";
 import { useResponsive } from "@lib/hooks";
 
+const MypageBookmarkCustomTab: FC<{ children: ReactNode }> = ({ children }) => {
+  return (
+    <Tab
+      bg="gray.100"
+      borderRadius=".8em .8em 0 0"
+      fontWeight="bold"
+      _selected={{
+        bg: "teal.500",
+        color: "white",
+      }}
+    >
+      {children}
+    </Tab>
+  );
+};
+
 export const MypageArticle: FC = () => {
   const { isMobile } = useResponsive();
-
-  const selectedTabTheme: SystemStyleObject = {
-    bg: "green.100",
-    borderBottom: "2px solid #38A169",
-    borderRadius: ".8em .8em 0 0",
-    color: "green.700",
-    fontWeight: "bold",
-  };
 
   return (
     <>
@@ -30,11 +38,11 @@ export const MypageArticle: FC = () => {
         <ArticleBlock title="😎 마이페이지">마이페이지</ArticleBlock>
         <ArticleBlock title="🔖 노래책 북마크">
           <Tabs isLazy isFitted colorScheme="teal">
-            <TabList mb="1em">
-              <Tab _selected={selectedTabTheme}>🎶 수록곡</Tab>
-              <Tab _selected={selectedTabTheme}>📚 노래책</Tab>
+            <TabList style={{ borderBottom: "none" }} mb={"2px"}>
+              <MypageBookmarkCustomTab>🎶 수록곡</MypageBookmarkCustomTab>
+              <MypageBookmarkCustomTab>📚 노래책</MypageBookmarkCustomTab>
             </TabList>
-            <TabPanels>
+            <TabPanels border={"1px solid #eee"} borderRadius="0 0 .8em .8em">
               <TabPanel>
                 <ResponsiveGridAlign itemMinWidth={isMobile ? 100 : 150}>
                   <MusicGridCard

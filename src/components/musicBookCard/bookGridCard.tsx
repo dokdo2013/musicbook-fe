@@ -161,6 +161,7 @@ export const BookGridCard: FC<Props> = ({
               display: block;
               white-space: nowrap;
               overflow: hidden;
+              font-size: 14px;
               font-weight: bold;
               color: #242424;
               height: 1.5em;
