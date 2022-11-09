@@ -1,12 +1,26 @@
 import testImage1 from "@public/images/test/test1.png";
 import testImage2 from "@public/images/test/test2.jpg";
+import defaultProfileImage from "@public/images/mypage/default-profile-image.jpeg";
 
 import { FC, ReactNode } from "react";
 import { Article, ArticleBlock, ArticleBannerBlock } from "@components/article/modules";
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import {
+  Button,
+  Grid,
+  GridItem,
+  Stack,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+} from "@chakra-ui/react";
 import { ResponsiveGridAlign } from "@components/align";
 import { BookGridCard, MusicGridCard } from "@components/musicBookCard";
 import { useResponsive } from "@lib/hooks";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import { GLOBAL_PADDING_3 } from "@lib/constant";
 
 const MypageBookmarkCustomTab: FC<{ children: ReactNode }> = ({ children }) => {
   return (
@@ -26,6 +40,7 @@ const MypageBookmarkCustomTab: FC<{ children: ReactNode }> = ({ children }) => {
 
 export const MypageArticle: FC = () => {
   const { isMobile } = useResponsive();
+  const { data, status } = useSession();
 
   return (
     <>
@@ -35,7 +50,29 @@ export const MypageArticle: FC = () => {
           <div>2</div>
           <div>3</div>
         </ArticleBannerBlock>
-        <ArticleBlock title="😎 마이페이지">마이페이지</ArticleBlock>
+        <ArticleBlock title="😎 마이페이지">
+          <div className="mypage-content-wrap">
+            <div className="profile-wrap">
+              <div className="profile-image">
+                <Image src={defaultProfileImage} fill={true} alt="" />
+              </div>
+              <div className="profile-text">
+                <div className="nickname">{status === "authenticated" ? data.user?.name : ""}</div>
+                <div className="description">자기소개</div>
+              </div>
+            </div>
+            <div className="btn-wrap">
+              <Stack direction="row" align="center" spacing={2}>
+                <Button size={"md"} width="100%">
+                  프로필수정
+                </Button>
+                <Button size={"md"} width="100%">
+                  계정연동/관리
+                </Button>
+              </Stack>
+            </div>
+          </div>
+        </ArticleBlock>
         <ArticleBlock title="🔖 노래책 북마크">
           <Tabs isLazy isFitted colorScheme="teal">
             <TabList style={{ borderBottom: "none" }} mb={"2px"}>
@@ -161,6 +198,61 @@ export const MypageArticle: FC = () => {
           </Tabs>
         </ArticleBlock>
       </Article>
+      <style jsx>{`
+        .mypage-content-wrap {
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          gap: 20px;
+          width: 100%;
+          max-width: 500px;
+          padding: ${GLOBAL_PADDING_3}px;
+          margin: 0 auto;
+
+          .profile-wrap {
+            --profile-image-size: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+
+            .profile-image {
+              position: relative;
+              width: var(--profile-image-size);
+              min-width: var(--profile-image-size);
+              height: var(--profile-image-size);
+              min-height: var(--profile-image-size);
+              border-radius: 50%;
+              overflow: hidden;
+            }
+            .profile-text {
+              position: relative;
+              width: calc(100% - var(--profile-image-size) - 20px);
+
+              .nickname {
+                font-weight: bold;
+                font-size: 24px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
+              .description {
+                font-size: 16px;
+              }
+            }
+          }
+
+          .btn-wrap {
+            position: relative;
+            width: 100%;
+          }
+        }
+      `}</style>
     </>
   );
 };
