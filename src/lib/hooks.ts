@@ -1,3 +1,4 @@
+import { useColorModeValue } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
@@ -32,3 +33,6 @@ export const useResponsive = () => {
 
   return { isLoading, isMobile, isTablet, isPC };
 };
+
+export const useArticleBlockBgColorModeValue = () => useColorModeValue("white", "gray.700");
+export const useArticleBlockBorderColorModeValue = () => useColorModeValue("gray.200", "gray.900");

@@ -1,8 +1,8 @@
-import { Box, Breadcrumb, BreadcrumbItem } from "@chakra-ui/react";
+import { Box, Breadcrumb, BreadcrumbItem, useColorMode } from "@chakra-ui/react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { GLOBAL_PADDING_2, GLOBAL_PADDING_3, MUSICBOOK_URL_KEYS } from "@lib/constant";
 import Link from "next/link";
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useEffect } from "react";
 
 interface Props {
   children: ReactNode;
@@ -11,6 +11,14 @@ interface Props {
 }
 
 export const Article: FC<Props> = ({ children, page, pageParam }) => {
+  const { colorMode, toggleColorMode } = useColorMode();
+
+  useEffect(() => {
+    if (colorMode) {
+      toggleColorMode();
+    }
+  }, []);
+
   return (
     <>
       <Box
