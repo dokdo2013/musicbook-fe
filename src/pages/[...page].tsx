@@ -4,7 +4,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { MUSICBOOK_URL_KEYS } from "@lib/constant";
-import { consoleLog, getStaticPathArray, openLoginModal } from "@lib/functions";
+import { consoleLog, getStaticPathArray, openModal } from "@lib/functions";
 import { CommonSideBar } from "@components/sideBar";
 import { AuthedLandingArticle } from "@components/article";
 import { useDispatch } from "react-redux";
@@ -62,7 +62,7 @@ const LadingPage: FC<Props> = ({ page, pageParam }) => {
   useEffect(() => {
     if ((status === "unauthenticated" && page !== "guide") || !page) {
       router.push("/");
-      openLoginModal(dispatch, true);
+      openModal("login", dispatch, true);
     }
     consoleLog("auth", status, data);
   }, [data, status, router, dispatch, page]);
@@ -77,7 +77,7 @@ const LadingPage: FC<Props> = ({ page, pageParam }) => {
       {status === "authenticated" && page && (
         <>
           {page === "main" && <AuthedLandingArticle />}
-          {page === "mypage" && <MypageArticle />}
+          {page === "mypage" && <MypageArticle page={page} pageParam={pageParam} />}
         </>
       )}
     </>

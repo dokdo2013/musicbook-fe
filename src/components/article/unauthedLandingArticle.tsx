@@ -6,7 +6,7 @@ import { Button, Stack } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { GLOBAL_PADDING_1, GLOBAL_PADDING_2, MAX_FRAME_WIDTH_PX } from "@lib/constant";
 import { useResponsive } from "@lib/hooks";
-import { openLoginModal } from "@lib/functions";
+import { openModal } from "@lib/functions";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
@@ -17,7 +17,7 @@ export const UnauthedLadingArticle: FC = () => {
   const { isMobile, isTablet, isLoading } = useResponsive();
 
   const startMusicBookBtnOnClick = async () => {
-    if (status === "unauthenticated") await openLoginModal(dispatch, true);
+    if (status === "unauthenticated") await openModal("login", dispatch, true);
     else if (status === "authenticated") await router.push("/main");
   };
 

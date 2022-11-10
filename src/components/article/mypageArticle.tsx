@@ -4,23 +4,15 @@ import defaultProfileImage from "@public/images/mypage/default-profile-image.jpe
 
 import { FC, ReactNode } from "react";
 import { Article, ArticleBlock, ArticleBannerBlock } from "@components/article/modules";
-import {
-  Button,
-  Grid,
-  GridItem,
-  Stack,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-} from "@chakra-ui/react";
+import { Button, Stack, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { ResponsiveGridAlign } from "@components/align";
 import { BookGridCard, MusicGridCard } from "@components/musicBookCard";
 import { useResponsive } from "@lib/hooks";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { GLOBAL_PADDING_3 } from "@lib/constant";
+import { GLOBAL_PADDING_3, MUSICBOOK_URL_KEYS } from "@lib/constant";
+import { openModal } from "@lib/functions";
+import { useDispatch } from "react-redux";
 
 const MypageBookmarkCustomTab: FC<{ children: ReactNode }> = ({ children }) => {
   return (
@@ -38,23 +30,35 @@ const MypageBookmarkCustomTab: FC<{ children: ReactNode }> = ({ children }) => {
   );
 };
 
-export const MypageArticle: FC = () => {
+interface Props {
+  page: MUSICBOOK_URL_KEYS | null;
+  pageParam: string | null;
+}
+
+export const MypageArticle: FC<Props> = ({ page, pageParam }) => {
   const { isMobile } = useResponsive();
   const { data, status } = useSession();
+  const dispatch = useDispatch();
 
   return (
     <>
-      <Article>
+      <Article page={page} pageParam={pageParam}>
         <ArticleBannerBlock height="100px">
           <div>1</div>
           <div>2</div>
           <div>3</div>
         </ArticleBannerBlock>
-        <ArticleBlock title="😎 마이페이지">
+        <ArticleBlock title="😎 계정설정">
           <div className="mypage-content-wrap">
             <div className="profile-wrap">
               <div className="profile-image">
-                <Image src={defaultProfileImage} fill={true} alt="" />
+                <Image
+                  src={data?.user?.image || defaultProfileImage}
+                  fill={true}
+                  alt=""
+                  placeholder="blur"
+                  blurDataURL={data?.user?.image || defaultProfileImage.blurDataURL}
+                />
               </div>
               <div className="profile-text">
                 <div className="nickname">{status === "authenticated" ? data.user?.name : ""}</div>
@@ -63,10 +67,18 @@ export const MypageArticle: FC = () => {
             </div>
             <div className="btn-wrap">
               <Stack direction="row" align="center" spacing={2}>
-                <Button size={"md"} width="100%">
+                <Button
+                  size={"md"}
+                  width="100%"
+                  onClick={() => openModal("editProfile", dispatch, true)}
+                >
                   프로필수정
                 </Button>
-                <Button size={"md"} width="100%">
+                <Button
+                  size={"md"}
+                  width="100%"
+                  onClick={() => openModal("configAccount", dispatch, true)}
+                >
                   계정연동/관리
                 </Button>
               </Stack>
@@ -227,6 +239,7 @@ export const MypageArticle: FC = () => {
               min-width: var(--profile-image-size);
               height: var(--profile-image-size);
               min-height: var(--profile-image-size);
+              border: 1px solid #eee;
               border-radius: 50%;
               overflow: hidden;
             }

@@ -1,18 +1,40 @@
 import { AnyAction, Dispatch } from "@reduxjs/toolkit";
 import { getSession, signOut } from "next-auth/react";
-import { setLoginModalOpen } from "@redux/modules/modals";
+import {
+  setConfigAccountModalOpen,
+  setEditProfileModalOpen,
+  setLoginModalOpen,
+} from "@redux/modules/modals";
 import { MUSICBOOK_URL, MUSICBOOK_URL_KEYS, MUSICBOOK_VALUES } from "./constant";
 import { setSideBarOpen } from "@redux/modules/common";
 
+const openModalMap: Record<
+  ModalType,
+  (dispatch: Dispatch<AnyAction>, isOpen: boolean) => Promise<void>
+> = {
+  async login(dispatch, isOpen) {
+    if (!(await getSession())) {
+      dispatch(setLoginModalOpen(isOpen));
+    }
+  },
+  async editProfile(dispatch, isOpen) {
+    dispatch(setEditProfileModalOpen(isOpen));
+  },
+  async configAccount(dispatch, isOpen) {
+    dispatch(setConfigAccountModalOpen(isOpen));
+  },
+};
 /**
  * 로그인 Modal을 표시하는 함수
  * @param dispatch Redux dispatch
  * @param isOpen 로그인 Modal 표시 여부
  */
-export const openLoginModal = async (dispatch: Dispatch<AnyAction>, isOpen: boolean) => {
-  if (!(await getSession())) {
-    dispatch(setLoginModalOpen(isOpen));
-  }
+export const openModal = async (
+  type: ModalType,
+  dispatch: Dispatch<AnyAction>,
+  isOpen: boolean,
+) => {
+  await openModalMap[type](dispatch, isOpen);
 };
 
 /**
@@ -45,7 +67,7 @@ export const getGoToHomeHref = (status: SessionStatus) =>
  * @param status NextAuth Session 객체의 status 프로퍼티
  */
 export const logInOut = async (dispatch: Dispatch<AnyAction>, status: SessionStatus) => {
-  if (status === "unauthenticated") await openLoginModal(dispatch, true);
+  if (status === "unauthenticated") await openModal("login", dispatch, true);
   else if (status === "authenticated") await signOut({ callbackUrl: `${window.location.origin}/` });
 };
 

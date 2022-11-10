@@ -9,3 +9,4 @@ namespace NodeJS {
 }
 
 type SessionStatus = "authenticated" | "loading" | "unauthenticated";
+type ModalType = "login" | "editProfile" | "configAccount";
