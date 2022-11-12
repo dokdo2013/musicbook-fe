@@ -3,6 +3,7 @@ import { ChevronRightIcon } from "@chakra-ui/icons";
 import { GLOBAL_PADDING_2, GLOBAL_PADDING_3, MUSICBOOK_URL_KEYS } from "@lib/constant";
 import Link from "next/link";
 import { FC, ReactNode, useEffect } from "react";
+import { useArticleBlockBorderColorModeValue } from "@lib/hooks";
 
 interface Props {
   children: ReactNode;
@@ -11,18 +12,20 @@ interface Props {
 }
 
 export const Article: FC<Props> = ({ children, page, pageParam }) => {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const borderColor = useArticleBlockBorderColorModeValue();
 
   return (
     <>
       <Box
+        id="article-wrap"
         display="block"
         overflowX="hidden"
         overflowY="scroll"
         w="full"
         height="100%"
         p={`${GLOBAL_PADDING_2}px`}
-        borderRight="1px solid #e2e8f0"
+        borderRight="1px"
+        borderColor={borderColor}
       >
         <Breadcrumb
           spacing="8px"

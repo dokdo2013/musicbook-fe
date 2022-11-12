@@ -6,6 +6,7 @@ import { Footer } from "@components/footer";
 import { LoadingScreen } from "@components/loadingScreen";
 import { RouterProgress } from "@components/routerProgress";
 import { FOOTER_HEIGHT_PX, HEADER_HEIGHT_PX, MAX_FRAME_WIDTH_PX } from "@lib/constant";
+import { QuickMenu } from "@components/quickMenu";
 
 interface Props {
   children: ReactNode;
@@ -22,6 +23,7 @@ export const DefaultLayout: FC<Props> = ({ children }) => {
       <div className={`main-wrap ${isMobile && "mobile"}`}>
         <div className="content">{children}</div>
       </div>
+      <QuickMenu />
       <Footer />
       <LoadingScreen isShow={isLoading || status === "loading"} />
       <style jsx>{`

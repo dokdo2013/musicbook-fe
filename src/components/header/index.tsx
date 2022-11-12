@@ -3,7 +3,7 @@ import mainLogo from "@public/images/main-logo.png";
 import Image from "next/image";
 import { FC } from "react";
 import Link from "next/link";
-import { Button, Stack } from "@chakra-ui/react";
+import { Box, Button, Flex, Stack } from "@chakra-ui/react";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
@@ -13,7 +13,12 @@ import {
   HEADER_HEIGHT_PX,
   MUSICBOOK_URL,
 } from "@lib/constant";
-import { useResponsive } from "@lib/hooks";
+import {
+  useArticleBlockBgColorModeValue,
+  useArticleBlockBorderColorModeValue,
+  useResponsive,
+  useTealColorModeValue,
+} from "@lib/hooks";
 import { useSession } from "next-auth/react";
 import { useSelector } from "react-redux";
 import { ReduxStates } from "@redux/modules";
@@ -24,17 +29,39 @@ export const Header: FC = () => {
   const dispatch = useDispatch();
   const sideBarOpen = useSelector(({ common }: ReduxStates) => common.sideBarOpen);
   const { isMobile } = useResponsive();
+  const bgColor = useArticleBlockBgColorModeValue();
+  const borderColor = useArticleBlockBorderColorModeValue();
+  const tealColor = useTealColorModeValue();
 
   return (
     <>
-      <div className="header-wrap">
-        <div className="content">
-          <div className="content-left">
+      <Flex
+        position="sticky"
+        top="0"
+        justifyContent="center"
+        alignItems="center"
+        w="full"
+        height={`${HEADER_HEIGHT_PX}px`}
+        borderBottom="1px"
+        borderColor={borderColor}
+        bg={bgColor}
+        zIndex={100}
+      >
+        <Flex
+          position="relative"
+          w="full"
+          height="100%"
+          maxWidth={`${MAX_FRAME_WIDTH_PX}px`}
+          p={`${GLOBAL_PADDING_1}px`}
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Flex position="relative" height="100%" justifyContent="flex-start" align="center">
             <Link href={getGoToHomeHref(status)}>
               <Image src={mainLogo} alt="" height={40} />
             </Link>
-          </div>
-          <div className="content-right">
+          </Flex>
+          <Flex position="relative" height="100%" justifyContent="flex-end" align="center">
             {!isMobile ? (
               <Stack spacing={4} direction="row" align="center">
                 {status === "authenticated" && (
@@ -72,12 +99,18 @@ export const Header: FC = () => {
                 <Stack spacing={4} direction="row" align="center">
                   {status === "authenticated" && (
                     <Icon
+                      style={{
+                        color: tealColor,
+                      }}
                       className={`search-btn`}
                       icon={faMagnifyingGlass}
                       onClick={() => openSidebar(dispatch, true)}
                     />
                   )}
                   <Icon
+                    style={{
+                      color: tealColor,
+                    }}
                     className={`hamburger-btn ${sideBarOpen && "open"}`}
                     icon={sideBarOpen ? faXmark : faBars}
                     onClick={() => openSidebar(dispatch, !sideBarOpen)}
@@ -85,9 +118,9 @@ export const Header: FC = () => {
                 </Stack>
               </>
             )}
-          </div>
-        </div>
-      </div>
+          </Flex>
+        </Flex>
+      </Flex>
       <style jsx global>{`
         .hamburger-btn,
         .search-btn {
@@ -100,7 +133,6 @@ export const Header: FC = () => {
             height: 26px;
           }
           path {
-            fill: #319795;
             transition: 0.2s;
           }
 
@@ -116,46 +148,6 @@ export const Header: FC = () => {
             height: 35px;
             margin-right: -3px;
             margin-left: 14px;
-          }
-        }
-      `}</style>
-      <style jsx>{`
-        .header-wrap {
-          position: sticky;
-          top: 0;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
-          height: ${HEADER_HEIGHT_PX}px;
-          border-bottom: 1px solid #e2e8f0;
-          background-color: #ffffff;
-          z-index: 100;
-
-          .content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            width: 100%;
-            height: 100%;
-            max-width: ${MAX_FRAME_WIDTH_PX}px;
-            padding: ${GLOBAL_PADDING_1}px;
-
-            .content-left,
-            .content-right {
-              position: relative;
-              height: 100%;
-              display: flex;
-              align-items: center;
-
-              &.conntent-left {
-                justify-content: flex-start;
-              }
-              &.conntent-right {
-                justify-content: flex-end;
-              }
-            }
           }
         }
       `}</style>
