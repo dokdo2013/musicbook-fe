@@ -2,10 +2,10 @@ import imageMain1 from "@public/images/main/main-1.png";
 
 import { FC } from "react";
 import Image from "next/image";
-import { Button, Stack } from "@chakra-ui/react";
+import { Box, Button, Stack, Text, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { GLOBAL_PADDING_1, GLOBAL_PADDING_2, MAX_FRAME_WIDTH_PX } from "@lib/constant";
-import { useResponsive } from "@lib/hooks";
+import { useResponsive, useTealColorModeValue } from "@lib/hooks";
 import { openModal } from "@lib/functions";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -15,6 +15,13 @@ export const UnauthedLadingArticle: FC = () => {
   const dispatch = useDispatch();
   const { status } = useSession();
   const { isMobile, isTablet, isLoading } = useResponsive();
+  const { colorMode } = useColorMode();
+  const teelColor = useTealColorModeValue();
+  const subtitle1TextColor = useColorModeValue("#242424", "white");
+  const section1BgColor = useColorModeValue("#FFFFFF", "#2D3748");
+  const section2BgColor = useColorModeValue("#EDF2F7", "#1A202C");
+  const sectionText1Color = useColorModeValue("#2D3748", "#EDF2F7");
+  const sectionText2Color = useColorModeValue("#4a5568", "#E2E8F0");
 
   const startMusicBookBtnOnClick = async () => {
     if (status === "unauthenticated") await openModal("login", dispatch, true);
@@ -26,12 +33,15 @@ export const UnauthedLadingArticle: FC = () => {
       <div className={`section section-1 ${isMobile ? "mobile" : ""}`}>
         <div className="content">
           <div className="subtitle-wrap">
-            <div className="subtitle-1">
-              <span>
-                <span className="bold">편리한 신청곡 관리</span>로 보다
-              </span>
-              <span>풍성한 음악 방송을 만드세요</span>
-            </div>
+            <Text display="block" fontSize="32px" fontWeight="bold" color={subtitle1TextColor}>
+              <Box>
+                <Text color={teelColor} fontWeight="bold" display="inline-block">
+                  편리한 신청곡 관리
+                </Text>
+                로 보다
+              </Box>
+              <Box>풍성한 음악 방송을 만드세요</Box>
+            </Text>
             <div className="subtitle-2">
               <ul>
                 <li>도네이션 신청곡 접수</li>
@@ -172,10 +182,6 @@ export const UnauthedLadingArticle: FC = () => {
                     display: block;
                     font-size: 32px;
                     font-weight: bold;
-
-                    .bold {
-                      color: #319795;
-                    }
                   }
                 }
                 .subtitle-2 {
@@ -212,7 +218,11 @@ export const UnauthedLadingArticle: FC = () => {
                 top: 80px;
                 right: 10px;
                 width: 600px;
-                opacity: ${isLoading || isMobile || isTablet ? 0.4 : 1};
+                opacity: ${isLoading || isMobile || isTablet
+                  ? colorMode === "light"
+                    ? 0.4
+                    : 0.7
+                  : 1};
                 z-index: -1;
               }
             }
@@ -242,7 +252,7 @@ export const UnauthedLadingArticle: FC = () => {
                 text-align: center;
                 font-size: 18px;
                 font-weight: bold;
-                color: #2d3748;
+                color: ${sectionText1Color};
               }
             }
           }
@@ -269,18 +279,18 @@ export const UnauthedLadingArticle: FC = () => {
               .text-1 {
                 font-size: 24px;
                 font-weight: bold;
-                color: #2d3748;
+                color: ${sectionText1Color};
                 margin-bottom: 10px;
               }
               .text-2 {
                 font-size: 14px;
-                color: #4a5568;
+                color: ${sectionText2Color};
               }
             }
           }
           &.section-2,
           &.section-4 {
-            background-color: #ffffff;
+            background-color: ${section1BgColor};
             .content-left {
               width: 95%;
             }
@@ -291,7 +301,7 @@ export const UnauthedLadingArticle: FC = () => {
           &.section-1,
           &.section-3,
           &.section-5 {
-            background-color: #edf2f7;
+            background-color: ${section2BgColor};
           }
         }
 

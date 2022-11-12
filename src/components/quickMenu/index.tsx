@@ -1,5 +1,5 @@
 import { IconButton, Stack, useColorMode, useColorModeValue } from "@chakra-ui/react";
-import { MoonIcon, SunIcon, TriangleUpIcon } from "@chakra-ui/icons";
+import { MoonIcon, SunIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import { FC, ReactElement, useEffect, useState } from "react";
 
 const QuickMenuButton: FC<{ children: ReactElement; onClick?: () => void }> = ({
@@ -48,7 +48,7 @@ export const QuickMenu: FC = () => {
             document.getElementById("article-wrap")?.scrollTo({ top: 0, behavior: "smooth" });
           }}
         >
-          <TriangleUpIcon />
+          <ChevronUpIcon fontSize="30px" />
         </QuickMenuButton>
         <QuickMenuButton onClick={toggleColorMode}>{colorModeIcon}</QuickMenuButton>
       </Stack>
