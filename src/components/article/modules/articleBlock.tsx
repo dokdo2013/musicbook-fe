@@ -19,13 +19,13 @@ export const ArticleBlock: FC<Props> = ({ children, title, height }) => {
         position="relative"
         w="full"
         p={`${GLOBAL_PADDING_2}px`}
-        mb="10px"
         bg={articleBlockBgColor}
         border="1px"
         borderColor={articleBlockBorderColor}
         borderRadius="10px"
         height={height ? height : "max-content"}
         overflow="hidden"
+        style={{ marginBottom: "10px" }}
       >
         {title && (
           <Text

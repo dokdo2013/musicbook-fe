@@ -13,12 +13,6 @@ interface Props {
 export const Article: FC<Props> = ({ children, page, pageParam }) => {
   const { colorMode, toggleColorMode } = useColorMode();
 
-  useEffect(() => {
-    if (colorMode) {
-      toggleColorMode();
-    }
-  }, []);
-
   return (
     <>
       <Box

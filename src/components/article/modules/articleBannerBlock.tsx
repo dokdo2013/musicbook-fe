@@ -38,8 +38,8 @@ export const ArticleBannerBlock: FC<Props> = ({ children, height, intervalTime =
         position="relative"
         w="full"
         height={height ? height : "max-content"}
-        mb="10px"
         overflow="visible"
+        style={{ marginBottom: "10px" }}
       >
         <Box
           position="relative"
