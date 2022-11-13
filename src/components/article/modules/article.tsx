@@ -30,6 +30,7 @@ export const Article: FC<Props> = ({ children, page, pageParam }) => {
         <Breadcrumb
           spacing="8px"
           mb={`${GLOBAL_PADDING_3}px`}
+          ml=".5em"
           separator={<ChevronRightIcon color={"gray.500"} mb={"3px"} />}
         >
           {page !== "main" && (

@@ -4,10 +4,19 @@ import defaultProfileImage from "@public/images/mypage/default-profile-image.jpe
 
 import { FC, ReactNode } from "react";
 import { Article, ArticleBlock, ArticleBannerBlock } from "@components/article/modules";
-import { Button, Stack, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import {
+  Button,
+  Stack,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { ResponsiveGridAlign } from "@components/align";
 import { BookGridCard, MusicGridCard } from "@components/musicBookCard";
-import { useResponsive } from "@lib/hooks";
+import { useCardBorderColorModeValue, useResponsive, useTealColorModeValue } from "@lib/hooks";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { GLOBAL_PADDING_3, MUSICBOOK_URL_KEYS } from "@lib/constant";
@@ -15,14 +24,18 @@ import { openModal } from "@lib/functions";
 import { useDispatch } from "react-redux";
 
 const MypageBookmarkCustomTab: FC<{ children: ReactNode }> = ({ children }) => {
+  const tabDefaultBgColor = useColorModeValue("gray.100", "gray.600");
+  const teelColor = useTealColorModeValue();
+  const selectedTextColor = useColorModeValue("white", "gray.700");
+
   return (
     <Tab
-      bg="gray.100"
+      bg={tabDefaultBgColor}
       borderRadius=".8em .8em 0 0"
       fontWeight="bold"
       _selected={{
-        bg: "teal.500",
-        color: "white",
+        bg: teelColor,
+        color: selectedTextColor,
       }}
     >
       {children}
@@ -39,6 +52,7 @@ export const MypageArticle: FC<Props> = ({ page, pageParam }) => {
   const { isMobile } = useResponsive();
   const { data, status } = useSession();
   const dispatch = useDispatch();
+  const borderColor = useCardBorderColorModeValue();
 
   return (
     <>
@@ -91,7 +105,7 @@ export const MypageArticle: FC<Props> = ({ page, pageParam }) => {
               <MypageBookmarkCustomTab>🎶 수록곡</MypageBookmarkCustomTab>
               <MypageBookmarkCustomTab>📚 노래책</MypageBookmarkCustomTab>
             </TabList>
-            <TabPanels border={"1px solid #eee"} borderRadius="0 0 .8em .8em">
+            <TabPanels border="1px" borderColor={borderColor} borderRadius="0 0 .8em .8em">
               <TabPanel>
                 <ResponsiveGridAlign itemMinWidth={isMobile ? 100 : 150}>
                   <MusicGridCard
@@ -239,7 +253,7 @@ export const MypageArticle: FC<Props> = ({ page, pageParam }) => {
               min-width: var(--profile-image-size);
               height: var(--profile-image-size);
               min-height: var(--profile-image-size);
-              border: 1px solid #eee;
+              border: 1px solid ${borderColor};
               border-radius: 50%;
               overflow: hidden;
             }

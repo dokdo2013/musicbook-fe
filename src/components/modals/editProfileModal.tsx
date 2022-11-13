@@ -20,6 +20,7 @@ import { FC } from "react";
 import { useSession } from "next-auth/react";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
+import { useCardBorderColorModeValue } from "@lib/hooks";
 
 interface Props {
   isOpen: boolean;
@@ -28,6 +29,7 @@ interface Props {
 
 export const EditProfileModal: FC<Props> = ({ isOpen, onClose }) => {
   const { data } = useSession();
+  const borderColor = useCardBorderColorModeValue();
 
   return (
     <>
@@ -92,7 +94,7 @@ export const EditProfileModal: FC<Props> = ({ isOpen, onClose }) => {
             display: block;
             width: 100%;
             height: 100%;
-            border: 1px solid #eee;
+            border: 1px solid ${borderColor};
             border-radius: 50%;
             overflow: hidden;
           }

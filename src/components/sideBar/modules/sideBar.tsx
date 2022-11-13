@@ -112,7 +112,7 @@ export const SideBar: FC<Props> = ({ children, align = "left", mode, openIcon, c
           <Flex
             justifyContent="center"
             alignItems="center"
-            top="70px"
+            top="62px"
             left={align === "left" ? "auto" : "0px"}
             right={align === "right" ? "auto" : "0px"}
             position="absolute"
