@@ -14,6 +14,7 @@ export const ResponsiveGridAlign: FC<Props> = ({ children, gap, width, itemMinWi
       <Grid
         templateColumns={`repeat(auto-fill, minmax(${itemMinWidth}px, 1fr))`}
         width={width}
+        p="3px"
         gap={gap ? gap : "10px"}
       >
         {Children.map(children, (child, idx) => {

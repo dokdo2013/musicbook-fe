@@ -9,7 +9,7 @@ interface Props {
 export const ListAlign: FC<Props> = ({ children, gap }) => {
   return (
     <>
-      <Stack spacing={gap ? gap : 2} direction="column" align="center" width="100%">
+      <Stack spacing={gap ? gap : 2} direction="column" align="center" width="100%" p="3px">
         {children}
       </Stack>
     </>

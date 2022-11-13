@@ -1,6 +1,6 @@
 import Image, { StaticImageData } from "next/image";
 import { FC, useEffect, useRef, useState } from "react";
-import { useResponsive } from "@lib/hooks";
+import { useCardBgColorModeValue, useCardBorderColorModeValue, useResponsive } from "@lib/hooks";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faBookmark as faSolidBookmark } from "@fortawesome/free-solid-svg-icons";
 import { useToast } from "@chakra-ui/react";
@@ -26,6 +26,8 @@ export const BookGridCard: FC<Props> = ({
   const [isBookmarked, setIsBookmarked] = useState(false);
   const { isLoading, isPC, isTablet, isMobile } = useResponsive();
   const toast = useToast();
+  const bgColor = useCardBgColorModeValue();
+  const borderColor = useCardBorderColorModeValue();
 
   useEffect(() => {
     const titleDiv = titleDivRef.current;
@@ -45,7 +47,14 @@ export const BookGridCard: FC<Props> = ({
 
   return (
     <>
-      <div className="book-card-wrap list">
+      <div
+        className="book-card-wrap grid"
+        style={{
+          backgroundColor: bgColor,
+          border: borderColor,
+          boxShadow: `0 0 3px ${borderColor}`,
+        }}
+      >
         <div className="image-content">
           <Image src={thumbnailSrc} alt="" style={{ width: "100%", height: "auto" }} />
           <div
@@ -111,10 +120,7 @@ export const BookGridCard: FC<Props> = ({
           width: 100%;
           ${maxWidth && `max-width: ${maxWidth}px;`}
           height: max-content;
-          background-color: #fff;
-          border: 1px solid #eee;
           border-radius: 10px;
-          box-shadow: 0 0 3px #eee;
           transition: 0.2s;
           overflow: hidden;
 
@@ -163,7 +169,6 @@ export const BookGridCard: FC<Props> = ({
               overflow: hidden;
               font-size: 14px;
               font-weight: bold;
-              color: #242424;
               height: 1.5em;
 
               span {

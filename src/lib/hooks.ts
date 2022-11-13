@@ -37,3 +37,5 @@ export const useResponsive = () => {
 export const useArticleBlockBgColorModeValue = () => useColorModeValue("white", "gray.700");
 export const useArticleBlockBorderColorModeValue = () => useColorModeValue("gray.200", "gray.900");
 export const useTealColorModeValue = () => useColorModeValue("#319795", "#81E6D9");
+export const useCardBgColorModeValue = () => useColorModeValue("#ffffff", "#2D3748");
+export const useCardBorderColorModeValue = () => useColorModeValue("#eeeeee", "#1A202C");

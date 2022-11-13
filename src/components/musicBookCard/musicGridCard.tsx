@@ -1,7 +1,7 @@
 import Image, { StaticImageData } from "next/image";
 import { FC, useEffect, useRef, useState } from "react";
 import { Badge, useToast } from "@chakra-ui/react";
-import { useResponsive } from "@lib/hooks";
+import { useCardBgColorModeValue, useCardBorderColorModeValue, useResponsive } from "@lib/hooks";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faBookmark as faSolidBookmark } from "@fortawesome/free-solid-svg-icons";
 
@@ -32,6 +32,8 @@ export const MusicGridCard: FC<Props> = ({
   const [isBookmarked, setIsBookmarked] = useState(false);
   const { isLoading, isPC, isTablet, isMobile } = useResponsive();
   const toast = useToast();
+  const bgColor = useCardBgColorModeValue();
+  const borderColor = useCardBorderColorModeValue();
 
   useEffect(() => {
     const titleDiv = titleDivRef.current;
@@ -51,7 +53,14 @@ export const MusicGridCard: FC<Props> = ({
 
   return (
     <>
-      <div className="music-card-wrap list">
+      <div
+        className="music-card-wrap grid"
+        style={{
+          backgroundColor: bgColor,
+          border: borderColor,
+          boxShadow: `0 0 3px ${borderColor}`,
+        }}
+      >
         <div className="image-content">
           <Image src={thumbnailSrc} alt="" style={{ width: "100%", height: "auto" }} />
           <Badge
@@ -125,10 +134,7 @@ export const MusicGridCard: FC<Props> = ({
           width: 100%;
           ${maxWidth && `max-width: ${maxWidth}px;`}
           height: max-content;
-          background-color: #fff;
-          border: 1px solid #eee;
           border-radius: 10px;
-          box-shadow: 0 0 3px #eee;
           transition: 0.2s;
           overflow: hidden;
 
@@ -187,7 +193,6 @@ export const MusicGridCard: FC<Props> = ({
               display: block;
               font-size: 14px;
               font-weight: bold;
-              color: #242424;
               height: 1.5em;
 
               span {
