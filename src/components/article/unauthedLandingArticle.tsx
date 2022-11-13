@@ -33,7 +33,7 @@ export const UnauthedLadingArticle: FC = () => {
       <div className={`section section-1 ${isMobile ? "mobile" : ""}`}>
         <div className="content">
           <div className="subtitle-wrap">
-            <Text display="block" fontSize="32px" fontWeight="bold" color={subtitle1TextColor}>
+            <Box display="block" fontSize="32px" fontWeight="bold" color={subtitle1TextColor}>
               <Box>
                 <Text color={teelColor} fontWeight="bold" display="inline-block">
                   편리한 신청곡 관리
@@ -41,7 +41,7 @@ export const UnauthedLadingArticle: FC = () => {
                 로 보다
               </Box>
               <Box>풍성한 음악 방송을 만드세요</Box>
-            </Text>
+            </Box>
             <div className="subtitle-2">
               <ul>
                 <li>도네이션 신청곡 접수</li>
