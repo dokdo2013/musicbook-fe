@@ -1,3 +1,5 @@
+import { useColorModeValue } from "@chakra-ui/react";
+import { useCardBorderColorModeValue } from "@lib/hooks";
 import { FC, ReactNode } from "react";
 
 interface ArticleListItemProps {
@@ -6,6 +8,8 @@ interface ArticleListItemProps {
 }
 
 export const ArticleListItem: FC<ArticleListItemProps> = ({ category, title }) => {
+  const borderColor = useCardBorderColorModeValue();
+
   return (
     <>
       <tr>
@@ -15,11 +19,11 @@ export const ArticleListItem: FC<ArticleListItemProps> = ({ category, title }) =
       <style jsx>{`
         tr {
           transition: 0.2s;
-          border-bottom: 1px solid #eee;
+          border-bottom: 1px solid ${borderColor};
 
           &:hover {
             cursor: pointer;
-            background-color: rgb(249, 249, 249);
+            background-color: rgba(0, 0, 0, 0.05);
           }
 
           &:nth-last-child(1) {
@@ -31,7 +35,6 @@ export const ArticleListItem: FC<ArticleListItemProps> = ({ category, title }) =
             padding: 5px 5px;
             text-align: center;
             font-size: 12px;
-            color: #4a5568;
           }
         }
       `}</style>
@@ -44,6 +47,9 @@ interface ArticleListProps {
 }
 
 export const ArticleList: FC<ArticleListProps> = ({ children }) => {
+  const borderColor = useCardBorderColorModeValue();
+  const headerBgColor = useColorModeValue("white", "#2d3748");
+
   return (
     <>
       <div className="article-list-wrap">
@@ -63,7 +69,8 @@ export const ArticleList: FC<ArticleListProps> = ({ children }) => {
           display: block;
           width: 100%;
           height: 100%;
-          border: 1px solid #eee;
+          border: 1px solid ${borderColor};
+          border-radius: 10px;
           overflow-y: auto;
 
           table {
@@ -78,10 +85,9 @@ export const ArticleList: FC<ArticleListProps> = ({ children }) => {
               th {
                 position: relative;
                 padding: 10px 0;
-                border-bottom: 2px solid #eee;
+                border-bottom: 2px solid ${borderColor};
                 font-size: 14px;
-                color: #4a5568;
-                background-color: #fff;
+                background-color: ${headerBgColor};
 
                 &:nth-of-type(1) {
                   width: 100px;
@@ -94,7 +100,7 @@ export const ArticleList: FC<ArticleListProps> = ({ children }) => {
                   right: 1px;
                   display: block;
                   height: calc(1em + 10px);
-                  border-right: 1px solid #eee;
+                  border-right: 1px solid ${borderColor};
                   transform: translateY(-50%);
                 }
               }

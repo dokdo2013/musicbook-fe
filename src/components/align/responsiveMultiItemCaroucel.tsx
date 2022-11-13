@@ -202,7 +202,6 @@ export const ResponsiveMutiItemCarousel: FC<Props> = ({ children, itemMinWidth =
             align-items: center;
             gap: 5px;
             padding: 5px 10px;
-            background-color: #ffffffaa;
             border-radius: 10px;
             z-index: 2;
 
