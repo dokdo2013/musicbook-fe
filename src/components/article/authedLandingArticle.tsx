@@ -3,7 +3,7 @@ import testImage2 from "@public/images/test/test2.jpg";
 
 import { useResponsive } from "@lib/hooks";
 import { Stack } from "@chakra-ui/react";
-import { FC } from "react";
+import { FC, useState } from "react";
 import {
   Article,
   ArticleBlock,
@@ -11,15 +11,24 @@ import {
   ArticleListItem,
   ArticleBannerBlock,
 } from "@components/article/modules";
-import { BookGridCard, MusicGridCard, MusicListCard } from "@components/musicBookCard";
-import { ListAlign, ResponsiveGridAlign, ResponsiveMutiItemCarousel } from "@components/align";
+import { BookGridCard, CardList } from "@components/musicBookCard";
+import { ResponsiveMutiItemCarousel } from "@components/align";
+import { MUSICBOOK_URL_KEYS } from "@lib/constant";
+import { MusicCard } from "@components/musicBookCard/musicCard";
 
-export const AuthedLandingArticle: FC = () => {
+interface Props {
+  page: MUSICBOOK_URL_KEYS | null;
+  pageParam: string | null;
+}
+
+export const AuthedLandingArticle: FC<Props> = ({ page, pageParam }) => {
   const { isMobile } = useResponsive();
+  const musicCardPopularityListSortOrderTypeState = useState<SortOrderType>("newest");
+  const musicCardNewestListSortOrderTypeState = useState<SortOrderType>("newest");
 
   return (
     <>
-      <Article>
+      <Article page={page} pageParam={pageParam}>
         <ArticleBannerBlock height="100px">
           <div>1</div>
           <div>2</div>
@@ -31,17 +40,13 @@ export const AuthedLandingArticle: FC = () => {
           align="center"
           width="100%"
         >
-          <ArticleBlock height={isMobile ? "300px" : "500px"} title="🌟 인기 수록곡">
-            <ListAlign>
-              <MusicListCard
-                thumbnailSrc={testImage1}
-                songTitle="Ahoy!! 우리는 호쇼해적단"
-                authorName="호쇼 마린"
-                broadcasterName="betaman"
-                broadcasterProfileSrc={testImage2}
-                categoryName="J-POP"
-              />
-              <MusicListCard
+          <ArticleBlock height={isMobile ? "400px" : "500px"} title="🌟 인기 수록곡">
+            <CardList
+              initCardType="list"
+              sortOrderState={musicCardPopularityListSortOrderTypeState}
+              gridItemMinWidth={100}
+            >
+              <MusicCard
                 thumbnailSrc={testImage1}
                 songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
                 authorName="호쇼 마린"
@@ -49,7 +54,7 @@ export const AuthedLandingArticle: FC = () => {
                 broadcasterProfileSrc={testImage2}
                 categoryName="J-POP"
               />
-              <MusicListCard
+              <MusicCard
                 thumbnailSrc={testImage1}
                 songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
                 authorName="호쇼 마린"
@@ -57,7 +62,7 @@ export const AuthedLandingArticle: FC = () => {
                 broadcasterProfileSrc={testImage2}
                 categoryName="J-POP"
               />
-              <MusicListCard
+              <MusicCard
                 thumbnailSrc={testImage1}
                 songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
                 authorName="호쇼 마린"
@@ -65,7 +70,7 @@ export const AuthedLandingArticle: FC = () => {
                 broadcasterProfileSrc={testImage2}
                 categoryName="J-POP"
               />
-              <MusicListCard
+              <MusicCard
                 thumbnailSrc={testImage1}
                 songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
                 authorName="호쇼 마린"
@@ -73,7 +78,31 @@ export const AuthedLandingArticle: FC = () => {
                 broadcasterProfileSrc={testImage2}
                 categoryName="J-POP"
               />
-            </ListAlign>
+              <MusicCard
+                thumbnailSrc={testImage1}
+                songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                authorName="호쇼 마린"
+                broadcasterName="betaman"
+                broadcasterProfileSrc={testImage2}
+                categoryName="J-POP"
+              />
+              <MusicCard
+                thumbnailSrc={testImage1}
+                songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                authorName="호쇼 마린"
+                broadcasterName="betaman"
+                broadcasterProfileSrc={testImage2}
+                categoryName="J-POP"
+              />
+              <MusicCard
+                thumbnailSrc={testImage1}
+                songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
+                authorName="호쇼 마린"
+                broadcasterName="betaman"
+                broadcasterProfileSrc={testImage2}
+                categoryName="J-POP"
+              />
+            </CardList>
           </ArticleBlock>
           <ArticleBlock height={isMobile ? "300px" : "500px"} title="📌 공지사항 & 이벤트">
             <ArticleList>
@@ -106,8 +135,12 @@ export const AuthedLandingArticle: FC = () => {
           </ResponsiveMutiItemCarousel>
         </ArticleBlock>
         <ArticleBlock title="📚 새로 올라온 수록곡">
-          <ResponsiveGridAlign itemMinWidth={isMobile ? 120 : 150}>
-            <MusicGridCard
+          <CardList
+            initCardType="grid"
+            sortOrderState={musicCardNewestListSortOrderTypeState}
+            gridItemMinWidth={isMobile ? 120 : 150}
+          >
+            <MusicCard
               thumbnailSrc={testImage1}
               songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
               authorName="호쇼 마린"
@@ -115,7 +148,7 @@ export const AuthedLandingArticle: FC = () => {
               broadcasterProfileSrc={testImage2}
               categoryName="J-POP"
             />
-            <MusicGridCard
+            <MusicCard
               thumbnailSrc={testImage1}
               songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
               authorName="호쇼 마린"
@@ -123,7 +156,7 @@ export const AuthedLandingArticle: FC = () => {
               broadcasterProfileSrc={testImage2}
               categoryName="J-POP"
             />
-            <MusicGridCard
+            <MusicCard
               thumbnailSrc={testImage1}
               songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
               authorName="호쇼 마린"
@@ -131,7 +164,7 @@ export const AuthedLandingArticle: FC = () => {
               broadcasterProfileSrc={testImage2}
               categoryName="J-POP"
             />
-            <MusicGridCard
+            <MusicCard
               thumbnailSrc={testImage1}
               songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
               authorName="호쇼 마린"
@@ -139,7 +172,7 @@ export const AuthedLandingArticle: FC = () => {
               broadcasterProfileSrc={testImage2}
               categoryName="J-POP"
             />
-            <MusicGridCard
+            <MusicCard
               thumbnailSrc={testImage1}
               songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
               authorName="호쇼 마린"
@@ -147,7 +180,7 @@ export const AuthedLandingArticle: FC = () => {
               broadcasterProfileSrc={testImage2}
               categoryName="J-POP"
             />
-            <MusicGridCard
+            <MusicCard
               thumbnailSrc={testImage1}
               songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
               authorName="호쇼 마린"
@@ -155,7 +188,7 @@ export const AuthedLandingArticle: FC = () => {
               broadcasterProfileSrc={testImage2}
               categoryName="J-POP"
             />
-            <MusicGridCard
+            <MusicCard
               thumbnailSrc={testImage1}
               songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
               authorName="호쇼 마린"
@@ -163,15 +196,7 @@ export const AuthedLandingArticle: FC = () => {
               broadcasterProfileSrc={testImage2}
               categoryName="J-POP"
             />
-            <MusicGridCard
-              thumbnailSrc={testImage1}
-              songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-              authorName="호쇼 마린"
-              broadcasterName="betaman"
-              broadcasterProfileSrc={testImage2}
-              categoryName="J-POP"
-            />
-          </ResponsiveGridAlign>
+          </CardList>
         </ArticleBlock>
       </Article>
     </>

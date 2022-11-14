@@ -1,15 +1,12 @@
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { FC, useEffect, useRef, useState } from "react";
 import { useCardBgColorModeValue, useCardBorderColorModeValue, useResponsive } from "@lib/hooks";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faBookmark as faSolidBookmark } from "@fortawesome/free-solid-svg-icons";
 import { useToast } from "@chakra-ui/react";
+import { BookCardProps } from "@src/types/musicBookCard";
 
-interface Props {
-  thumbnailSrc: string | StaticImageData;
-  bookTitle: string;
-  broadcasterName: string;
-  broadcasterProfileSrc: string | StaticImageData;
+interface Props extends BookCardProps {
   maxWidth?: number;
 }
 

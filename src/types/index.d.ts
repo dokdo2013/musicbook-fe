@@ -10,3 +10,5 @@ namespace NodeJS {
 
 type SessionStatus = "authenticated" | "loading" | "unauthenticated";
 type ModalType = "login" | "editProfile" | "configAccount";
+type SortOrderType = "newest" | "popular" | "songtitle" | "singername";
+type SortOrderDirection = "asc" | "desc";

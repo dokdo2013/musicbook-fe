@@ -1,23 +1,20 @@
 import Image from "next/image";
 import { FC, useEffect, useRef, useState } from "react";
-import { Badge, useToast } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import { useCardBgColorModeValue, useCardBorderColorModeValue, useResponsive } from "@lib/hooks";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faBookmark as faSolidBookmark } from "@fortawesome/free-solid-svg-icons";
-import { MusicCardProps } from "@src/types/musicBookCard";
+import { BookCardProps } from "@src/types/musicBookCard";
 
-interface Props extends MusicCardProps {
+interface Props extends BookCardProps {
   height?: number;
 }
 
-export const MusicListCard: FC<Props> = ({
+export const BookListCard: FC<Props> = ({
   thumbnailSrc,
-  songTitle,
-  authorName,
-  categoryName,
+  bookTitle,
   broadcasterName,
   broadcasterProfileSrc,
-  categoryColor,
   height = 90,
 }) => {
   const titleDivRef = useRef<HTMLDivElement>(null);
@@ -43,12 +40,12 @@ export const MusicListCard: FC<Props> = ({
 
     setTimeout(getOverflowed, 100);
     window.addEventListener("resize", getOverflowed);
-  }, [isLoading, isPC, isTablet, isMobile, songTitle]);
+  }, [isLoading, isPC, isTablet, isMobile, bookTitle]);
 
   return (
     <>
       <div
-        className="music-card-wrap list"
+        className="book-card-wrap list"
         style={{
           backgroundColor: bgColor,
           border: borderColor,
@@ -57,23 +54,15 @@ export const MusicListCard: FC<Props> = ({
       >
         <div className="image-content">
           <Image src={thumbnailSrc} alt="" width={height} height={height} />
-          <Badge
-            colorScheme={!categoryColor ? "green" : undefined}
-            bgColor={categoryColor}
-            style={{ position: "absolute", bottom: "0", left: "0", width: "max-content" }}
-          >
-            {categoryName}
-          </Badge>
         </div>
         <div className="text-content">
           <div
             ref={titleDivRef}
             className={`title ${isTitleOverflowed ? "scroll" : ""}`}
-            data-title={songTitle}
+            data-title={bookTitle}
           >
-            <span ref={titleSpanRef}>{songTitle}</span>
+            <span ref={titleSpanRef}>{bookTitle}</span>
           </div>
-          <div className="author">{authorName}</div>
           <div className="broadcaster">
             <Image
               src={broadcasterProfileSrc}
@@ -96,8 +85,8 @@ export const MusicListCard: FC<Props> = ({
               e.stopPropagation();
               setIsBookmarked(!isBookmarked);
               toast({
-                title: !isBookmarked ? "수록곡이 북마크됐어요!" : "수록곡 북마크가 해제됐어요",
-                description: songTitle,
+                title: !isBookmarked ? "노래책이 북마크됐어요!" : "노래책 북마크가 해제됐어요",
+                description: bookTitle,
                 status: "info",
                 duration: 1000,
                 isClosable: true,
@@ -119,7 +108,7 @@ export const MusicListCard: FC<Props> = ({
         </div>
       </div>
       <style jsx>{`
-        .music-card-wrap {
+        .book-card-wrap {
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -222,7 +211,7 @@ export const MusicListCard: FC<Props> = ({
           }
         }
 
-        .music-card-wrap:hover {
+        .book-card-wrap:hover {
           cursor: pointer;
           background-color: rgb(247, 247, 247);
 
