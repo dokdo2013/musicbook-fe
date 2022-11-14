@@ -7,7 +7,7 @@ interface MusicCardProps {
   categoryName: string;
   broadcasterName: string;
   broadcasterProfileSrc: string | StaticImageData;
-  categoryColor?: string;
+  categoryColor?: ColorSchemeType;
   onClick?: () => void;
 }
 
