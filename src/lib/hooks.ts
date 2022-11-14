@@ -39,3 +39,7 @@ export const useArticleBlockBorderColorModeValue = () => useColorModeValue("gray
 export const useTealColorModeValue = () => useColorModeValue("#319795", "#81E6D9");
 export const useCardBgColorModeValue = () => useColorModeValue("#ffffff", "#2D3748");
 export const useCardBorderColorModeValue = () => useColorModeValue("#eeeeee", "#1A202C");
+
+export const useSortOrderState = (value: SortOrderType) => useState<SortOrderType>(value);
+export const useSortOrderDriectionState = (value: SortOrderDirection) =>
+  useState<SortOrderDirection>(value);

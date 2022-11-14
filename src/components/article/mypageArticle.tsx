@@ -1,9 +1,9 @@
-import testImage1 from "@public/images/test/test1.png";
-import testImage2 from "@public/images/test/test2.jpg";
 import defaultProfileImage from "@public/images/mypage/default-profile-image.jpeg";
 
 import { FC, ReactNode, useState } from "react";
-import { Article, ArticleBlock, ArticleBannerBlock } from "@components/article/modules";
+import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { useDispatch } from "react-redux";
 import {
   Button,
   Stack,
@@ -14,10 +14,6 @@ import {
   Tabs,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { CardList } from "@components/musicBookCard";
-import { useCardBorderColorModeValue, useResponsive, useTealColorModeValue } from "@lib/hooks";
-import { useSession } from "next-auth/react";
-import Image from "next/image";
 import {
   demoBookObject,
   demoMusicObject,
@@ -25,8 +21,15 @@ import {
   MUSICBOOK_URL_KEYS,
 } from "@lib/constant";
 import { openModal } from "@lib/functions";
-import { useDispatch } from "react-redux";
-import { MusicCard, BookCard } from "@components/musicBookCard";
+import {
+  useCardBorderColorModeValue,
+  useResponsive,
+  useSortOrderDriectionState,
+  useSortOrderState,
+  useTealColorModeValue,
+} from "@lib/hooks";
+import { CardList, MusicCard, BookCard } from "@components/musicBookCard";
+import { Article, ArticleBlock, ArticleBannerBlock } from "@components/article/modules";
 
 const MypageBookmarkCustomTab: FC<{ children: ReactNode }> = ({ children }) => {
   const tabDefaultBgColor = useColorModeValue("gray.100", "gray.600");
@@ -54,14 +57,14 @@ interface Props {
 }
 
 export const MypageArticle: FC<Props> = ({ page, pageParam }) => {
+  const musicCardListSortOrderTypeState = useSortOrderState("newest");
+  const musicCardListSortOrderDirectionTypeState = useSortOrderDriectionState("asc");
+  const bookCardListSortOrderTypeState = useSortOrderState("newest");
+  const bookCardListSortOrderDirectionTypeState = useSortOrderDriectionState("asc");
   const { isMobile } = useResponsive();
   const { data, status } = useSession();
   const dispatch = useDispatch();
   const borderColor = useCardBorderColorModeValue();
-  const musicCardListSortOrderTypeState = useState<SortOrderType>("newest");
-  const musicCardListSortOrderDirectionTypeState = useState<SortOrderDirection>("asc");
-  const bookCardListSortOrderTypeState = useState<SortOrderType>("newest");
-  const bookCardListSortOrderDirectionTypeState = useState<SortOrderDirection>("asc");
 
   return (
     <>

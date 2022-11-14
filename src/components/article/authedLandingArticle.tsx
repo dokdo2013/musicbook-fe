@@ -1,9 +1,5 @@
-import testImage1 from "@public/images/test/test1.png";
-import testImage2 from "@public/images/test/test2.jpg";
-
-import { useResponsive } from "@lib/hooks";
+import { FC } from "react";
 import { Stack } from "@chakra-ui/react";
-import { FC, useState } from "react";
 import {
   Article,
   ArticleBlock,
@@ -13,8 +9,9 @@ import {
 } from "@components/article/modules";
 import { BookGridCard, CardList } from "@components/musicBookCard";
 import { ResponsiveMutiItemCarousel } from "@components/align";
-import { demoBookObject, demoMusicObject, MUSICBOOK_URL_KEYS } from "@lib/constant";
 import { MusicCard } from "@components/musicBookCard/musicCard";
+import { demoBookObject, demoMusicObject, MUSICBOOK_URL_KEYS } from "@lib/constant";
+import { useResponsive, useSortOrderDriectionState, useSortOrderState } from "@lib/hooks";
 
 interface Props {
   page: MUSICBOOK_URL_KEYS | null;
@@ -23,10 +20,10 @@ interface Props {
 
 export const AuthedLandingArticle: FC<Props> = ({ page, pageParam }) => {
   const { isMobile } = useResponsive();
-  const musicCardPopularityListSortOrderTypeState = useState<SortOrderType>("newest");
-  const musicCardPopularityListSortOrderDriectionTypeState = useState<SortOrderDirection>("asc");
-  const musicCardNewestListSortOrderTypeState = useState<SortOrderType>("newest");
-  const musicCardNewestListSortOrderDriectionTypeState = useState<SortOrderDirection>("asc");
+  const musicCardPopularityListSortOrderTypeState = useSortOrderState("newest");
+  const musicCardPopularityListSortOrderDriectionTypeState = useSortOrderDriectionState("asc");
+  const musicCardNewestListSortOrderTypeState = useSortOrderState("newest");
+  const musicCardNewestListSortOrderDriectionTypeState = useSortOrderDriectionState("asc");
 
   return (
     <>

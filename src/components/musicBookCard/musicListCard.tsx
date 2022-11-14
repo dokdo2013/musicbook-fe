@@ -1,21 +1,19 @@
 import Image from "next/image";
-import { FC, useEffect, useRef, useState } from "react";
-import { Box, useToast } from "@chakra-ui/react";
-import { useCardBgColorModeValue, useCardBorderColorModeValue, useResponsive } from "@lib/hooks";
+import { FC, useState } from "react";
+import { Box, Flex, useToast } from "@chakra-ui/react";
+import { useCardBgColorModeValue, useCardBorderColorModeValue } from "@lib/hooks";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faBookmark as faSolidBookmark } from "@fortawesome/free-solid-svg-icons";
 import { MusicCardProps } from "@src/types/musicBookCard";
+import { ScrollableText } from "@components/scrollableText";
 
 interface Props extends MusicCardProps {
   height?: number;
 }
 
 export const MusicListCard: FC<Props> = ({ music, height = 90, onClick }) => {
-  const titleDivRef = useRef<HTMLDivElement>(null);
-  const titleSpanRef = useRef<HTMLSpanElement>(null);
-  const [isTitleOverflowed, setIsTitleOverflowed] = useState(false);
+  const [isTitleScroll, setIsTitleScroll] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const { isLoading, isPC, isTablet, isMobile } = useResponsive();
   const toast = useToast();
   const bgColor = useCardBgColorModeValue();
   const borderColor = useCardBorderColorModeValue();
@@ -29,57 +27,81 @@ export const MusicListCard: FC<Props> = ({ music, height = 90, onClick }) => {
     categoryColor,
   } = music;
 
-  useEffect(() => {
-    const titleDiv = titleDivRef.current;
-    const titleSpan = titleSpanRef.current;
-
-    const getOverflowed = () => {
-      if (titleDiv && titleSpan && titleDiv.offsetWidth < titleSpan.offsetWidth) {
-        setIsTitleOverflowed(true);
-      } else {
-        setIsTitleOverflowed(false);
-      }
-    };
-
-    setTimeout(getOverflowed, 100);
-    window.addEventListener("resize", getOverflowed);
-  }, [isLoading, isPC, isTablet, isMobile, songTitle]);
-
   return (
     <>
-      <div
-        className="music-card-wrap list"
-        style={{
-          backgroundColor: bgColor,
-          border: borderColor,
-          boxShadow: `0 0 3px ${borderColor}`,
-        }}
+      <Flex
+        position="relative"
+        justifyContent="space-between"
+        alignItems="center"
+        w="full"
+        height={`${height + 2}px`}
+        border="1px"
+        borderColor={borderColor}
+        borderRadius="10px"
+        bg={bgColor}
+        boxShadow={`0 0 3px ${borderColor}`}
+        transition="0.2s"
+        overflow="hidden"
         onClick={onClick}
+        onMouseEnter={() => setIsTitleScroll(true)}
+        onMouseLeave={() => setIsTitleScroll(false)}
+        _hover={{ cursor: "pointer" }}
       >
-        <div className="image-content">
+        <Box position="relative" display="block" width={`${height}px`} height={`${height}px`}>
           <Image src={thumbnailSrc} alt="" width={height} height={height} />
           <Box
+            position="absolute"
+            bottom={0}
+            left={0}
+            width="max-content"
+            p=".2em .5em"
+            borderRadius="0 .8em 0 0"
             bg={categoryColor ? `${categoryColor}.100` : "green.100"}
             color={categoryColor ? `${categoryColor}.700` : "green.700"}
             fontSize="2xs"
             fontWeight="bold"
-            p=".2em .5em"
-            borderRadius="0 .8em 0 0"
-            style={{ position: "absolute", bottom: "0", left: "0", width: "max-content" }}
           >
             {categoryName}
           </Box>
-        </div>
-        <div className="text-content">
-          <div
-            ref={titleDivRef}
-            className={`title ${isTitleOverflowed ? "scroll" : ""}`}
-            data-title={songTitle}
+        </Box>
+        <Box
+          position="relative"
+          display="block"
+          width={`calc(100% - ${height}px)`}
+          height="100%"
+          p="10px"
+          overflow="hidden"
+        >
+          <ScrollableText
+            isScroll={isTitleScroll}
+            wrapStyle={{ fontSize: "14px", fontWeight: "bold", height: "1.5em" }}
           >
-            <span ref={titleSpanRef}>{songTitle}</span>
-          </div>
-          <div className="author">{authorName}</div>
-          <div className="broadcaster">
+            {songTitle}
+          </ScrollableText>
+          <Box
+            position="relative"
+            display="block"
+            width="max-content"
+            maxWidth="calc(100% - 10px)"
+            fontSize="14px"
+            whiteSpace="nowrap"
+            overflow="hidden"
+            textOverflow="ellipsis"
+          >
+            {authorName}
+          </Box>
+          <Box
+            position="absolute"
+            bottom="10px"
+            left="10px"
+            display="block"
+            width="max-content"
+            maxWidth="calc(100% - 20px - 30px)"
+            fontSize="14px"
+            whiteSpace="nowrap"
+            overflow="hidden"
+            textOverflow="ellipsis"
+          >
             <Image
               src={broadcasterProfileSrc}
               alt=""
@@ -94,9 +116,9 @@ export const MusicListCard: FC<Props> = ({ music, height = 90, onClick }) => {
               }}
             />
             {broadcasterName}
-          </div>
-          <div
-            className="bookmark-btn"
+          </Box>
+          <Box
+            _hover={{ cursor: "pointer" }}
             onClick={(e) => {
               e.stopPropagation();
               setIsBookmarked(!isBookmarked);
@@ -120,136 +142,9 @@ export const MusicListCard: FC<Props> = ({ music, height = 90, onClick }) => {
                 transition: "0.2s",
               }}
             />
-          </div>
-        </div>
-      </div>
-      <style jsx>{`
-        .music-card-wrap {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          position: relative;
-          width: 100%;
-          height: ${height + 2}px;
-          border-radius: 10px;
-          transition: 0.2s;
-          overflow: hidden;
-
-          .image-content {
-            position: relative;
-            display: block;
-            width: ${height}px;
-            height: ${height}px;
-          }
-
-          .text-content {
-            display: block;
-            position: relative;
-            width: calc(100% - ${height}px);
-            height: 100%;
-            padding: 10px;
-            overflow: hidden;
-
-            .bookmark-btn {
-              &:hover {
-                cursor: pointer;
-              }
-            }
-
-            .author {
-              display: block;
-              position: relative;
-              width: max-content;
-              max-width: calc(100% - 10px);
-              white-space: nowrap;
-              font-size: 14px;
-              text-overflow: ellipsis;
-              overflow: hidden;
-            }
-
-            .broadcaster {
-              position: absolute;
-              bottom: 10px;
-              right: 10px;
-              display: block;
-              width: max-content;
-              max-width: calc(100% - 20px - 30px);
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              font-size: 14px;
-            }
-
-            .title {
-              display: block;
-              position: relative;
-              width: 100%;
-              max-width: 100%;
-              height: 1.5em;
-              white-space: nowrap;
-              overflow: hidden;
-              font-weight: bold;
-
-              span {
-                opacity: 0;
-              }
-
-              &::before {
-                content: attr(data-title);
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                max-width: 100%;
-                display: block;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-              }
-
-              @keyframes text-scroll1 {
-                from {
-                  transform: translateX(0);
-                }
-                to {
-                  transform: translateX(calc(-100% - 1em));
-                }
-              }
-              @keyframes text-scroll2 {
-                from {
-                  transform: translateX(calc(100% + 1em));
-                }
-                to {
-                  transform: translateX(0);
-                }
-              }
-            }
-          }
-        }
-
-        .music-card-wrap:hover {
-          cursor: pointer;
-          background-color: rgb(247, 247, 247);
-
-          .title.scroll {
-            &::before {
-              animation: text-scroll1 5s 1s linear infinite;
-              width: auto;
-              max-width: none;
-              overflow: visible;
-              text-overflow: unset;
-            }
-            &::after {
-              content: attr(data-title);
-              position: absolute;
-              top: 0;
-              left: 0;
-              transform: translateX(calc(100% + 1em));
-              animation: text-scroll2 5s 1s linear infinite;
-            }
-          }
-        }
-      `}</style>
+          </Box>
+        </Box>
+      </Flex>
     </>
   );
 };

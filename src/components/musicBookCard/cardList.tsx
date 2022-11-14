@@ -1,21 +1,4 @@
 import {
-  Box,
-  Button,
-  Flex,
-  Icon,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  SystemStyleObject,
-  Text,
-} from "@chakra-ui/react";
-import { BsGrid1X2Fill } from "@react-icons/all-files/bs/BsGrid1X2Fill";
-import { FaThList } from "@react-icons/all-files/fa/FaThList";
-import { HiSortAscending } from "@react-icons/all-files/hi/HiSortAscending";
-import { HiSortDescending } from "@react-icons/all-files/hi/HiSortDescending";
-import { ListAlign, ResponsiveGridAlign } from "@components/align";
-import {
   Children,
   cloneElement,
   Dispatch,
@@ -26,9 +9,26 @@ import {
   useEffect,
   useState,
 } from "react";
-import { CardType } from "@src/types/musicBookCard";
-import { useArticleBlockBgColorModeValue, useTealColorModeValue } from "@lib/hooks";
+import {
+  Button,
+  Flex,
+  Icon,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  SystemStyleObject,
+  Text,
+} from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import { BsGrid1X2Fill } from "@react-icons/all-files/bs/BsGrid1X2Fill";
+import { FaThList } from "@react-icons/all-files/fa/FaThList";
+import { HiSortAscending } from "@react-icons/all-files/hi/HiSortAscending";
+import { HiSortDescending } from "@react-icons/all-files/hi/HiSortDescending";
+import { CardType } from "@src/types/musicBookCard";
+import { SORT_ORDER_MAP } from "@lib/constant";
+import { useArticleBlockBgColorModeValue, useTealColorModeValue } from "@lib/hooks";
+import { ListAlign, ResponsiveGridAlign } from "@components/align";
 
 interface Props {
   children: ReactNode;
@@ -54,13 +54,6 @@ export const CardList: FC<Props> = ({
 
   const cardTypeSelectIconOnHoverStyle: SystemStyleObject = {
     cursor: "pointer",
-  };
-
-  const sortOrderMap: Record<SortOrderType, string> = {
-    newest: "최신순",
-    popular: "인기순",
-    songtitle: "곡명순",
-    singername: "가수명순",
   };
 
   useEffect(() => {
@@ -114,12 +107,12 @@ export const CardList: FC<Props> = ({
           />
           <Menu>
             <MenuButton height="26px" fontSize="14px" as={Button} rightIcon={<ChevronDownIcon />}>
-              {sortOrderMap[sortOrder]}
+              {SORT_ORDER_MAP[sortOrder]}
             </MenuButton>
             <MenuList>
-              {Object.keys(sortOrderMap).map((itm, idx) => (
+              {Object.keys(SORT_ORDER_MAP).map((itm, idx) => (
                 <MenuItem onClick={() => setSortOrder(itm as SortOrderType)} key={idx}>
-                  {sortOrderMap[itm as SortOrderType]}
+                  {SORT_ORDER_MAP[itm as SortOrderType]}
                 </MenuItem>
               ))}
             </MenuList>

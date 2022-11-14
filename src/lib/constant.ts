@@ -19,6 +19,14 @@ export const MUSICBOOK_URL = {
 export type MUSICBOOK_URL_SHAPE = typeof MUSICBOOK_URL;
 export type MUSICBOOK_URL_KEYS = keyof MUSICBOOK_URL_SHAPE;
 export type MUSICBOOK_VALUES = MUSICBOOK_URL_SHAPE[MUSICBOOK_URL_KEYS];
+
+export const SORT_ORDER_MAP: Record<SortOrderType, string> = {
+  newest: "최신순",
+  popular: "인기순",
+  songtitle: "곡명순",
+  singername: "가수명순",
+} as const;
+
 export const demoMusicObject: Music = {
   uid: "xxxx",
   command: "!p",

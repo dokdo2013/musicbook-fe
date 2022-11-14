@@ -1,58 +1,51 @@
 import Image from "next/image";
-import { FC, useEffect, useRef, useState } from "react";
-import { useCardBgColorModeValue, useCardBorderColorModeValue, useResponsive } from "@lib/hooks";
+import { FC, useState } from "react";
+import { useCardBgColorModeValue, useCardBorderColorModeValue } from "@lib/hooks";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faBookmark as faSolidBookmark } from "@fortawesome/free-solid-svg-icons";
-import { useToast } from "@chakra-ui/react";
+import { Box, Flex, useToast } from "@chakra-ui/react";
 import { BookCardProps } from "@src/types/musicBookCard";
+import { ScrollableText } from "@components/scrollableText";
 
 interface Props extends BookCardProps {
   maxWidth?: number;
 }
 
 export const BookGridCard: FC<Props> = ({ book, maxWidth, onClick }) => {
-  const titleDivRef = useRef<HTMLDivElement>(null);
-  const titleSpanRef = useRef<HTMLSpanElement>(null);
-  const [isTitleOverflowed, setIsTitleOverflowed] = useState(false);
+  const [isTitleScroll, setIsTitleScroll] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const { isLoading, isPC, isTablet, isMobile } = useResponsive();
   const toast = useToast();
   const bgColor = useCardBgColorModeValue();
   const borderColor = useCardBorderColorModeValue();
   const { thumbnailSrc, bookTitle, broadcasterName, broadcasterProfileSrc, registedSongCount } =
     book;
 
-  useEffect(() => {
-    const titleDiv = titleDivRef.current;
-    const titleSpan = titleSpanRef.current;
-
-    const getOverflowed = () => {
-      if (titleDiv && titleSpan && titleDiv.offsetWidth < titleSpan.offsetWidth) {
-        setIsTitleOverflowed(true);
-      } else {
-        setIsTitleOverflowed(false);
-      }
-    };
-
-    setTimeout(getOverflowed, 100);
-    window.addEventListener("resize", getOverflowed);
-  }, [isLoading, isPC, isTablet, isMobile, bookTitle]);
-
   return (
     <>
-      <div
-        className="book-card-wrap grid"
-        style={{
-          backgroundColor: bgColor,
-          border: borderColor,
-          boxShadow: `0 0 3px ${borderColor}`,
-        }}
+      <Flex
+        position="relative"
+        justifyContent="center"
+        alignItems="space-between"
+        direction="column"
+        w="full"
+        maxWidth={maxWidth && `${maxWidth}px`}
+        height="max-content"
+        border="1px"
+        borderColor={borderColor}
+        borderRadius="10px"
+        bg={bgColor}
+        boxShadow={`0 0 3px ${borderColor}`}
+        transition="0.2s"
+        overflow="hidden"
         onClick={onClick}
+        onMouseEnter={() => setIsTitleScroll(true)}
+        onMouseLeave={() => setIsTitleScroll(false)}
+        _hover={{ cursor: "pointer" }}
       >
-        <div className="image-content">
+        <Box position="relative" display="block" w="full" height="max-content">
           <Image src={thumbnailSrc} alt="" style={{ width: "100%", height: "auto" }} />
-          <div
-            className="bookmark-btn"
+          <Box
+            _hover={{ cursor: "pointer" }}
             onClick={(e) => {
               e.stopPropagation();
               setIsBookmarked(!isBookmarked);
@@ -76,18 +69,48 @@ export const BookGridCard: FC<Props> = ({ book, maxWidth, onClick }) => {
                 transition: "0.2s",
               }}
             />
-          </div>
-        </div>
-        <div className="text-content">
-          <div
-            ref={titleDivRef}
-            className={`title ${isTitleOverflowed ? "scroll" : ""}`}
-            data-title={bookTitle}
+          </Box>
+        </Box>
+        <Box
+          position="relative"
+          display="block"
+          w="full"
+          height="max-content"
+          p="10px"
+          overflow="hidden"
+        >
+          <ScrollableText
+            isScroll={isTitleScroll}
+            wrapStyle={{ fontSize: "14px", fontWeight: "bold", height: "1.5em" }}
           >
-            <span ref={titleSpanRef}>{bookTitle}</span>
-          </div>
-          <div className="author">{registedSongCount}곡 수록</div>
-          <div className="broadcaster">
+            {bookTitle}
+          </ScrollableText>
+          <Box
+            position="relative"
+            display="block"
+            w="full"
+            maxWidth="full"
+            fontSize="12px"
+            whiteSpace="nowrap"
+            overflow="hidden"
+            textOverflow="ellipsis"
+          >
+            {registedSongCount}곡 수록
+          </Box>
+          <Box
+            position="relative"
+            display="block"
+            w="full"
+            maxWidth="calc(100% - 10px)"
+            ml="auto"
+            mr="0"
+            mt="10px"
+            textAlign="right"
+            fontSize="14px"
+            whiteSpace="nowrap"
+            overflow="hidden"
+            textOverflow="ellipsis"
+          >
             <Image
               src={broadcasterProfileSrc}
               alt=""
@@ -102,141 +125,9 @@ export const BookGridCard: FC<Props> = ({ book, maxWidth, onClick }) => {
               }}
             />
             {broadcasterName}
-          </div>
-        </div>
-      </div>
-      <style jsx>{`
-        .book-card-wrap {
-          display: flex;
-          justify-content: center;
-          align-items: space-between;
-          flex-direction: column;
-          position: relative;
-          width: 100%;
-          ${maxWidth && `max-width: ${maxWidth}px;`}
-          height: max-content;
-          border-radius: 10px;
-          transition: 0.2s;
-          overflow: hidden;
-
-          .image-content {
-            position: relative;
-            display: block;
-            width: 100%;
-            height: max-content;
-
-            .bookmark-btn {
-              &:hover {
-                cursor: pointer;
-              }
-            }
-          }
-
-          .text-content {
-            display: block;
-            position: relative;
-            width: 100%;
-            height: max-content;
-            padding: 10px;
-            overflow: hidden;
-
-            .author {
-              display: block;
-              position: relative;
-              width: max-content;
-              max-width: calc(100% - 10px);
-              white-space: nowrap;
-              font-size: 14px;
-              text-overflow: ellipsis;
-              overflow: hidden;
-            }
-
-            .broadcaster {
-              position: relative;
-              margin-left: auto;
-              margin-right: 0;
-              margin-top: 10px;
-              text-align: right;
-              display: block;
-              width: 100%;
-              max-width: calc(100% - 10px);
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              font-size: 14px;
-            }
-
-            .title {
-              position: relative;
-              width: 100%;
-              max-width: 100%;
-              display: block;
-              white-space: nowrap;
-              overflow: hidden;
-              font-size: 14px;
-              font-weight: bold;
-              height: 1.5em;
-
-              span {
-                opacity: 0;
-              }
-
-              &::before {
-                content: attr(data-title);
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                max-width: 100%;
-                display: block;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-              }
-
-              @keyframes text-scroll1 {
-                from {
-                  transform: translateX(0);
-                }
-                to {
-                  transform: translateX(calc(-100% - 1em));
-                }
-              }
-              @keyframes text-scroll2 {
-                from {
-                  transform: translateX(calc(100% + 1em));
-                }
-                to {
-                  transform: translateX(0);
-                }
-              }
-            }
-          }
-        }
-
-        .book-card-wrap:hover {
-          cursor: pointer;
-          background-color: rgb(247, 247, 247);
-
-          .title.scroll {
-            &::before {
-              animation: text-scroll1 5s 1s linear infinite;
-              width: auto;
-              max-width: none;
-              overflow: visible;
-              text-overflow: unset;
-            }
-            &::after {
-              content: attr(data-title);
-              position: absolute;
-              top: 0;
-              left: 0;
-              transform: translateX(calc(100% + 1em));
-              animation: text-scroll2 5s 1s linear infinite;
-            }
-          }
-        }
-      `}</style>
+          </Box>
+        </Box>
+      </Flex>
     </>
   );
 };
