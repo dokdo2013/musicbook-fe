@@ -1,31 +1,42 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { FC, useState } from "react";
-import { Box, Flex, useToast } from "@chakra-ui/react";
 import { useCardBgColorModeValue, useCardBorderColorModeValue } from "@lib/hooks";
-import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import { faBookmark as faSolidBookmark } from "@fortawesome/free-solid-svg-icons";
-import { MusicCardProps } from "@src/types/musicBookCard";
+import { Box, Flex, useToast } from "@chakra-ui/react";
 import { ScrollableText } from "@components/scrollableText";
+import { BookMarkButton, CategoryBadge } from "./common";
 
-interface Props extends MusicCardProps {
+interface Props {
+  thumbnailSrc: string | StaticImageData;
+  broadcasterProfileSrc: string | StaticImageData;
+  titleText: string;
+  subTitleText?: string;
+  broadcasterName: string;
+  bookMarkedText: string;
+  unBookMarkedText: string;
+  categoryName?: string;
+  categoryColor?: ColorSchemeType;
   maxWidth?: number;
+  onClick?: () => void;
 }
 
-export const MusicGridCard: FC<Props> = ({ music, maxWidth, onClick }) => {
+export const GridTypeCard: FC<Props> = ({
+  thumbnailSrc,
+  broadcasterProfileSrc,
+  titleText,
+  subTitleText,
+  broadcasterName,
+  bookMarkedText,
+  unBookMarkedText,
+  categoryName,
+  categoryColor,
+  maxWidth,
+  onClick,
+}) => {
   const [isTitleScroll, setIsTitleScroll] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const toast = useToast();
   const bgColor = useCardBgColorModeValue();
   const borderColor = useCardBorderColorModeValue();
-  const {
-    thumbnailSrc,
-    songTitle,
-    authorName,
-    categoryName,
-    broadcasterName,
-    broadcasterProfileSrc,
-    categoryColor,
-  } = music;
 
   return (
     <>
@@ -51,46 +62,22 @@ export const MusicGridCard: FC<Props> = ({ music, maxWidth, onClick }) => {
       >
         <Box position="relative" display="block" w="full" height="max-content">
           <Image src={thumbnailSrc} alt="" style={{ width: "100%", height: "auto" }} />
-          <Box
-            position="absolute"
-            bottom={0}
-            left={0}
-            width="max-content"
-            p=".2em .5em"
-            borderRadius="0 .8em 0 0"
-            bg={categoryColor ? `${categoryColor}.100` : "green.100"}
-            color={categoryColor ? `${categoryColor}.700` : "green.700"}
-            fontSize="2xs"
-            fontWeight="bold"
-          >
-            {categoryName}
-          </Box>
-          <Box
-            _hover={{ cursor: "pointer" }}
-            onClick={(e) => {
-              e.stopPropagation();
+          <CategoryBadge categoryName={categoryName} categoryColor={categoryColor} />
+          <BookMarkButton
+            isBookmarked={isBookmarked}
+            height={50}
+            right="10px"
+            onClick={() => {
               setIsBookmarked(!isBookmarked);
               toast({
-                title: !isBookmarked ? "수록곡이 북마크됐어요!" : "수록곡 북마크가 해제됐어요",
-                description: songTitle,
+                title: !isBookmarked ? bookMarkedText : unBookMarkedText,
+                description: titleText,
                 status: "info",
                 duration: 1000,
                 isClosable: true,
               });
             }}
-          >
-            <Icon
-              icon={faSolidBookmark}
-              height={50}
-              style={{
-                position: "absolute",
-                top: "-5px",
-                right: "10px",
-                color: isBookmarked ? "#4FD1C5" : "#ccccccaa",
-                transition: "0.2s",
-              }}
-            />
-          </Box>
+          />
         </Box>
         <Box
           position="relative"
@@ -104,7 +91,7 @@ export const MusicGridCard: FC<Props> = ({ music, maxWidth, onClick }) => {
             isScroll={isTitleScroll}
             wrapStyle={{ fontSize: "14px", fontWeight: "bold", height: "1.5em" }}
           >
-            {songTitle}
+            {titleText}
           </ScrollableText>
           <Box
             position="relative"
@@ -116,7 +103,7 @@ export const MusicGridCard: FC<Props> = ({ music, maxWidth, onClick }) => {
             overflow="hidden"
             textOverflow="ellipsis"
           >
-            {authorName}
+            {subTitleText}
           </Box>
           <Box
             position="relative"

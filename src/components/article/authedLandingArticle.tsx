@@ -7,7 +7,7 @@ import {
   ArticleListItem,
   ArticleBannerBlock,
 } from "@components/article/modules";
-import { BookGridCard, CardList } from "@components/musicBookCard";
+import { BookCard, CardList } from "@components/musicBookCard";
 import { ResponsiveMutiItemCarousel } from "@components/align";
 import { MusicCard } from "@components/musicBookCard/musicCard";
 import { demoBookObject, demoMusicObject, MUSICBOOK_URL_KEYS } from "@lib/constant";
@@ -95,7 +95,7 @@ export const AuthedLandingArticle: FC<Props> = ({ page, pageParam }) => {
         </Stack>
         <ArticleBlock title="🎙️ 추천 노래책">
           <ResponsiveMutiItemCarousel>
-            <BookGridCard book={demoBookObject} />
+            <BookCard book={demoBookObject} cardType="grid" />
           </ResponsiveMutiItemCarousel>
         </ArticleBlock>
         <ArticleBlock title="📚 새로 올라온 수록곡">

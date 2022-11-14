@@ -1,31 +1,42 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { FC, useState } from "react";
 import { Box, Flex, useToast } from "@chakra-ui/react";
 import { useCardBgColorModeValue, useCardBorderColorModeValue } from "@lib/hooks";
-import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import { faBookmark as faSolidBookmark } from "@fortawesome/free-solid-svg-icons";
-import { MusicCardProps } from "@src/types/musicBookCard";
 import { ScrollableText } from "@components/scrollableText";
+import { BookMarkButton, CategoryBadge } from "./common";
 
-interface Props extends MusicCardProps {
+interface Props {
+  thumbnailSrc: string | StaticImageData;
+  broadcasterProfileSrc: string | StaticImageData;
+  titleText: string;
+  subTitleText?: string;
+  broadcasterName: string;
+  bookMarkedText: string;
+  unBookMarkedText: string;
+  categoryName?: string;
+  categoryColor?: ColorSchemeType;
   height?: number;
+  onClick?: () => void;
 }
 
-export const MusicListCard: FC<Props> = ({ music, height = 90, onClick }) => {
+export const ListTypeCard: FC<Props> = ({
+  thumbnailSrc,
+  broadcasterProfileSrc,
+  titleText,
+  subTitleText,
+  broadcasterName,
+  bookMarkedText,
+  unBookMarkedText,
+  categoryName,
+  categoryColor,
+  height = 90,
+  onClick,
+}) => {
   const [isTitleScroll, setIsTitleScroll] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const toast = useToast();
   const bgColor = useCardBgColorModeValue();
   const borderColor = useCardBorderColorModeValue();
-  const {
-    thumbnailSrc,
-    songTitle,
-    authorName,
-    categoryName,
-    broadcasterName,
-    broadcasterProfileSrc,
-    categoryColor,
-  } = music;
 
   return (
     <>
@@ -49,20 +60,7 @@ export const MusicListCard: FC<Props> = ({ music, height = 90, onClick }) => {
       >
         <Box position="relative" display="block" width={`${height}px`} height={`${height}px`}>
           <Image src={thumbnailSrc} alt="" width={height} height={height} />
-          <Box
-            position="absolute"
-            bottom={0}
-            left={0}
-            width="max-content"
-            p=".2em .5em"
-            borderRadius="0 .8em 0 0"
-            bg={categoryColor ? `${categoryColor}.100` : "green.100"}
-            color={categoryColor ? `${categoryColor}.700` : "green.700"}
-            fontSize="2xs"
-            fontWeight="bold"
-          >
-            {categoryName}
-          </Box>
+          <CategoryBadge categoryName={categoryName} categoryColor={categoryColor} />
         </Box>
         <Box
           position="relative"
@@ -76,7 +74,7 @@ export const MusicListCard: FC<Props> = ({ music, height = 90, onClick }) => {
             isScroll={isTitleScroll}
             wrapStyle={{ fontSize: "14px", fontWeight: "bold", height: "1.5em" }}
           >
-            {songTitle}
+            {titleText}
           </ScrollableText>
           <Box
             position="relative"
@@ -88,7 +86,7 @@ export const MusicListCard: FC<Props> = ({ music, height = 90, onClick }) => {
             overflow="hidden"
             textOverflow="ellipsis"
           >
-            {authorName}
+            {subTitleText}
           </Box>
           <Box
             position="absolute"
@@ -117,32 +115,21 @@ export const MusicListCard: FC<Props> = ({ music, height = 90, onClick }) => {
             />
             {broadcasterName}
           </Box>
-          <Box
-            _hover={{ cursor: "pointer" }}
-            onClick={(e) => {
-              e.stopPropagation();
+          <BookMarkButton
+            isBookmarked={isBookmarked}
+            height={30}
+            right="20px"
+            onClick={() => {
               setIsBookmarked(!isBookmarked);
               toast({
-                title: !isBookmarked ? "수록곡이 북마크됐어요!" : "수록곡 북마크가 해제됐어요",
-                description: songTitle,
+                title: !isBookmarked ? bookMarkedText : unBookMarkedText,
+                description: titleText,
                 status: "info",
                 duration: 1000,
                 isClosable: true,
               });
             }}
-          >
-            <Icon
-              icon={faSolidBookmark}
-              height={30}
-              style={{
-                position: "absolute",
-                top: "-5px",
-                right: "20px",
-                color: isBookmarked ? "#4FD1C5" : "#ccccccaa",
-                transition: "0.2s",
-              }}
-            />
-          </Box>
+          />
         </Box>
       </Flex>
     </>
