@@ -12,6 +12,7 @@ export const BookCard: FC<Props> = ({
   bookTitle,
   broadcasterName,
   broadcasterProfileSrc,
+  onClick,
   cardType = "list",
 }) => {
   return (
@@ -22,6 +23,7 @@ export const BookCard: FC<Props> = ({
           bookTitle={bookTitle}
           broadcasterName={broadcasterName}
           broadcasterProfileSrc={broadcasterProfileSrc}
+          onClick={onClick}
         />
       ) : (
         <BookGridCard
@@ -29,6 +31,7 @@ export const BookCard: FC<Props> = ({
           bookTitle={bookTitle}
           broadcasterName={broadcasterName}
           broadcasterProfileSrc={broadcasterProfileSrc}
+          onClick={onClick}
         />
       )}
     </>

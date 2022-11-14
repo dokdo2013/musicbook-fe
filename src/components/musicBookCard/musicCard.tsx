@@ -16,6 +16,7 @@ export const MusicCard: FC<Props> = ({
   broadcasterProfileSrc,
   categoryColor,
   cardType = "list",
+  onClick,
 }) => {
   return (
     <>
@@ -28,6 +29,7 @@ export const MusicCard: FC<Props> = ({
           broadcasterName={broadcasterName}
           broadcasterProfileSrc={broadcasterProfileSrc}
           categoryColor={categoryColor}
+          onClick={onClick}
         />
       ) : (
         <MusicGridCard
@@ -38,6 +40,7 @@ export const MusicCard: FC<Props> = ({
           broadcasterName={broadcasterName}
           broadcasterProfileSrc={broadcasterProfileSrc}
           categoryColor={categoryColor}
+          onClick={onClick}
         />
       )}
     </>

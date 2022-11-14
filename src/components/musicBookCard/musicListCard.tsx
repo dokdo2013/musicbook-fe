@@ -19,6 +19,7 @@ export const MusicListCard: FC<Props> = ({
   broadcasterProfileSrc,
   categoryColor,
   height = 90,
+  onClick,
 }) => {
   const titleDivRef = useRef<HTMLDivElement>(null);
   const titleSpanRef = useRef<HTMLSpanElement>(null);
@@ -54,6 +55,7 @@ export const MusicListCard: FC<Props> = ({
           border: borderColor,
           boxShadow: `0 0 3px ${borderColor}`,
         }}
+        onClick={onClick}
       >
         <div className="image-content">
           <Image src={thumbnailSrc} alt="" width={height} height={height} />

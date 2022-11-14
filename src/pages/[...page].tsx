@@ -76,7 +76,7 @@ const LadingPage: FC<Props> = ({ page, pageParam }) => {
       {page && <CommonSideBar page={page} />}
       {status === "authenticated" && page && (
         <>
-          {page === "main" && <AuthedLandingArticle />}
+          {page === "main" && <AuthedLandingArticle page={page} pageParam={pageParam} />}
           {page === "mypage" && <MypageArticle page={page} pageParam={pageParam} />}
         </>
       )}

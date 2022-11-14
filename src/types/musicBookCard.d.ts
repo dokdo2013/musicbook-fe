@@ -8,6 +8,7 @@ interface MusicCardProps {
   broadcasterName: string;
   broadcasterProfileSrc: string | StaticImageData;
   categoryColor?: string;
+  onClick?: () => void;
 }
 
 interface BookCardProps {
@@ -15,6 +16,7 @@ interface BookCardProps {
   bookTitle: string;
   broadcasterName: string;
   broadcasterProfileSrc: string | StaticImageData;
+  onClick?: () => void;
 }
 
 type CardType = "list" | "grid";
