@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { FC, useEffect, useRef, useState } from "react";
-import { Badge, useToast } from "@chakra-ui/react";
+import { Box, useToast } from "@chakra-ui/react";
 import { useCardBgColorModeValue, useCardBorderColorModeValue, useResponsive } from "@lib/hooks";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faBookmark as faSolidBookmark } from "@fortawesome/free-solid-svg-icons";
@@ -59,13 +59,17 @@ export const MusicGridCard: FC<Props> = ({
       >
         <div className="image-content">
           <Image src={thumbnailSrc} alt="" style={{ width: "100%", height: "auto" }} />
-          <Badge
-            colorScheme={!categoryColor ? "green" : undefined}
-            bgColor={categoryColor}
+          <Box
+            bg={categoryColor ? `${categoryColor}.100` : "green.100"}
+            color={categoryColor ? `${categoryColor}.700` : "green.700"}
+            fontSize="2xs"
+            fontWeight="bold"
+            p=".2em .5em"
+            borderRadius="0 .8em 0 0"
             style={{ position: "absolute", bottom: "0", left: "0", width: "max-content" }}
           >
             {categoryName}
-          </Badge>
+          </Box>
           <div
             className="bookmark-btn"
             onClick={(e) => {
