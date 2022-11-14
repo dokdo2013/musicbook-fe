@@ -13,7 +13,7 @@ import {
 } from "@components/article/modules";
 import { BookGridCard, CardList } from "@components/musicBookCard";
 import { ResponsiveMutiItemCarousel } from "@components/align";
-import { MUSICBOOK_URL_KEYS } from "@lib/constant";
+import { demoBookObject, demoMusicObject, MUSICBOOK_URL_KEYS } from "@lib/constant";
 import { MusicCard } from "@components/musicBookCard/musicCard";
 
 interface Props {
@@ -49,62 +49,31 @@ export const AuthedLandingArticle: FC<Props> = ({ page, pageParam }) => {
               sortOrderDirectionState={musicCardPopularityListSortOrderDriectionTypeState}
               gridItemMinWidth={100}
             >
-              <MusicCard
-                thumbnailSrc={testImage1}
-                songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                authorName="호쇼 마린"
-                broadcasterName="betaman"
-                broadcasterProfileSrc={testImage2}
-                categoryName="J-POP"
-              />
-              <MusicCard
-                thumbnailSrc={testImage1}
-                songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                authorName="호쇼 마린"
-                broadcasterName="betaman"
-                broadcasterProfileSrc={testImage2}
-                categoryName="J-POP"
-              />
-              <MusicCard
-                thumbnailSrc={testImage1}
-                songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                authorName="호쇼 마린"
-                broadcasterName="betaman"
-                broadcasterProfileSrc={testImage2}
-                categoryName="J-POP"
-              />
-              <MusicCard
-                thumbnailSrc={testImage1}
-                songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                authorName="호쇼 마린"
-                broadcasterName="betaman"
-                broadcasterProfileSrc={testImage2}
-                categoryName="J-POP"
-              />
-              <MusicCard
-                thumbnailSrc={testImage1}
-                songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                authorName="호쇼 마린"
-                broadcasterName="betaman"
-                broadcasterProfileSrc={testImage2}
-                categoryName="J-POP"
-              />
-              <MusicCard
-                thumbnailSrc={testImage1}
-                songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                authorName="호쇼 마린"
-                broadcasterName="betaman"
-                broadcasterProfileSrc={testImage2}
-                categoryName="J-POP"
-              />
-              <MusicCard
-                thumbnailSrc={testImage1}
-                songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                authorName="호쇼 마린"
-                broadcasterName="betaman"
-                broadcasterProfileSrc={testImage2}
-                categoryName="J-POP"
-              />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
+              <MusicCard music={demoMusicObject} />
             </CardList>
           </ArticleBlock>
           <ArticleBlock height={isMobile ? "300px" : "500px"} title="📌 공지사항 & 이벤트">
@@ -129,12 +98,7 @@ export const AuthedLandingArticle: FC<Props> = ({ page, pageParam }) => {
         </Stack>
         <ArticleBlock title="🎙️ 추천 노래책">
           <ResponsiveMutiItemCarousel>
-            <BookGridCard
-              thumbnailSrc={testImage2}
-              bookTitle="베타맨의 노래책"
-              broadcasterName="betaman"
-              broadcasterProfileSrc={testImage2}
-            />
+            <BookGridCard book={demoBookObject} />
           </ResponsiveMutiItemCarousel>
         </ArticleBlock>
         <ArticleBlock title="📚 새로 올라온 수록곡">
@@ -144,62 +108,26 @@ export const AuthedLandingArticle: FC<Props> = ({ page, pageParam }) => {
             sortOrderDirectionState={musicCardNewestListSortOrderDriectionTypeState}
             gridItemMinWidth={isMobile ? 120 : 150}
           >
-            <MusicCard
-              thumbnailSrc={testImage1}
-              songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-              authorName="호쇼 마린"
-              broadcasterName="betaman"
-              broadcasterProfileSrc={testImage2}
-              categoryName="J-POP"
-            />
-            <MusicCard
-              thumbnailSrc={testImage1}
-              songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-              authorName="호쇼 마린"
-              broadcasterName="betaman"
-              broadcasterProfileSrc={testImage2}
-              categoryName="J-POP"
-            />
-            <MusicCard
-              thumbnailSrc={testImage1}
-              songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-              authorName="호쇼 마린"
-              broadcasterName="betaman"
-              broadcasterProfileSrc={testImage2}
-              categoryName="J-POP"
-            />
-            <MusicCard
-              thumbnailSrc={testImage1}
-              songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-              authorName="호쇼 마린"
-              broadcasterName="betaman"
-              broadcasterProfileSrc={testImage2}
-              categoryName="J-POP"
-            />
-            <MusicCard
-              thumbnailSrc={testImage1}
-              songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-              authorName="호쇼 마린"
-              broadcasterName="betaman"
-              broadcasterProfileSrc={testImage2}
-              categoryName="J-POP"
-            />
-            <MusicCard
-              thumbnailSrc={testImage1}
-              songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-              authorName="호쇼 마린"
-              broadcasterName="betaman"
-              broadcasterProfileSrc={testImage2}
-              categoryName="J-POP"
-            />
-            <MusicCard
-              thumbnailSrc={testImage1}
-              songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-              authorName="호쇼 마린"
-              broadcasterName="betaman"
-              broadcasterProfileSrc={testImage2}
-              categoryName="J-POP"
-            />
+            <MusicCard music={demoMusicObject} />
+            <MusicCard music={demoMusicObject} />
+            <MusicCard music={demoMusicObject} />
+            <MusicCard music={demoMusicObject} />
+            <MusicCard music={demoMusicObject} />
+            <MusicCard music={demoMusicObject} />
+            <MusicCard music={demoMusicObject} />
+            <MusicCard music={demoMusicObject} />
+            <MusicCard music={demoMusicObject} />
+            <MusicCard music={demoMusicObject} />
+            <MusicCard music={demoMusicObject} />
+            <MusicCard music={demoMusicObject} />
+            <MusicCard music={demoMusicObject} />
+            <MusicCard music={demoMusicObject} />
+            <MusicCard music={demoMusicObject} />
+            <MusicCard music={demoMusicObject} />
+            <MusicCard music={demoMusicObject} />
+            <MusicCard music={demoMusicObject} />
+            <MusicCard music={demoMusicObject} />
+            <MusicCard music={demoMusicObject} />
           </CardList>
         </ArticleBlock>
       </Article>

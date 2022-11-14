@@ -10,14 +10,7 @@ interface Props extends BookCardProps {
   height?: number;
 }
 
-export const BookListCard: FC<Props> = ({
-  thumbnailSrc,
-  bookTitle,
-  broadcasterName,
-  broadcasterProfileSrc,
-  height = 90,
-  onClick,
-}) => {
+export const BookListCard: FC<Props> = ({ book, height = 90, onClick }) => {
   const titleDivRef = useRef<HTMLDivElement>(null);
   const titleSpanRef = useRef<HTMLSpanElement>(null);
   const [isTitleOverflowed, setIsTitleOverflowed] = useState(false);
@@ -26,6 +19,8 @@ export const BookListCard: FC<Props> = ({
   const toast = useToast();
   const bgColor = useCardBgColorModeValue();
   const borderColor = useCardBorderColorModeValue();
+  const { thumbnailSrc, bookTitle, broadcasterName, broadcasterProfileSrc, registedSongCount } =
+    book;
 
   useEffect(() => {
     const titleDiv = titleDivRef.current;
@@ -65,6 +60,7 @@ export const BookListCard: FC<Props> = ({
           >
             <span ref={titleSpanRef}>{bookTitle}</span>
           </div>
+          <div className="author">{registedSongCount}곡 수록</div>
           <div className="broadcaster">
             <Image
               src={broadcasterProfileSrc}

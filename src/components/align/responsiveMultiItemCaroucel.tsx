@@ -24,7 +24,7 @@ export const ResponsiveMutiItemCarousel: FC<Props> = ({ children, itemMinWidth =
   const [isShow, setIsShow] = useState(false);
   const [availNext, setAvailNext] = useState(false);
   const [availPrev, setAvailPrev] = useState(false);
-  const [pageCount, setPageCount] = useState(5);
+  const [pageCount, setPageCount] = useState(0);
   const [itemPerPageCount, setItemPerPageCount] = useState(0);
   const [currentPageIdx, setCurrentPageIdx] = useState(0);
   const wrapDivRef = useRef<HTMLDivElement>(null);

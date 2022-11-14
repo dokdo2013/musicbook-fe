@@ -10,14 +10,7 @@ interface Props extends BookCardProps {
   maxWidth?: number;
 }
 
-export const BookGridCard: FC<Props> = ({
-  thumbnailSrc,
-  bookTitle,
-  broadcasterName,
-  broadcasterProfileSrc,
-  maxWidth,
-  onClick,
-}) => {
+export const BookGridCard: FC<Props> = ({ book, maxWidth, onClick }) => {
   const titleDivRef = useRef<HTMLDivElement>(null);
   const titleSpanRef = useRef<HTMLSpanElement>(null);
   const [isTitleOverflowed, setIsTitleOverflowed] = useState(false);
@@ -26,6 +19,8 @@ export const BookGridCard: FC<Props> = ({
   const toast = useToast();
   const bgColor = useCardBgColorModeValue();
   const borderColor = useCardBorderColorModeValue();
+  const { thumbnailSrc, bookTitle, broadcasterName, broadcasterProfileSrc, registedSongCount } =
+    book;
 
   useEffect(() => {
     const titleDiv = titleDivRef.current;
@@ -91,6 +86,7 @@ export const BookGridCard: FC<Props> = ({
           >
             <span ref={titleSpanRef}>{bookTitle}</span>
           </div>
+          <div className="author">{registedSongCount}곡 수록</div>
           <div className="broadcaster">
             <Image
               src={broadcasterProfileSrc}
@@ -143,6 +139,17 @@ export const BookGridCard: FC<Props> = ({
             height: max-content;
             padding: 10px;
             overflow: hidden;
+
+            .author {
+              display: block;
+              position: relative;
+              width: max-content;
+              max-width: calc(100% - 10px);
+              white-space: nowrap;
+              font-size: 14px;
+              text-overflow: ellipsis;
+              overflow: hidden;
+            }
 
             .broadcaster {
               position: relative;

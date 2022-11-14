@@ -18,7 +18,12 @@ import { CardList } from "@components/musicBookCard";
 import { useCardBorderColorModeValue, useResponsive, useTealColorModeValue } from "@lib/hooks";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { GLOBAL_PADDING_3, MUSICBOOK_URL_KEYS } from "@lib/constant";
+import {
+  demoBookObject,
+  demoMusicObject,
+  GLOBAL_PADDING_3,
+  MUSICBOOK_URL_KEYS,
+} from "@lib/constant";
 import { openModal } from "@lib/functions";
 import { useDispatch } from "react-redux";
 import { MusicCard, BookCard } from "@components/musicBookCard";
@@ -117,62 +122,27 @@ export const MypageArticle: FC<Props> = ({ page, pageParam }) => {
                   sortOrderDirectionState={musicCardListSortOrderDirectionTypeState}
                   gridItemMinWidth={isMobile ? 100 : 150}
                 >
-                  <MusicCard
-                    thumbnailSrc={testImage1}
-                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                    authorName="호쇼 마린"
-                    broadcasterName="betaman"
-                    broadcasterProfileSrc={testImage2}
-                    categoryName="J-POP"
-                  />
-                  <MusicCard
-                    thumbnailSrc={testImage1}
-                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                    authorName="호쇼 마린"
-                    broadcasterName="betaman"
-                    broadcasterProfileSrc={testImage2}
-                    categoryName="J-POP"
-                  />
-                  <MusicCard
-                    thumbnailSrc={testImage1}
-                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                    authorName="호쇼 마린"
-                    broadcasterName="betaman"
-                    broadcasterProfileSrc={testImage2}
-                    categoryName="J-POP"
-                  />
-                  <MusicCard
-                    thumbnailSrc={testImage1}
-                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                    authorName="호쇼 마린"
-                    broadcasterName="betaman"
-                    broadcasterProfileSrc={testImage2}
-                    categoryName="J-POP"
-                  />
-                  <MusicCard
-                    thumbnailSrc={testImage1}
-                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                    authorName="호쇼 마린"
-                    broadcasterName="betaman"
-                    broadcasterProfileSrc={testImage2}
-                    categoryName="J-POP"
-                  />
-                  <MusicCard
-                    thumbnailSrc={testImage1}
-                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                    authorName="호쇼 마린"
-                    broadcasterName="betaman"
-                    broadcasterProfileSrc={testImage2}
-                    categoryName="J-POP"
-                  />
-                  <MusicCard
-                    thumbnailSrc={testImage1}
-                    songTitle="Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)"
-                    authorName="호쇼 마린"
-                    broadcasterName="betaman"
-                    broadcasterProfileSrc={testImage2}
-                    categoryName="J-POP"
-                  />
+                  <MusicCard music={demoMusicObject} />
+                  <MusicCard music={demoMusicObject} />
+                  <MusicCard music={demoMusicObject} />
+                  <MusicCard music={demoMusicObject} />
+                  <MusicCard music={demoMusicObject} />
+                  <MusicCard music={demoMusicObject} />
+                  <MusicCard music={demoMusicObject} />
+                  <MusicCard music={demoMusicObject} />
+                  <MusicCard music={demoMusicObject} />
+                  <MusicCard music={demoMusicObject} />
+                  <MusicCard music={demoMusicObject} />
+                  <MusicCard music={demoMusicObject} />
+                  <MusicCard music={demoMusicObject} />
+                  <MusicCard music={demoMusicObject} />
+                  <MusicCard music={demoMusicObject} />
+                  <MusicCard music={demoMusicObject} />
+                  <MusicCard music={demoMusicObject} />
+                  <MusicCard music={demoMusicObject} />
+                  <MusicCard music={demoMusicObject} />
+                  <MusicCard music={demoMusicObject} />
+                  <MusicCard music={demoMusicObject} />
                 </CardList>
               </TabPanel>
               <TabPanel>
@@ -182,72 +152,30 @@ export const MypageArticle: FC<Props> = ({ page, pageParam }) => {
                   sortOrderDirectionState={bookCardListSortOrderDirectionTypeState}
                   gridItemMinWidth={isMobile ? 100 : 150}
                 >
-                  <BookCard
-                    thumbnailSrc={testImage2}
-                    bookTitle="베타맨의 노래책"
-                    broadcasterName="betaman"
-                    broadcasterProfileSrc={testImage2}
-                  />
-                  <BookCard
-                    thumbnailSrc={testImage2}
-                    bookTitle="베타맨의 노래책"
-                    broadcasterName="betaman"
-                    broadcasterProfileSrc={testImage2}
-                  />
-                  <BookCard
-                    thumbnailSrc={testImage2}
-                    bookTitle="베타맨의 노래책"
-                    broadcasterName="betaman"
-                    broadcasterProfileSrc={testImage2}
-                  />
-                  <BookCard
-                    thumbnailSrc={testImage2}
-                    bookTitle="베타맨의 노래책"
-                    broadcasterName="betaman"
-                    broadcasterProfileSrc={testImage2}
-                  />
-                  <BookCard
-                    thumbnailSrc={testImage2}
-                    bookTitle="베타맨의 노래책"
-                    broadcasterName="betaman"
-                    broadcasterProfileSrc={testImage2}
-                  />
-                  <BookCard
-                    thumbnailSrc={testImage2}
-                    bookTitle="베타맨의 노래책"
-                    broadcasterName="betaman"
-                    broadcasterProfileSrc={testImage2}
-                  />
-                  <BookCard
-                    thumbnailSrc={testImage2}
-                    bookTitle="베타맨의 노래책"
-                    broadcasterName="betaman"
-                    broadcasterProfileSrc={testImage2}
-                  />
-                  <BookCard
-                    thumbnailSrc={testImage2}
-                    bookTitle="베타맨의 노래책"
-                    broadcasterName="betaman"
-                    broadcasterProfileSrc={testImage2}
-                  />
-                  <BookCard
-                    thumbnailSrc={testImage2}
-                    bookTitle="베타맨의 노래책"
-                    broadcasterName="betaman"
-                    broadcasterProfileSrc={testImage2}
-                  />
-                  <BookCard
-                    thumbnailSrc={testImage2}
-                    bookTitle="베타맨의 노래책"
-                    broadcasterName="betaman"
-                    broadcasterProfileSrc={testImage2}
-                  />
-                  <BookCard
-                    thumbnailSrc={testImage2}
-                    bookTitle="베타맨의 노래책"
-                    broadcasterName="betaman"
-                    broadcasterProfileSrc={testImage2}
-                  />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
+                  <BookCard book={demoBookObject} />
                 </CardList>
               </TabPanel>
             </TabPanels>

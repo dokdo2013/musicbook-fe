@@ -10,17 +10,7 @@ interface Props extends MusicCardProps {
   height?: number;
 }
 
-export const MusicListCard: FC<Props> = ({
-  thumbnailSrc,
-  songTitle,
-  authorName,
-  categoryName,
-  broadcasterName,
-  broadcasterProfileSrc,
-  categoryColor,
-  height = 90,
-  onClick,
-}) => {
+export const MusicListCard: FC<Props> = ({ music, height = 90, onClick }) => {
   const titleDivRef = useRef<HTMLDivElement>(null);
   const titleSpanRef = useRef<HTMLSpanElement>(null);
   const [isTitleOverflowed, setIsTitleOverflowed] = useState(false);
@@ -29,6 +19,15 @@ export const MusicListCard: FC<Props> = ({
   const toast = useToast();
   const bgColor = useCardBgColorModeValue();
   const borderColor = useCardBorderColorModeValue();
+  const {
+    thumbnailSrc,
+    songTitle,
+    authorName,
+    categoryName,
+    broadcasterName,
+    broadcasterProfileSrc,
+    categoryColor,
+  } = music;
 
   useEffect(() => {
     const titleDiv = titleDivRef.current;

@@ -10,17 +10,7 @@ interface Props extends MusicCardProps {
   maxWidth?: number;
 }
 
-export const MusicGridCard: FC<Props> = ({
-  thumbnailSrc,
-  songTitle,
-  authorName,
-  categoryName,
-  broadcasterName,
-  broadcasterProfileSrc,
-  categoryColor,
-  maxWidth,
-  onClick,
-}) => {
+export const MusicGridCard: FC<Props> = ({ music, maxWidth, onClick }) => {
   const titleDivRef = useRef<HTMLDivElement>(null);
   const titleSpanRef = useRef<HTMLSpanElement>(null);
   const [isTitleOverflowed, setIsTitleOverflowed] = useState(false);
@@ -29,6 +19,15 @@ export const MusicGridCard: FC<Props> = ({
   const toast = useToast();
   const bgColor = useCardBgColorModeValue();
   const borderColor = useCardBorderColorModeValue();
+  const {
+    thumbnailSrc,
+    songTitle,
+    authorName,
+    categoryName,
+    broadcasterName,
+    broadcasterProfileSrc,
+    categoryColor,
+  } = music;
 
   useEffect(() => {
     const titleDiv = titleDivRef.current;

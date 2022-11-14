@@ -2,46 +2,25 @@ import { FC } from "react";
 import { CardType, MusicCardProps } from "@src/types/musicBookCard";
 import { MusicGridCard } from "./musicGridCard";
 import { MusicListCard } from "./musicListCard";
+import { useDispatch } from "react-redux";
+import { selectMusic } from "@lib/functions";
 
 interface Props extends MusicCardProps {
   cardType?: CardType;
 }
 
-export const MusicCard: FC<Props> = ({
-  thumbnailSrc,
-  songTitle,
-  authorName,
-  categoryName,
-  broadcasterName,
-  broadcasterProfileSrc,
-  categoryColor,
-  cardType = "list",
-  onClick,
-}) => {
+export const MusicCard: FC<Props> = ({ music, cardType = "list", onClick }) => {
+  const dispatch = useDispatch();
+  const defaultOnClick = () => {
+    selectMusic(dispatch, music);
+  };
+
   return (
     <>
       {cardType === "list" ? (
-        <MusicListCard
-          thumbnailSrc={thumbnailSrc}
-          songTitle={songTitle}
-          authorName={authorName}
-          categoryName={categoryName}
-          broadcasterName={broadcasterName}
-          broadcasterProfileSrc={broadcasterProfileSrc}
-          categoryColor={categoryColor}
-          onClick={onClick}
-        />
+        <MusicListCard music={music} onClick={onClick || defaultOnClick} />
       ) : (
-        <MusicGridCard
-          thumbnailSrc={thumbnailSrc}
-          songTitle={songTitle}
-          authorName={authorName}
-          categoryName={categoryName}
-          broadcasterName={broadcasterName}
-          broadcasterProfileSrc={broadcasterProfileSrc}
-          categoryColor={categoryColor}
-          onClick={onClick}
-        />
+        <MusicGridCard music={music} onClick={onClick || defaultOnClick} />
       )}
     </>
   );

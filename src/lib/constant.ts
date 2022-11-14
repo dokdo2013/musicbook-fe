@@ -1,3 +1,7 @@
+import { Book, Music } from "@src/types/musicBookCard";
+import testImage1 from "@public/images/test/test1.png";
+import testImage2 from "@public/images/test/test2.jpg";
+
 export const MAX_FRAME_WIDTH_PX = 1400;
 export const HEADER_HEIGHT_PX = 80;
 export const FOOTER_HEIGHT_PX = 60;
@@ -15,3 +19,22 @@ export const MUSICBOOK_URL = {
 export type MUSICBOOK_URL_SHAPE = typeof MUSICBOOK_URL;
 export type MUSICBOOK_URL_KEYS = keyof MUSICBOOK_URL_SHAPE;
 export type MUSICBOOK_VALUES = MUSICBOOK_URL_SHAPE[MUSICBOOK_URL_KEYS];
+export const demoMusicObject: Music = {
+  uid: "xxxx",
+  command: "!p",
+  thumbnailSrc: testImage1,
+  songTitle: "Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)",
+  authorName: "호쇼 마린",
+  broadcasterName: "betaman",
+  broadcasterProfileSrc: testImage2,
+  categoryName: "J-POP",
+};
+export const demoBookObject: Book = {
+  uid: "xxxx",
+  command: "!p",
+  thumbnailSrc: testImage2,
+  bookTitle: "베타맨의 노래책",
+  broadcasterName: "betaman",
+  broadcasterProfileSrc: testImage2,
+  registedSongCount: 10,
+};

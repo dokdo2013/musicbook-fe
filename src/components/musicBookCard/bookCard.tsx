@@ -7,32 +7,13 @@ interface Props extends BookCardProps {
   cardType?: CardType;
 }
 
-export const BookCard: FC<Props> = ({
-  thumbnailSrc,
-  bookTitle,
-  broadcasterName,
-  broadcasterProfileSrc,
-  onClick,
-  cardType = "list",
-}) => {
+export const BookCard: FC<Props> = ({ book, onClick, cardType = "list" }) => {
   return (
     <>
       {cardType === "list" ? (
-        <BookListCard
-          thumbnailSrc={thumbnailSrc}
-          bookTitle={bookTitle}
-          broadcasterName={broadcasterName}
-          broadcasterProfileSrc={broadcasterProfileSrc}
-          onClick={onClick}
-        />
+        <BookListCard book={book} onClick={onClick} />
       ) : (
-        <BookGridCard
-          thumbnailSrc={thumbnailSrc}
-          bookTitle={bookTitle}
-          broadcasterName={broadcasterName}
-          broadcasterProfileSrc={broadcasterProfileSrc}
-          onClick={onClick}
-        />
+        <BookGridCard book={book} onClick={onClick} />
       )}
     </>
   );

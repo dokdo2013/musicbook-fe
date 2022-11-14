@@ -4,9 +4,11 @@ import {
   setConfigAccountModalOpen,
   setEditProfileModalOpen,
   setLoginModalOpen,
+  setSelectedMusic,
 } from "@redux/modules/modals";
 import { MUSICBOOK_URL, MUSICBOOK_URL_KEYS, MUSICBOOK_VALUES } from "./constant";
 import { setSideBarOpen } from "@redux/modules/common";
+import { Music } from "@src/types/musicBookCard";
 
 const openModalMap: Record<
   ModalType,
@@ -35,6 +37,10 @@ export const openModal = async (
   isOpen: boolean,
 ) => {
   await openModalMap[type](dispatch, isOpen);
+};
+
+export const selectMusic = (dispatch: Dispatch<AnyAction>, music: Music | null) => {
+  dispatch(setSelectedMusic(music));
 };
 
 /**

@@ -1,6 +1,8 @@
 import { StaticImageData } from "next/image";
 
-interface MusicCardProps {
+interface Music {
+  uid: string;
+  command: string;
   thumbnailSrc: string | StaticImageData;
   songTitle: string;
   authorName: string;
@@ -8,15 +10,27 @@ interface MusicCardProps {
   broadcasterName: string;
   broadcasterProfileSrc: string | StaticImageData;
   categoryColor?: ColorSchemeType;
+}
+
+type CardType = "list" | "grid";
+interface CardProps {
   onClick?: () => void;
 }
 
-interface BookCardProps {
+interface MusicCardProps extends CardProps {
+  music: Music;
+}
+
+interface Book {
+  uid: string;
+  command: string;
   thumbnailSrc: string | StaticImageData;
   bookTitle: string;
   broadcasterName: string;
   broadcasterProfileSrc: string | StaticImageData;
-  onClick?: () => void;
+  registedSongCount: number;
 }
 
-type CardType = "list" | "grid";
+interface BookCardProps extends CardProps {
+  book: Book;
+}
