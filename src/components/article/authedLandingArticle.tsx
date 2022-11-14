@@ -24,7 +24,9 @@ interface Props {
 export const AuthedLandingArticle: FC<Props> = ({ page, pageParam }) => {
   const { isMobile } = useResponsive();
   const musicCardPopularityListSortOrderTypeState = useState<SortOrderType>("newest");
+  const musicCardPopularityListSortOrderDriectionTypeState = useState<SortOrderDirection>("asc");
   const musicCardNewestListSortOrderTypeState = useState<SortOrderType>("newest");
+  const musicCardNewestListSortOrderDriectionTypeState = useState<SortOrderDirection>("asc");
 
   return (
     <>
@@ -44,6 +46,7 @@ export const AuthedLandingArticle: FC<Props> = ({ page, pageParam }) => {
             <CardList
               initCardType="list"
               sortOrderState={musicCardPopularityListSortOrderTypeState}
+              sortOrderDirectionState={musicCardPopularityListSortOrderDriectionTypeState}
               gridItemMinWidth={100}
             >
               <MusicCard
@@ -138,6 +141,7 @@ export const AuthedLandingArticle: FC<Props> = ({ page, pageParam }) => {
           <CardList
             initCardType="grid"
             sortOrderState={musicCardNewestListSortOrderTypeState}
+            sortOrderDirectionState={musicCardNewestListSortOrderDriectionTypeState}
             gridItemMinWidth={isMobile ? 120 : 150}
           >
             <MusicCard

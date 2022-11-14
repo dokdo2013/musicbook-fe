@@ -54,7 +54,9 @@ export const MypageArticle: FC<Props> = ({ page, pageParam }) => {
   const dispatch = useDispatch();
   const borderColor = useCardBorderColorModeValue();
   const musicCardListSortOrderTypeState = useState<SortOrderType>("newest");
+  const musicCardListSortOrderDirectionTypeState = useState<SortOrderDirection>("asc");
   const bookCardListSortOrderTypeState = useState<SortOrderType>("newest");
+  const bookCardListSortOrderDirectionTypeState = useState<SortOrderDirection>("asc");
 
   return (
     <>
@@ -112,6 +114,7 @@ export const MypageArticle: FC<Props> = ({ page, pageParam }) => {
                 <CardList
                   initCardType="grid"
                   sortOrderState={musicCardListSortOrderTypeState}
+                  sortOrderDirectionState={musicCardListSortOrderDirectionTypeState}
                   gridItemMinWidth={isMobile ? 100 : 150}
                 >
                   <MusicCard
@@ -175,7 +178,8 @@ export const MypageArticle: FC<Props> = ({ page, pageParam }) => {
               <TabPanel>
                 <CardList
                   initCardType="grid"
-                  sortOrderState={musicCardListSortOrderTypeState}
+                  sortOrderState={bookCardListSortOrderTypeState}
+                  sortOrderDirectionState={bookCardListSortOrderDirectionTypeState}
                   gridItemMinWidth={isMobile ? 100 : 150}
                 >
                   <BookCard

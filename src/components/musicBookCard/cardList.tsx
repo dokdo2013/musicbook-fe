@@ -12,6 +12,8 @@ import {
 } from "@chakra-ui/react";
 import { BsGrid1X2Fill } from "@react-icons/all-files/bs/BsGrid1X2Fill";
 import { FaThList } from "@react-icons/all-files/fa/FaThList";
+import { HiSortAscending } from "@react-icons/all-files/hi/HiSortAscending";
+import { HiSortDescending } from "@react-icons/all-files/hi/HiSortDescending";
 import { ListAlign, ResponsiveGridAlign } from "@components/align";
 import {
   Children,
@@ -31,6 +33,7 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 interface Props {
   children: ReactNode;
   sortOrderState: [SortOrderType, Dispatch<SetStateAction<SortOrderType>>];
+  sortOrderDirectionState: [SortOrderDirection, Dispatch<SetStateAction<SortOrderDirection>>];
   initCardType?: CardType;
   gridItemMinWidth?: number;
 }
@@ -39,6 +42,7 @@ export const CardList: FC<Props> = ({
   children,
   initCardType = "list",
   sortOrderState,
+  sortOrderDirectionState,
   gridItemMinWidth,
 }) => {
   const [listItems, setListItems] = useState<ReactNode>(null);
@@ -46,6 +50,7 @@ export const CardList: FC<Props> = ({
   const tealColor = useTealColorModeValue();
   const bgColor = useArticleBlockBgColorModeValue();
   const [sortOrder, setSortOrder] = sortOrderState;
+  const [sortOrderDirection, setSortOrderDirection] = sortOrderDirectionState;
 
   const cardTypeSelectIconOnHoverStyle: SystemStyleObject = {
     cursor: "pointer",
@@ -98,6 +103,13 @@ export const CardList: FC<Props> = ({
             fontSize="19px"
             color={cardType === "grid" ? tealColor : "gray"}
             onClick={() => setCardType("grid")}
+            _hover={cardTypeSelectIconOnHoverStyle}
+          />
+          <Icon
+            as={sortOrderDirection === "asc" ? HiSortAscending : HiSortDescending}
+            fontSize="25px"
+            color={tealColor}
+            onClick={() => setSortOrderDirection(sortOrderDirection === "asc" ? "desc" : "asc")}
             _hover={cardTypeSelectIconOnHoverStyle}
           />
           <Menu>
