@@ -23,6 +23,12 @@ export const UnauthedLadingArticle: FC = () => {
   const sectionText1Color = useColorModeValue("#2D3748", "#EDF2F7");
   const sectionText2Color = useColorModeValue("#4a5568", "#E2E8F0");
 
+  const subTitleTextShadowLight =
+    "rgb(255, 255, 255) 2px 0px 0px, rgb(255, 255, 255) 1.75517px 0.958851px 0px, rgb(255, 255, 255) 1.0806px 1.68294px 0px, rgb(255, 255, 255) 0.141474px 1.99499px 0px, rgb(255, 255, 255) -0.832294px 1.81859px 0px, rgb(255, 255, 255) -1.60229px 1.19694px 0px, rgb(255, 255, 255) -1.97998px 0.28224px 0px, rgb(255, 255, 255) -1.87291px -0.701566px 0px, rgb(255, 255, 255) -1.30729px -1.5136px 0px, rgb(255, 255, 255) -0.421592px -1.95506px 0px, rgb(255, 255, 255) 0.567324px -1.91785px 0px, rgb(255, 255, 255) 1.41734px -1.41108px 0px, rgb(255, 255, 255) 1.92034px -0.558831px 0px";
+  const subTitleTextShadowDark =
+    "rgb(29, 64, 68) 2px 0px 0px, rgb(29, 64, 68) 1.75517px 0.958851px 0px, rgb(29, 64, 68) 1.0806px 1.68294px 0px, rgb(29, 64, 68) 0.141474px 1.99499px 0px, rgb(29, 64, 68) -0.832294px 1.81859px 0px, rgb(29, 64, 68) -1.60229px 1.19694px 0px, rgb(29, 64, 68) -1.97998px 0.28224px 0px, rgb(29, 64, 68) -1.87291px -0.701566px 0px, rgb(29, 64, 68) -1.30729px -1.5136px 0px, rgb(29, 64, 68) -0.421592px -1.95506px 0px, rgb(29, 64, 68) 0.567324px -1.91785px 0px, rgb(29, 64, 68) 1.41734px -1.41108px 0px, rgb(29, 64, 68) 1.92034px -0.558831px 0px";
+  const subTitleTextShadow = useColorModeValue("", subTitleTextShadowDark);
+
   const startMusicBookBtnOnClick = async () => {
     if (status === "unauthenticated") await openModal("login", dispatch, true);
     else if (status === "authenticated") await router.push("/main");
@@ -33,7 +39,13 @@ export const UnauthedLadingArticle: FC = () => {
       <div className={`section section-1 ${isMobile ? "mobile" : ""}`}>
         <div className="content">
           <div className="subtitle-wrap">
-            <Box display="block" fontSize="32px" fontWeight="bold" color={subtitle1TextColor}>
+            <Box
+              display="block"
+              fontSize={isMobile ? "28px" : "32px"}
+              fontWeight="bold"
+              color={subtitle1TextColor}
+              textShadow={subTitleTextShadow}
+            >
               <Box>
                 <Text color={teelColor} fontWeight="bold" display="inline-block">
                   편리한 신청곡 관리

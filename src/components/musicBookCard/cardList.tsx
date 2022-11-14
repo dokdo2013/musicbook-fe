@@ -86,7 +86,7 @@ export const CardList: FC<Props> = ({
         justifyContent="space-between"
         align="center"
         p="0 3px 10px"
-        zIndex={10}
+        zIndex={2}
         bg={bgColor}
       >
         <Flex w="full" direction="row" justifyContent="flex-end" align="center" gap={2}>
