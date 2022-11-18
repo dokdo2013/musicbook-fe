@@ -54,6 +54,12 @@ export const ResponsiveMutiItemCarousel: FC<Props> = ({ children, itemMinWidth =
     window.addEventListener("resize", getCaroucelCalc);
   }, [wrapDivRef, children, itemMinWidth, isLoading, isPC, isTablet, isMobile]);
 
+  const getIndicatorDotArray = () => {
+    const dots: null[] = [];
+    for (let i = 0; i < pageCount; i++) dots.push(null);
+    return dots;
+  };
+
   return (
     <>
       <div
@@ -105,7 +111,7 @@ export const ResponsiveMutiItemCarousel: FC<Props> = ({ children, itemMinWidth =
           )}
         </div>
         <div className="indicator">
-          {[...Array(pageCount)].map((itm, idx) => (
+          {getIndicatorDotArray().map((itm, idx) => (
             <div
               key={idx}
               className={`dot ${idx === currentPageIdx ? "active" : ""}`}

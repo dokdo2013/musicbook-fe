@@ -1,6 +1,6 @@
 import Image, { StaticImageData } from "next/image";
 import { FC, useState } from "react";
-import { Box, Flex, useToast } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { useCardBgColorModeValue, useCardBorderColorModeValue } from "@lib/hooks";
 import { ScrollableText } from "@components/scrollableText";
 import { BookMarkButton, CategoryBadge } from "./common";
@@ -34,7 +34,6 @@ export const ListTypeCard: FC<Props> = ({
 }) => {
   const [isTitleScroll, setIsTitleScroll] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const toast = useToast();
   const bgColor = useCardBgColorModeValue();
   const borderColor = useCardBorderColorModeValue();
 
@@ -118,16 +117,12 @@ export const ListTypeCard: FC<Props> = ({
           <BookMarkButton
             isBookmarked={isBookmarked}
             height={30}
+            markedToastTitle={bookMarkedText}
+            unmarkedToastTitle={unBookMarkedText}
+            description={titleText}
             right="20px"
             onClick={() => {
               setIsBookmarked(!isBookmarked);
-              toast({
-                title: !isBookmarked ? bookMarkedText : unBookMarkedText,
-                description: titleText,
-                status: "info",
-                duration: 1000,
-                isClosable: true,
-              });
             }}
           />
         </Box>

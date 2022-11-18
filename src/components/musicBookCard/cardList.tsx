@@ -35,6 +35,7 @@ interface Props {
   sortOrderState: [SortOrderType, Dispatch<SetStateAction<SortOrderType>>];
   sortOrderDirectionState: [SortOrderDirection, Dispatch<SetStateAction<SortOrderDirection>>];
   initCardType?: CardType;
+  ungrid?: boolean;
   gridItemMinWidth?: number;
 }
 
@@ -43,6 +44,7 @@ export const CardList: FC<Props> = ({
   initCardType = "list",
   sortOrderState,
   sortOrderDirectionState,
+  ungrid = false,
   gridItemMinWidth,
 }) => {
   const [listItems, setListItems] = useState<ReactNode>(null);
@@ -121,6 +123,8 @@ export const CardList: FC<Props> = ({
       </Flex>
       {cardType === "list" ? (
         <ListAlign>{listItems}</ListAlign>
+      ) : ungrid ? (
+        <>{listItems}</>
       ) : (
         <ResponsiveGridAlign itemMinWidth={gridItemMinWidth}>{listItems}</ResponsiveGridAlign>
       )}

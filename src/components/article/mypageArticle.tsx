@@ -1,6 +1,6 @@
 import defaultProfileImage from "@public/images/mypage/default-profile-image.jpeg";
 
-import { FC, ReactNode, useState } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
@@ -14,13 +14,8 @@ import {
   Tabs,
   useColorModeValue,
 } from "@chakra-ui/react";
-import {
-  demoBookObject,
-  demoMusicObject,
-  GLOBAL_PADDING_3,
-  MUSICBOOK_URL_KEYS,
-} from "@lib/constant";
-import { openModal } from "@lib/functions";
+import { GLOBAL_PADDING_3, MUSICBOOK_URL_KEYS } from "@lib/constant";
+import { getBooks, getMusicBooks, openModal } from "@lib/functions";
 import {
   useCardBorderColorModeValue,
   useResponsive,
@@ -28,8 +23,11 @@ import {
   useSortOrderState,
   useTealColorModeValue,
 } from "@lib/hooks";
-import { CardList, MusicCard, BookCard } from "@components/musicBookCard";
+import { CardList } from "@components/musicBookCard";
 import { Article, ArticleBlock, ArticleBannerBlock } from "@components/article/modules";
+import { Book, MusicBook } from "@src/types/musicBookCard";
+import { renderMusicBookCards } from "@components/musicBookCard";
+import { renderBookCards } from "@components/musicBookCard/bookCards";
 
 const MypageBookmarkCustomTab: FC<{ children: ReactNode }> = ({ children }) => {
   const tabDefaultBgColor = useColorModeValue("gray.100", "gray.600");
@@ -65,6 +63,13 @@ export const MypageArticle: FC<Props> = ({ page, pageParam }) => {
   const { data, status } = useSession();
   const dispatch = useDispatch();
   const borderColor = useCardBorderColorModeValue();
+  const [demoMusicBooks, setDemoMusicBooks] = useState<MusicBook[] | null>(null);
+  const [demoBooks, setDemoBooks] = useState<Array<Book> | null>(null);
+
+  useEffect(() => {
+    getMusicBooks().then((musicBooks) => setDemoMusicBooks(musicBooks));
+    getBooks().then((books) => setDemoBooks(books));
+  }, []);
 
   return (
     <>
@@ -124,28 +129,9 @@ export const MypageArticle: FC<Props> = ({ page, pageParam }) => {
                   sortOrderState={musicCardListSortOrderTypeState}
                   sortOrderDirectionState={musicCardListSortOrderDirectionTypeState}
                   gridItemMinWidth={isMobile ? 100 : 150}
+                  ungrid={!demoMusicBooks}
                 >
-                  <MusicCard music={demoMusicObject} />
-                  <MusicCard music={demoMusicObject} />
-                  <MusicCard music={demoMusicObject} />
-                  <MusicCard music={demoMusicObject} />
-                  <MusicCard music={demoMusicObject} />
-                  <MusicCard music={demoMusicObject} />
-                  <MusicCard music={demoMusicObject} />
-                  <MusicCard music={demoMusicObject} />
-                  <MusicCard music={demoMusicObject} />
-                  <MusicCard music={demoMusicObject} />
-                  <MusicCard music={demoMusicObject} />
-                  <MusicCard music={demoMusicObject} />
-                  <MusicCard music={demoMusicObject} />
-                  <MusicCard music={demoMusicObject} />
-                  <MusicCard music={demoMusicObject} />
-                  <MusicCard music={demoMusicObject} />
-                  <MusicCard music={demoMusicObject} />
-                  <MusicCard music={demoMusicObject} />
-                  <MusicCard music={demoMusicObject} />
-                  <MusicCard music={demoMusicObject} />
-                  <MusicCard music={demoMusicObject} />
+                  {renderMusicBookCards(demoMusicBooks, isMobile ? "250px" : "350px")}
                 </CardList>
               </TabPanel>
               <TabPanel>
@@ -154,31 +140,9 @@ export const MypageArticle: FC<Props> = ({ page, pageParam }) => {
                   sortOrderState={bookCardListSortOrderTypeState}
                   sortOrderDirectionState={bookCardListSortOrderDirectionTypeState}
                   gridItemMinWidth={isMobile ? 100 : 150}
+                  ungrid={!demoBooks}
                 >
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
-                  <BookCard book={demoBookObject} />
+                  {renderBookCards(demoBooks, isMobile ? "250px" : "350px")}
                 </CardList>
               </TabPanel>
             </TabPanels>

@@ -1,6 +1,7 @@
 import { Book, Music } from "@src/types/musicBookCard";
 import testImage1 from "@public/images/test/test1.png";
 import testImage2 from "@public/images/test/test2.jpg";
+import testImage3 from "@public/images/test/test3.jpg";
 
 export const MAX_FRAME_WIDTH_PX = 1400;
 export const HEADER_HEIGHT_PX = 80;
@@ -33,6 +34,16 @@ export const demoMusicObject: Music = {
   thumbnailSrc: testImage1,
   songTitle: "Ahoy!! 우리는 호쇼해적단 (Ahoy!! 我ら宝鐘海賊団☆)",
   authorName: "호쇼 마린",
+  broadcasterName: "betaman",
+  broadcasterProfileSrc: testImage2,
+  categoryName: "J-POP",
+};
+export const demoMusicObject2: Music = {
+  uid: "yyyy",
+  command: "!p",
+  thumbnailSrc: testImage3,
+  songTitle: "하루카 (ハルカ)",
+  authorName: "YOASOBI",
   broadcasterName: "betaman",
   broadcasterProfileSrc: testImage2,
   categoryName: "J-POP",

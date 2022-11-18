@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Music } from "@src/types/musicBookCard";
+import { MusicBook } from "@src/types/musicBookCard";
 
 export interface ModalsState {
   loginModalOpen: boolean;
   editProfileModalOpen: boolean;
   configAccountModalOpen: boolean;
   showMusicCardModalOpen: boolean;
-  selectedMusic: Music | null;
+  selectedMusicBook: MusicBook | null;
 }
 
 const initialState: ModalsState = {
@@ -14,7 +14,7 @@ const initialState: ModalsState = {
   editProfileModalOpen: false,
   configAccountModalOpen: false,
   showMusicCardModalOpen: false,
-  selectedMusic: null,
+  selectedMusicBook: null,
 };
 
 const modalsSlice = createSlice({
@@ -30,8 +30,8 @@ const modalsSlice = createSlice({
     setConfigAccountModalOpen: (state, action: PayloadAction<boolean>) => {
       state.configAccountModalOpen = action.payload;
     },
-    setSelectedMusic: (state, action: PayloadAction<Music | null>) => {
-      state.selectedMusic = action.payload;
+    setSelectedMusicBook: (state, action: PayloadAction<MusicBook | null>) => {
+      state.selectedMusicBook = action.payload;
       state.showMusicCardModalOpen = !!action.payload;
     },
   },
@@ -41,13 +41,13 @@ export const {
   setLoginModalOpen,
   setEditProfileModalOpen,
   setConfigAccountModalOpen,
-  setSelectedMusic,
+  setSelectedMusicBook,
 } = modalsSlice.actions;
 export type ModalsAction = ReturnType<
   | typeof setLoginModalOpen
   | typeof setEditProfileModalOpen
   | typeof setConfigAccountModalOpen
-  | typeof setSelectedMusic
+  | typeof setSelectedMusicBook
 >;
 
 export default modalsSlice.reducer;

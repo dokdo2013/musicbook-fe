@@ -1,20 +1,13 @@
-import defaultProfileImage from "@public/images/mypage/default-profile-image.jpeg";
 import twitchLogo from "@public/images/modals/login/login-1-2.png";
 import googleLogo from "@public/images/modals/login/login-2.png";
 
 import {
   Badge,
-  Box,
   Button,
   Divider,
-  FormControl,
-  FormHelperText,
-  FormLabel,
   Grid,
   GridItem,
   Heading,
-  Highlight,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -27,9 +20,6 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { FC } from "react";
-import { useSession } from "next-auth/react";
-import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import { faImage } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
   isOpen: boolean;
@@ -37,8 +27,6 @@ interface Props {
 }
 
 export const ConfigAccountModal: FC<Props> = ({ isOpen, onClose }) => {
-  const { data, status } = useSession();
-
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} isCentered colorScheme="teal" size="sm">

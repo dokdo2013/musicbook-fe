@@ -4,11 +4,17 @@ import {
   setConfigAccountModalOpen,
   setEditProfileModalOpen,
   setLoginModalOpen,
-  setSelectedMusic,
+  setSelectedMusicBook,
 } from "@redux/modules/modals";
-import { MUSICBOOK_URL, MUSICBOOK_URL_KEYS, MUSICBOOK_VALUES } from "./constant";
+import {
+  demoBookObject,
+  demoMusicObject,
+  MUSICBOOK_URL,
+  MUSICBOOK_URL_KEYS,
+  MUSICBOOK_VALUES,
+} from "./constant";
 import { setSideBarOpen } from "@redux/modules/common";
-import { Music } from "@src/types/musicBookCard";
+import { Book, MusicBook } from "@src/types/musicBookCard";
 
 const openModalMap: Record<
   ModalType,
@@ -39,8 +45,8 @@ export const openModal = async (
   await openModalMap[type](dispatch, isOpen);
 };
 
-export const selectMusic = (dispatch: Dispatch<AnyAction>, music: Music | null) => {
-  dispatch(setSelectedMusic(music));
+export const selectMusicBook = (dispatch: Dispatch<AnyAction>, musicBook: MusicBook | null) => {
+  dispatch(setSelectedMusicBook(musicBook));
 };
 
 /**
@@ -98,4 +104,21 @@ export const getStaticPathArray = () => {
     if (_k !== "index") staticPathsArray.push(MUSICBOOK_URL[key as MUSICBOOK_URL_KEYS]);
   }
   return staticPathsArray;
+};
+
+export const getMusicBooks: () => Promise<MusicBook[]> = async () => {
+  const musicBooks = new Array<MusicBook>(20).fill({
+    music: demoMusicObject,
+    book: demoBookObject,
+  });
+  return new Promise((res) => {
+    setTimeout(() => res(musicBooks), 500);
+  });
+};
+
+export const getBooks: () => Promise<Book[]> = async () => {
+  const books = new Array<Book>(20).fill(demoBookObject);
+  return new Promise((res) => {
+    setTimeout(() => res(books), 500);
+  });
 };

@@ -12,15 +12,6 @@ interface Music {
   categoryColor?: ColorSchemeType;
 }
 
-type CardType = "list" | "grid";
-interface CardProps {
-  onClick?: () => void;
-}
-
-interface MusicCardProps extends CardProps {
-  music: Music;
-}
-
 interface Book {
   uid: string;
   command: string;
@@ -29,6 +20,20 @@ interface Book {
   broadcasterName: string;
   broadcasterProfileSrc: string | StaticImageData;
   registedSongCount: number;
+}
+
+interface MusicBook {
+  music: Music;
+  book: Book;
+}
+
+type CardType = "list" | "grid";
+interface CardProps {
+  onClick?: () => void;
+}
+
+interface MusicBookCardProps extends CardProps {
+  musicBook: MusicBook;
 }
 
 interface BookCardProps extends CardProps {

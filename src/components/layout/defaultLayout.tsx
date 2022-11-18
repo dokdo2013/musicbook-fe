@@ -7,12 +7,17 @@ import { LoadingScreen } from "@components/loadingScreen";
 import { RouterProgress } from "@components/routerProgress";
 import { FOOTER_HEIGHT_PX, HEADER_HEIGHT_PX, MAX_FRAME_WIDTH_PX } from "@lib/constant";
 import { QuickMenu } from "@components/quickMenu";
+import { useSelector } from "react-redux";
+import { RootState } from "@redux";
 
 interface Props {
   children: ReactNode;
 }
 
 export const DefaultLayout: FC<Props> = ({ children }) => {
+  const { loadingScreenOpen } = useSelector(({ common }: RootState) => ({
+    loadingScreenOpen: common.loadingScreenOpen,
+  }));
   const { status } = useSession();
   const { isLoading, isMobile } = useResponsive();
 
@@ -25,7 +30,7 @@ export const DefaultLayout: FC<Props> = ({ children }) => {
       </div>
       <QuickMenu />
       <Footer />
-      <LoadingScreen isShow={isLoading || status === "loading"} />
+      <LoadingScreen isShow={isLoading || status === "loading" || loadingScreenOpen} />
       <style jsx>{`
         @keyframes intro {
           from {

@@ -31,7 +31,7 @@ export const UnauthedLadingArticle: FC = () => {
 
   const startMusicBookBtnOnClick = async () => {
     if (status === "unauthenticated") await openModal("login", dispatch, true);
-    else if (status === "authenticated") await router.push("/main");
+    else if (status === "authenticated") window.location.href = "/main";
   };
 
   return (

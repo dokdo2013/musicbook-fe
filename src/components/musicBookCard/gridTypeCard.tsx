@@ -1,7 +1,7 @@
 import Image, { StaticImageData } from "next/image";
 import { FC, useState } from "react";
 import { useCardBgColorModeValue, useCardBorderColorModeValue } from "@lib/hooks";
-import { Box, Flex, useToast } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { ScrollableText } from "@components/scrollableText";
 import { BookMarkButton, CategoryBadge } from "./common";
 
@@ -34,7 +34,6 @@ export const GridTypeCard: FC<Props> = ({
 }) => {
   const [isTitleScroll, setIsTitleScroll] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const toast = useToast();
   const bgColor = useCardBgColorModeValue();
   const borderColor = useCardBorderColorModeValue();
 
@@ -65,17 +64,13 @@ export const GridTypeCard: FC<Props> = ({
           <CategoryBadge categoryName={categoryName} categoryColor={categoryColor} />
           <BookMarkButton
             isBookmarked={isBookmarked}
+            markedToastTitle={bookMarkedText}
+            unmarkedToastTitle={unBookMarkedText}
+            description={titleText}
             height={50}
             right="10px"
             onClick={() => {
               setIsBookmarked(!isBookmarked);
-              toast({
-                title: !isBookmarked ? bookMarkedText : unBookMarkedText,
-                description: titleText,
-                status: "info",
-                duration: 1000,
-                isClosable: true,
-              });
             }}
           />
         </Box>

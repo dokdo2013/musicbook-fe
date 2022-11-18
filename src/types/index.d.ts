@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 namespace NodeJS {
   interface ProcessEnv {
-    GOOGLE_CLIENT_ID: string;
-    GOOGLE_CLIENT_SECRET: string;
-    TWITCH_CLIENT_ID: string;
-    TWITCH_CLIENT_SECRET: string;
+    GOOGLE_ID: string;
+    GOOGLE_SECRET: string;
+    TWITCH_ID: string;
+    TWITCH_SECRET: string;
+    JWT_SECRET: string;
+    NEXTAUTH_SECRET: string;
   }
 }
 

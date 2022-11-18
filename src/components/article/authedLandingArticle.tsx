@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Stack } from "@chakra-ui/react";
 import {
   Article,
@@ -7,11 +7,14 @@ import {
   ArticleListItem,
   ArticleBannerBlock,
 } from "@components/article/modules";
-import { BookCard, CardList } from "@components/musicBookCard";
+import { CardList } from "@components/musicBookCard";
 import { ResponsiveMutiItemCarousel } from "@components/align";
-import { MusicCard } from "@components/musicBookCard/musicCard";
-import { demoBookObject, demoMusicObject, MUSICBOOK_URL_KEYS } from "@lib/constant";
+import { MUSICBOOK_URL_KEYS } from "@lib/constant";
 import { useResponsive, useSortOrderDriectionState, useSortOrderState } from "@lib/hooks";
+import { Book, MusicBook } from "@src/types/musicBookCard";
+import { getBooks, getMusicBooks } from "@lib/functions";
+import { renderBookCards } from "@components/musicBookCard/bookCards";
+import { renderMusicBookCards } from "@components/musicBookCard";
 
 interface Props {
   page: MUSICBOOK_URL_KEYS | null;
@@ -24,6 +27,13 @@ export const AuthedLandingArticle: FC<Props> = ({ page, pageParam }) => {
   const musicCardPopularityListSortOrderDriectionTypeState = useSortOrderDriectionState("asc");
   const musicCardNewestListSortOrderTypeState = useSortOrderState("newest");
   const musicCardNewestListSortOrderDriectionTypeState = useSortOrderDriectionState("asc");
+  const [demoMusicBooks, setDemoMusicBooks] = useState<MusicBook[] | null>(null);
+  const [demoBooks, setDemoBooks] = useState<Array<Book> | null>(null);
+
+  useEffect(() => {
+    getMusicBooks().then((musicBooks) => setDemoMusicBooks(musicBooks));
+    getBooks().then((books) => setDemoBooks(books));
+  }, []);
 
   return (
     <>
@@ -45,32 +55,9 @@ export const AuthedLandingArticle: FC<Props> = ({ page, pageParam }) => {
               sortOrderState={musicCardPopularityListSortOrderTypeState}
               sortOrderDirectionState={musicCardPopularityListSortOrderDriectionTypeState}
               gridItemMinWidth={100}
+              ungrid={!demoMusicBooks}
             >
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
-              <MusicCard music={demoMusicObject} />
+              {renderMusicBookCards(demoMusicBooks, isMobile ? "250px" : "350px")}
             </CardList>
           </ArticleBlock>
           <ArticleBlock height={isMobile ? "300px" : "500px"} title="📌 공지사항 & 이벤트">
@@ -95,7 +82,7 @@ export const AuthedLandingArticle: FC<Props> = ({ page, pageParam }) => {
         </Stack>
         <ArticleBlock title="🎙️ 추천 노래책">
           <ResponsiveMutiItemCarousel>
-            <BookCard book={demoBookObject} cardType="grid" />
+            {renderBookCards(demoBooks, "100px", "grid")}
           </ResponsiveMutiItemCarousel>
         </ArticleBlock>
         <ArticleBlock title="📚 새로 올라온 수록곡">
@@ -104,27 +91,9 @@ export const AuthedLandingArticle: FC<Props> = ({ page, pageParam }) => {
             sortOrderState={musicCardNewestListSortOrderTypeState}
             sortOrderDirectionState={musicCardNewestListSortOrderDriectionTypeState}
             gridItemMinWidth={isMobile ? 120 : 150}
+            ungrid={!demoMusicBooks}
           >
-            <MusicCard music={demoMusicObject} />
-            <MusicCard music={demoMusicObject} />
-            <MusicCard music={demoMusicObject} />
-            <MusicCard music={demoMusicObject} />
-            <MusicCard music={demoMusicObject} />
-            <MusicCard music={demoMusicObject} />
-            <MusicCard music={demoMusicObject} />
-            <MusicCard music={demoMusicObject} />
-            <MusicCard music={demoMusicObject} />
-            <MusicCard music={demoMusicObject} />
-            <MusicCard music={demoMusicObject} />
-            <MusicCard music={demoMusicObject} />
-            <MusicCard music={demoMusicObject} />
-            <MusicCard music={demoMusicObject} />
-            <MusicCard music={demoMusicObject} />
-            <MusicCard music={demoMusicObject} />
-            <MusicCard music={demoMusicObject} />
-            <MusicCard music={demoMusicObject} />
-            <MusicCard music={demoMusicObject} />
-            <MusicCard music={demoMusicObject} />
+            {renderMusicBookCards(demoMusicBooks, "350px")}
           </CardList>
         </ArticleBlock>
       </Article>
